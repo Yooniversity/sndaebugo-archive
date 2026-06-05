@@ -30,8 +30,13 @@ let FEATURED = [];          // articles.json (검수완료)
 let CANDIDATES = [];        // candidates.json (전체 후보)
 let VERIFIED_IDS = new Set();
 let REJECTED_IDS = new Set(); // rejected.json (관련없음)
-let FAVORITE_IDS = new Set(); // favorites.json (검수완료 중 찜=중요)
+let FAVORITE_IDS = new Set(); // favorites.json (서버에 저장된 중요 표시)
+let LOCAL_FAV = new Set();    // 공개 사이트: 브라우저(localStorage) 중요 표시
 let TAGS = {}; // tags.json (content_id → [tag, ...])
+const LS_FAV = "snha_fav";
+function isFav(cid) {
+  return FAVORITE_IDS.has(cid) || LOCAL_FAV.has(cid);
+}
 const GISCUS = {
   repo: "Yooniversity/sndaebugo-archive",
   repoId: "R_kgDOSxpSGg",
@@ -116,6 +121,11 @@ async function load() {
     TAGS = await tagRes.json();
   } catch (e) {
     TAGS = {};
+  }
+  try {
+    LOCAL_FAV = new Set(JSON.parse(localStorage.getItem(LS_FAV) || "[]"));
+  } catch (e) {
+    LOCAL_FAV = new Set();
   }
   CANDIDATES.sort(byDate);
   FEATURED.sort(byDate);
@@ -332,7 +342,7 @@ function toggle(set, val, btn) {
 }
 
 function matches(r) {
-  if (state.favOnly && !FAVORITE_IDS.has(r.content_id)) return false;
+  if (state.favOnly && !isFav(r.content_id)) return false;
   if (state.periods.size && !state.periods.has(periodOf(r.date))) return false;
   if (state.papers.size && !state.papers.has(r.newspaper)) return false;
   if (state.topics.size) {
@@ -436,7 +446,7 @@ function itemEl(r, yearLabel, subs) {
     ? `<p class="sum kw-only">${kw}</p>`
     : "";
 
-  const fav = FAVORITE_IDS.has(r.content_id)
+  const fav = isFav(r.content_id)
     ? `<span class="badge fav">⭐ 중요</span>`
     : "";
 
@@ -568,29 +578,40 @@ async function postJSON(url, body) {
   return j;
 }
 
-/* ---------- 별표(중요) — 제목 앞 ---------- */
+/* ---------- 별표(중요) — 제목 앞 (어디서나 표시·동작) ---------- */
 function renderStar(r) {
-  const fav = FAVORITE_IDS.has(r.content_id);
+  const fav = isFav(r.content_id);
   const star = $("#m-star");
-  star.hidden = !(API_OK || fav); // 공개 사이트에선 중요 기사만 별 표시(읽기전용)
+  star.hidden = false; // 항상 표시(공개 사이트 포함)
   star.textContent = fav ? "★" : "☆";
   star.classList.toggle("on", fav);
-  star.style.cursor = API_OK ? "pointer" : "default";
 }
 
 async function starCurrent() {
-  if (!curRec || !API_OK) return;
+  if (!curRec) return;
   const cid = curRec.content_id;
-  const turnOn = !FAVORITE_IDS.has(cid);
-  try {
-    const j = await postJSON("/api/favorite", { content_id: cid, on: turnOn });
-    if (j.favorited) FAVORITE_IDS.add(cid);
-    else FAVORITE_IDS.delete(cid);
-    renderStar(curRec);
-    render(); // 카드의 ⭐ 중요 배지 갱신
-  } catch (e) {
-    /* 무시 */
+  if (API_OK) {
+    // 로컬 서버: favorites.json 에 저장
+    const turnOn = !FAVORITE_IDS.has(cid);
+    try {
+      const j = await postJSON("/api/favorite", { content_id: cid, on: turnOn });
+      if (j.favorited) FAVORITE_IDS.add(cid);
+      else FAVORITE_IDS.delete(cid);
+    } catch (e) {
+      /* 무시 */
+    }
+  } else {
+    // 공개 사이트: 브라우저(localStorage) 에 저장
+    if (LOCAL_FAV.has(cid)) LOCAL_FAV.delete(cid);
+    else LOCAL_FAV.add(cid);
+    try {
+      localStorage.setItem(LS_FAV, JSON.stringify([...LOCAL_FAV]));
+    } catch (e) {
+      /* 무시 */
+    }
   }
+  renderStar(curRec);
+  render(); // 카드의 ⭐ 중요 배지 갱신
 }
 
 /* ---------- 분류 이동 버튼(검수완료/전체후보/관련없음) ---------- */
@@ -627,10 +648,12 @@ async function classifyCurrent(target) {
         summary: curRec.summary || "",
       });
       applyPromotion(j.record);
+      setCurMsg("✓ 검수완료로 이동했습니다.");
     } else if (target === "rejected") {
       if (isR) return;
       await postJSON("/api/reject", { content_id: cid });
       applyReject(cid);
+      setCurMsg("✓ 관련없음으로 이동했습니다.");
     } else {
       // 전체 후보 = 검수완료/관련없음 어느 쪽도 아님
       if (isV) {
@@ -640,6 +663,7 @@ async function classifyCurrent(target) {
         await postJSON("/api/unreject", { content_id: cid });
         applyRestore(cid);
       }
+      setCurMsg("✓ 전체 후보로 이동했습니다.");
     }
     renderClassify(curRec);
     renderStar(curRec);
@@ -842,6 +866,7 @@ async function restoreCurrent() {
 
 function applyPromotion(record) {
   VERIFIED_IDS.add(record.content_id);
+  REJECTED_IDS.delete(record.content_id); // 관련없음이었다면 해제(서버와 동일)
   // FEATURED 배열을 제자리(in-place)에서 갱신해 활성 탭(ALL) 참조와 동기화
   const i = FEATURED.findIndex((r) => r.content_id === record.content_id);
   if (i >= 0) FEATURED.splice(i, 1);
