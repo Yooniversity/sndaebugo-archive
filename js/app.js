@@ -13,6 +13,13 @@ let CANDIDATES = [];        // candidates.json (전체 후보)
 let VERIFIED_IDS = new Set();
 let REJECTED_IDS = new Set(); // rejected.json (관련없음)
 let FAVORITE_IDS = new Set(); // favorites.json (검수완료 중 찜=중요)
+let TAGS = {}; // tags.json (content_id → [tag, ...])
+const GISCUS = {
+  repo: "Yooniversity/sndaebugo-archive",
+  repoId: "R_kgDOSxpSGg",
+  category: "General",
+  categoryId: "DIC_kwDOSxpSGs4C-k04",
+};
 let ALL = [];               // 현재 탭의 활성 데이터셋
 let tab = "featured";
 const state = { q: "", eras: new Set(), papers: new Set(), topics: new Set(), favOnly: false };
@@ -85,6 +92,12 @@ async function load() {
     FAVORITE_IDS = new Set(await favRes.json());
   } catch (e) {
     FAVORITE_IDS = new Set();
+  }
+  try {
+    const tagRes = await fetch("data/tags.json", { cache: "no-store" });
+    TAGS = await tagRes.json();
+  } catch (e) {
+    TAGS = {};
   }
   CANDIDATES.sort(byDate);
   FEATURED.sort(byDate);
@@ -467,10 +480,22 @@ function setupModal() {
   $("#c-reject").addEventListener("click", rejectCurrent);
   $("#c-restore").addEventListener("click", restoreCurrent);
   $("#c-fav").addEventListener("click", favoriteCurrent);
+  $("#tag-input").addEventListener("keydown", (ev) => {
+    if (ev.key !== "Enter" || !curRec) return;
+    ev.preventDefault();
+    const cur = TAGS[curRec.content_id] || [];
+    const adds = ev.target.value.split(",").map((t) => t.trim()).filter(Boolean);
+    ev.target.value = "";
+    if (adds.length) setTags(curRec, [...cur, ...adds]);
+  });
 }
 function openModal(r) {
   curRec = r;
   $("#m-title").textContent = r.title;
+  // 21세기 말씨 2줄 요약 — 썸네일 위
+  const s2 = $("#m-summary2");
+  s2.textContent = r.summary2 || "";
+  s2.hidden = !r.summary2;
   $("#m-img").src = r.thumbnail || "";
   $("#m-img").style.display = r.thumbnail ? "" : "none";
   $(".m-sub").textContent =
@@ -483,9 +508,75 @@ function openModal(r) {
   const link = $("#m-link");
   link.href = r.url;
   link.textContent = r.url || "";
+  renderTags(r);
   renderCurate(r);
+  loadGiscus(r.content_id);
   modalEl.hidden = false;
   document.body.style.overflow = "hidden";
+}
+
+/* ---------- 태그 ---------- */
+function renderTags(r) {
+  const tags = TAGS[r.content_id] || [];
+  const chips = $("#m-tags");
+  chips.innerHTML = tags
+    .map(
+      (t) =>
+        `<span class="tag-chip">${escapeHtml(t)}` +
+        (API_OK ? `<button type="button" class="tag-x" data-tag="${escapeHtml(t)}" aria-label="삭제">×</button>` : "") +
+        `</span>`
+    )
+    .join("");
+  $("#m-tagrow").hidden = !(tags.length || API_OK);
+  $("#tag-input").hidden = !API_OK;
+  chips.querySelectorAll(".tag-x").forEach((b) =>
+    b.addEventListener("click", () => setTags(r, tags.filter((t) => t !== b.dataset.tag)))
+  );
+}
+
+async function setTags(r, tags) {
+  try {
+    const res = await fetch("/api/tags", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ content_id: r.content_id, tags }),
+    });
+    const j = await res.json();
+    if (!j.ok) throw new Error(j.error || "실패");
+    if (j.tags.length) TAGS[r.content_id] = j.tags;
+    else delete TAGS[r.content_id];
+    renderTags(r);
+  } catch (e) {
+    /* 정적 배포(서버 없음): 무시 */
+  }
+}
+
+/* ---------- 댓글(Giscus) ---------- */
+function loadGiscus(cid) {
+  const c = $("#m-comments");
+  if (!c) return;
+  c.innerHTML = "";
+  const s = document.createElement("script");
+  s.src = "https://giscus.app/client.js";
+  s.async = true;
+  s.crossOrigin = "anonymous";
+  const attrs = {
+    "data-repo": GISCUS.repo,
+    "data-repo-id": GISCUS.repoId,
+    "data-category": GISCUS.category,
+    "data-category-id": GISCUS.categoryId,
+    "data-mapping": "specific",
+    "data-term": cid,
+    "data-strict": "1",
+    "data-reactions-enabled": "1",
+    "data-emit-metadata": "0",
+    "data-input-position": "bottom",
+    "data-theme": "light",
+    "data-lang": "ko",
+    "data-loading": "lazy",
+  };
+  for (const k in attrs) s.setAttribute(k, attrs[k]);
+  c.appendChild(s);
 }
 
 function renderCurate(r) {

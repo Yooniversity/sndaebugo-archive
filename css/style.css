@@ -230,6 +230,29 @@ a { color: var(--ink); text-underline-offset: 2px; }
   text-decoration: underline; text-underline-offset: 2px;
 }
 .m-linkrow #m-link:hover { color: #555; }
+/* 2줄 요약(썸네일 위) */
+.m-summary2 {
+  margin: 0 0 14px; font-size: 1rem; line-height: 1.65; color: var(--ink);
+  padding: 12px 14px; background: #f5f5f5; border-radius: 2px;
+}
+/* 태그 */
+.m-tagrow { display: flex; align-items: center; flex-wrap: wrap; gap: 7px; margin: 0 0 16px; }
+.tagrow-label { font-size: .78rem; font-weight: 700; color: var(--muted); }
+.tag-chips { display: inline-flex; flex-wrap: wrap; gap: 6px; }
+.tag-chip {
+  display: inline-flex; align-items: center; gap: 3px;
+  background: #efefef; color: var(--ink); font-size: .8rem; padding: 2px 4px 2px 9px; border-radius: 2px;
+}
+.tag-x { border: none; background: none; cursor: pointer; color: var(--muted); font-size: 1rem; line-height: 1; padding: 0 2px; }
+.tag-x:hover { color: var(--ink); }
+.tag-input {
+  border: none; border-bottom: 1px solid var(--line); background: none;
+  font-family: inherit; font-size: .82rem; padding: 3px 2px; min-width: 130px; color: var(--ink);
+}
+.tag-input:focus { outline: none; border-bottom-color: var(--ink); }
+/* 댓글 */
+.m-comments-wrap { margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--line); }
+.comments-title { margin: 0 0 12px; font-size: 1rem; font-weight: 700; color: var(--ink); }
 .btn {
   display: inline-block; background: var(--ink); color: #fff; text-decoration: none;
   padding: 12px 18px; border-radius: 2px; font-weight: 600; font-size: .92rem;

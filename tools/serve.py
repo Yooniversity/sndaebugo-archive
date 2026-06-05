@@ -33,6 +33,7 @@ import curate  # noqa: E402  (curation.json 읽기/쓰기 + articles.json 재생
 # 정적 사이트가 직접 읽도록 data/ 에 둔다.
 REJECTED_FILE = os.path.join(ROOT, "data", "rejected.json")
 FAVORITES_FILE = os.path.join(ROOT, "data", "favorites.json")
+TAGS_FILE = os.path.join(ROOT, "data", "tags.json")  # {content_id: [tag, ...]}
 
 
 def _load_ids(path):
@@ -61,6 +62,18 @@ def load_favorites():
 
 def save_favorites(ids):
     _save_ids(FAVORITES_FILE, ids)
+
+
+def load_tags():
+    if not os.path.exists(TAGS_FILE):
+        return {}
+    with open(TAGS_FILE, encoding="utf-8") as f:
+        return json.load(f)
+
+
+def save_tags(d):
+    with open(TAGS_FILE, "w", encoding="utf-8") as f:
+        json.dump(d, f, ensure_ascii=False, indent=2)
 
 
 class Handler(SimpleHTTPRequestHandler):
@@ -107,6 +120,8 @@ class Handler(SimpleHTTPRequestHandler):
                 return self._unreject()
             if route == "/api/favorite":
                 return self._favorite()
+            if route == "/api/tags":
+                return self._tags()
         except Exception as e:
             return self._json(500, {"ok": False, "error": str(e)})
         self._json(404, {"ok": False, "error": "unknown endpoint"})
@@ -177,6 +192,27 @@ class Handler(SimpleHTTPRequestHandler):
             favs = [x for x in favs if x != cid]
         save_favorites(favs)
         self._json(200, {"ok": True, "favorited": on, "favorite_count": len(favs)})
+
+    def _tags(self):
+        data = self._read_json()
+        cid = (data.get("content_id") or "").strip()
+        if not cid:
+            return self._json(400, {"ok": False, "error": "content_id 누락"})
+        # 태그 목록 전체 교체(정리·중복 제거)
+        raw = data.get("tags") or []
+        seen, tags = set(), []
+        for t in raw:
+            t = (str(t) or "").strip()
+            if t and t not in seen:
+                seen.add(t)
+                tags.append(t)
+        store = load_tags()
+        if tags:
+            store[cid] = tags
+        else:
+            store.pop(cid, None)
+        save_tags(store)
+        self._json(200, {"ok": True, "tags": tags})
 
     def _reject(self):
         data = self._read_json()

@@ -26,7 +26,8 @@
     "verified": true,
     "_search_term": "경성사범학교",
     "_issued_date": "19210606",
-    "_news_position": "03"
+    "_news_position": "03",
+    "summary2": "1921년에 문을 연 경성사범학교가 입학식과 선서식을 함께 치렀다는 소식이다. 이 학교는 오늘날 서울대 사대부고로 이어지는 먼 뿌리에 해당한다."
   },
   {
     "content_id": "CNTS-00094153678",
@@ -47,7 +48,8 @@
     "verified": true,
     "_search_term": "경성사범학교",
     "_issued_date": "19220327",
-    "_news_position": "03"
+    "_news_position": "03",
+    "summary2": "경성사범학교 졸업식에 관한 기사로, 졸업생 가운데 조선인은 단 한 명에 그쳤다고 전한다. 식민지 시기 사범교육의 민족 차별적 현실을 보여 주는 대목이다."
   },
   {
     "content_id": "CNTS-00094157749",
@@ -64,7 +66,9 @@
     "verified": true,
     "_search_term": "경성사범학교",
     "_issued_date": "19220510",
-    "_news_position": "04"
+    "_news_position": "04",
+    "_cluster": "C0002",
+    "summary2": "경성사범학교 보통과의 입학시험 문제를 소개한 기사다. 이 보통과는 뒷날 부속중학교로 이어지는 직접적인 전신에 해당한다."
   },
   {
     "content_id": "CNTS-00094157840",
@@ -81,7 +85,9 @@
     "verified": true,
     "_search_term": "경성사범학교",
     "_issued_date": "19220511",
-    "_news_position": "04"
+    "_news_position": "04",
+    "_cluster": "C0002",
+    "summary2": "경성사범학교 보통과 입학시험 문제를 이어서 실은 기사다. 보통과는 훗날 부속중학교로 연결되는 학교 계통의 출발점이다."
   },
   {
     "content_id": "CNTS-00094179807",
@@ -105,7 +111,8 @@
     "verified": true,
     "_search_term": "경성사범학교",
     "_issued_date": "19230218",
-    "_news_position": "02"
+    "_news_position": "02",
+    "summary2": "경성사범학교의 신입생 모집을 알리는 입학 안내 기사다. 모집 요강 등 학교의 입학 관련 정보를 전한다."
   },
   {
     "content_id": "CNTS-00094183482",
@@ -122,26 +129,8 @@
     "verified": true,
     "_search_term": "경성사범학교",
     "_issued_date": "19230412",
-    "_news_position": "02"
-  },
-  {
-    "content_id": "CNTS-00094198470",
-    "date": "1923-10-13",
-    "title": "경성사범생 래광",
-    "title_original": "경성사범생 래광",
-    "newspaper": "매일신보",
-    "era": "경성사범",
-    "school_name": "경성사범학교",
-    "summary": "",
-    "keywords": [
-      "경성사범학교"
-    ],
-    "url": "https://nl.go.kr/newspaper/detail.do?content_id=CNTS-00094198470",
-    "thumbnail": "data/thumbnails/CNTS-00094198470.png",
-    "verified": true,
-    "_search_term": "경성사범학교",
-    "_issued_date": "19231013",
-    "_news_position": "04"
+    "_news_position": "02",
+    "summary2": "경성사범학교의 입학시험 문제를 이어서 게재한 기사다. 응시생들을 위한 시험 문항을 전하고 있다."
   },
   {
     "content_id": "CNTS-00094208488",
@@ -160,7 +149,8 @@
     "verified": true,
     "_search_term": "경성사범학교",
     "_issued_date": "19240221",
-    "_news_position": "03"
+    "_news_position": "03",
+    "summary2": "경성사범학교 입학 지원자가 모집 정원을 크게 초과했다. 100명 모집에 4천 명이 몰렸으며, 재계 불황에 따른 학비 부담이 원인으로 분석된다."
   },
   {
     "content_id": "CNTS-00113727231",
@@ -177,7 +167,9 @@
     "verified": true,
     "_search_term": "경성사범학교",
     "_issued_date": "19240306",
-    "_news_position": "04"
+    "_news_position": "04",
+    "_cluster": "C0004",
+    "summary2": "경성사범학교의 입학시험 문제가 소개되었다. 응시생들이 풀어야 했던 출제 내용을 다룬다."
   },
   {
     "content_id": "CNTS-00113727501",
@@ -196,7 +188,9 @@
     "verified": true,
     "_search_term": "경성사범학교",
     "_issued_date": "19240307",
-    "_news_position": "04"
+    "_news_position": "04",
+    "_cluster": "C0004",
+    "summary2": "경성사범학교의 입학시험 문제가 소개되었다. 시험에 출제된 문항 내용을 전한다."
   },
   {
     "content_id": "CNTS-00094212607",
@@ -216,7 +210,8 @@
     "verified": true,
     "_search_term": "경성사범학교",
     "_issued_date": "19240410",
-    "_news_position": "03"
+    "_news_position": "03",
+    "summary2": "관리들이 경성사범학교 운동장에서 경기 연습을 했다는 소식을 전한다. 학교 운동장이 행사 장소로 활용되었다."
   },
   {
     "content_id": "CNTS-00094214013",
@@ -235,7 +230,8 @@
     "verified": true,
     "_search_term": "경성사범학교",
     "_issued_date": "19240426",
-    "_news_position": "03"
+    "_news_position": "03",
+    "summary2": "경성사범학교에서 화재가 발생해 양옥 일부를 태우고 곧 진화되었다. 원인은 실화이며 손해는 크지 않은 것으로 전한다."
   },
   {
     "content_id": "CNTS-00076949082",
@@ -254,158 +250,8 @@
     "verified": true,
     "_search_term": "경성사범학교",
     "_issued_date": "19240426",
-    "_news_position": "05"
-  },
-  {
-    "content_id": "CNTS-00094217978",
-    "date": "1924-06-09",
-    "title": "체육연구회의 체육강습, 7월 하순에 경성사범학교 안에서",
-    "title_original": "체육연구회의 체육강습, 7월 하순에 경성사범학교 안에서",
-    "newspaper": "매일신보",
-    "era": "경성사범",
-    "school_name": "경성사범학교",
-    "summary": "",
-    "keywords": [],
-    "url": "https://nl.go.kr/newspaper/detail.do?content_id=CNTS-00094217978",
-    "thumbnail": "data/thumbnails/CNTS-00094217978.png",
-    "verified": true,
-    "_search_term": "경성사범학교",
-    "_issued_date": "19240609",
-    "_news_position": "03"
-  },
-  {
-    "content_id": "CNTS-00077001266",
-    "date": "1924-10-02",
-    "title": "각학교기록, 경성사범학교",
-    "title_original": "各學校記錄, 京城師範學校",
-    "newspaper": "조선신문",
-    "era": "경성사범",
-    "school_name": "경성사범학교",
-    "summary": "",
-    "keywords": [
-      "山之口菅夫",
-      "白石知則",
-      "八屋",
-      "松浦",
-      "新井",
-      "橫山",
-      "吉岡",
-      "小倉",
-      "佐藤",
-      "加藤",
-      "山崎",
-      "白井",
-      "小川",
-      "松本",
-      "森原",
-      "大竹",
-      "相澤",
-      "伊勢田",
-      "周防",
-      "杉本",
-      "兒玉"
-    ],
-    "url": "https://nl.go.kr/newspaper/detail.do?content_id=CNTS-00077001266",
-    "thumbnail": "data/thumbnails/CNTS-00077001266.png",
-    "verified": true,
-    "_search_term": "경성사범학교",
-    "_issued_date": "19241002",
-    "_news_position": "02"
-  },
-  {
-    "content_id": "CNTS-00094228709",
-    "date": "1924-10-10",
-    "title": "경성사범생 내구",
-    "title_original": "京城師範生 來邱",
-    "newspaper": "매일신보",
-    "era": "경성사범",
-    "school_name": "경성사범학교",
-    "summary": "",
-    "keywords": [
-      "경성사범학교"
-    ],
-    "url": "https://nl.go.kr/newspaper/detail.do?content_id=CNTS-00094228709",
-    "thumbnail": "data/thumbnails/CNTS-00094228709.png",
-    "verified": true,
-    "_search_term": "경성사범학교",
-    "_issued_date": "19241010",
-    "_news_position": "04"
-  },
-  {
-    "content_id": "CNTS-00094231765",
-    "date": "1924-11-12",
-    "title": "경성사범의 학예회와 전람회, 출연과목마다 박수 갈채, 성적품 각종도 극히 훌륭",
-    "title_original": "京城師範의 학예회와 전람회, 출연과목마다 박수 갈채, 성적품 각종도 극히 훌륭",
-    "newspaper": "매일신보",
-    "era": "경성사범",
-    "school_name": "경성사범학교",
-    "summary": "",
-    "keywords": [
-      "경성사범학교"
-    ],
-    "url": "https://nl.go.kr/newspaper/detail.do?content_id=CNTS-00094231765",
-    "thumbnail": "data/thumbnails/CNTS-00094231765.png",
-    "verified": true,
-    "_search_term": "경성사범학교",
-    "_issued_date": "19241112",
-    "_news_position": "03"
-  },
-  {
-    "content_id": "CNTS-00094240203",
-    "date": "1925-02-05",
-    "title": "입학안내: 경성사범학교 남자연습과",
-    "title_original": "입학안내: 경성사범학교 남자演習科",
-    "newspaper": "매일신보",
-    "era": "경성사범",
-    "school_name": "경성사범학교",
-    "summary": "",
-    "keywords": [],
-    "url": "https://nl.go.kr/newspaper/detail.do?content_id=CNTS-00094240203",
-    "thumbnail": "data/thumbnails/CNTS-00094240203.png",
-    "verified": true,
-    "_search_term": "경성사범학교",
-    "_issued_date": "19250205",
-    "_news_position": "01"
-  },
-  {
-    "content_id": "CNTS-00094240292",
-    "date": "1925-02-07",
-    "title": "입학안내: 경성사범학교 여자연습과",
-    "title_original": "입학안내: 경성사범학교 여자演習科",
-    "newspaper": "매일신보",
-    "era": "경성사범",
-    "school_name": "경성사범학교",
-    "summary": "",
-    "keywords": [],
-    "url": "https://nl.go.kr/newspaper/detail.do?content_id=CNTS-00094240292",
-    "thumbnail": "data/thumbnails/CNTS-00094240292.png",
-    "verified": true,
-    "_search_term": "경성사범학교",
-    "_issued_date": "19250207",
-    "_news_position": "01"
-  },
-  {
-    "content_id": "CNTS-00094241339",
-    "date": "1925-02-21",
-    "title": "경성에 또 기면병, 경성사범학교생도 한명이 조는병에 걸려 치료하는중",
-    "title_original": "경성에 또 嗜眠病, 경성사범학교생도 한명이 조는병에 걸려 치료하는중",
-    "newspaper": "매일신보",
-    "era": "경성사범",
-    "school_name": "경성사범학교",
-    "summary": "",
-    "keywords": [
-      "朴鼎熙",
-      "경성사범학교",
-      "총독부의원",
-      "충청남도 천안군",
-      "경성부 황금정"
-    ],
-    "url": "https://nl.go.kr/newspaper/detail.do?content_id=CNTS-00094241339",
-    "thumbnail": "data/thumbnails/CNTS-00094241339.png",
-    "verified": true,
-    "_search_term": "경성사범학교",
-    "_issued_date": "19250221",
-    "_news_position": "02"
+    "_news_position": "05",
+    "summary2": "경성사범학교 명의의 광고가 게재되었다. 학교와 관련한 안내 내용을 담고 있다."
   },
   {
     "content_id": "CNTS-00114156715",
@@ -424,7 +270,8 @@
     "verified": true,
     "_search_term": "경성사범학교",
     "_issued_date": "19250711",
-    "_news_position": "02"
+    "_news_position": "02",
+    "summary2": "경성사범학교 체육연구회에 관한 기사다. 학교의 체육 관련 연구 활동을 다루고 있다."
   },
   {
     "content_id": "CNTS-00132368281",
@@ -456,268 +303,6 @@
     "_news_position": "03"
   },
   {
-    "content_id": "CNTS-00118772597",
-    "date": "1926-07-29",
-    "title": "평강편り, 경성사범학교군사강습단, 제일신",
-    "title_original": "平康便り, 京城師範學校軍事講習團, 第一信",
-    "newspaper": "경성일보",
-    "era": "경성사범",
-    "school_name": "경성사범학교",
-    "summary": "",
-    "keywords": [
-      "レオナルド",
-      "ミレェ",
-      "平康",
-      "元山",
-      "漢江",
-      "京城",
-      "九州",
-      "日本",
-      "京城驛"
-    ],
-    "url": "https://nl.go.kr/newspaper/detail.do?content_id=CNTS-00118772597",
-    "thumbnail": "data/thumbnails/CNTS-00118772597.png",
-    "verified": true,
-    "_search_term": "경성사범학교",
-    "_issued_date": "19260729",
-    "_news_position": "04"
-  },
-  {
-    "content_id": "CNTS-00118772860",
-    "date": "1926-07-30",
-    "title": "평강편り, 경성사범학교군사강습단, 제이신",
-    "title_original": "平康便り, 京城師範學校軍事講習團, 第二信",
-    "newspaper": "경성일보",
-    "era": "경성사범",
-    "school_name": "경성사범학교",
-    "summary": "",
-    "keywords": [],
-    "url": "https://nl.go.kr/newspaper/detail.do?content_id=CNTS-00118772860",
-    "thumbnail": "data/thumbnails/CNTS-00118772860.png",
-    "verified": true,
-    "_search_term": "경성사범학교",
-    "_issued_date": "19260730",
-    "_news_position": "04"
-  },
-  {
-    "content_id": "CNTS-00118773616",
-    "date": "1926-08-03",
-    "title": "평강편り, 경성사범학교군사강습단, 제삼신",
-    "title_original": "平康便り, 京城師範學校軍事講習團, 第三信",
-    "newspaper": "경성일보",
-    "era": "경성사범",
-    "school_name": "경성사범학교",
-    "summary": "",
-    "keywords": [
-      "平康"
-    ],
-    "url": "https://nl.go.kr/newspaper/detail.do?content_id=CNTS-00118773616",
-    "thumbnail": "data/thumbnails/CNTS-00118773616.png",
-    "verified": true,
-    "_search_term": "경성사범학교",
-    "_issued_date": "19260803",
-    "_news_position": "04"
-  },
-  {
-    "content_id": "CNTS-00118773857",
-    "date": "1926-08-04",
-    "title": "평강편り, 경성사범학교군사강습단, 제사신",
-    "title_original": "平康便り, 京城師範學校軍事講習團, 第四信",
-    "newspaper": "경성일보",
-    "era": "경성사범",
-    "school_name": "경성사범학교",
-    "summary": "",
-    "keywords": [
-      "平康"
-    ],
-    "url": "https://nl.go.kr/newspaper/detail.do?content_id=CNTS-00118773857",
-    "thumbnail": "data/thumbnails/CNTS-00118773857.png",
-    "verified": true,
-    "_search_term": "경성사범학교",
-    "_issued_date": "19260804",
-    "_news_position": "04"
-  },
-  {
-    "content_id": "CNTS-00118774125",
-    "date": "1926-08-05",
-    "title": "평강편り, 경성사범학교군사강습단, 제오신",
-    "title_original": "平康便り, 京城師範學校軍事講習團, 第五信",
-    "newspaper": "경성일보",
-    "era": "경성사범",
-    "school_name": "경성사범학교",
-    "summary": "",
-    "keywords": [],
-    "url": "https://nl.go.kr/newspaper/detail.do?content_id=CNTS-00118774125",
-    "thumbnail": "data/thumbnails/CNTS-00118774125.png",
-    "verified": true,
-    "_search_term": "경성사범학교",
-    "_issued_date": "19260805",
-    "_news_position": "04"
-  },
-  {
-    "content_id": "CNTS-00118774366",
-    "date": "1926-08-06",
-    "title": "평강편り, 경성사범학교군사강습단, 제오신",
-    "title_original": "平康便り, 京城師範學校軍事講習團, 第五信",
-    "newspaper": "경성일보",
-    "era": "경성사범",
-    "school_name": "경성사범학교",
-    "summary": "",
-    "keywords": [],
-    "url": "https://nl.go.kr/newspaper/detail.do?content_id=CNTS-00118774366",
-    "thumbnail": "data/thumbnails/CNTS-00118774366.png",
-    "verified": true,
-    "_search_term": "경성사범학교",
-    "_issued_date": "19260806",
-    "_news_position": "04"
-  },
-  {
-    "content_id": "CNTS-00088432449",
-    "date": "1926-09-19",
-    "title": "전선배농구선수권대회십구일오전구시개시, 어경성사범학교교정",
-    "title_original": "全鮮排籠球選手權大會十九日午前九時開始, 於京城師範學校校庭",
-    "newspaper": "조선신문",
-    "era": "경성사범",
-    "school_name": "경성사범학교",
-    "summary": "",
-    "keywords": [],
-    "url": "https://nl.go.kr/newspaper/detail.do?content_id=CNTS-00088432449",
-    "thumbnail": "data/thumbnails/CNTS-00088432449.png",
-    "verified": true,
-    "_search_term": "경성사범학교",
-    "_issued_date": "19260919",
-    "_news_position": "03"
-  },
-  {
-    "content_id": "CNTS-00114166527",
-    "date": "1926-10-23",
-    "title": "경성사범학교생도 불적[불적]견학, 26일 부산에(대구)",
-    "title_original": "경성사범학교생도 불적[佛跡]견학, 26일 부산에(대구)",
-    "newspaper": "부산일보",
-    "era": "경성사범",
-    "school_name": "경성사범학교",
-    "summary": "",
-    "keywords": [
-      "대구"
-    ],
-    "url": "https://nl.go.kr/newspaper/detail.do?content_id=CNTS-00114166527",
-    "thumbnail": "data/thumbnails/CNTS-00114166527.png",
-    "verified": true,
-    "_search_term": "경성사범학교",
-    "_issued_date": "19261023",
-    "_news_position": "03"
-  },
-  {
-    "content_id": "CNTS-00114168430",
-    "date": "1927-04-06",
-    "title": "산본[산본]씨의 의협으로 경성사범학교에 들어간 정씨[정씨], 평양고등보통학교 출신의 재원 ; 군산 근래의 미담[미담]",
-    "title_original": "산본[山本]씨의 의협으로 경성사범학교에 들어간 정씨[鄭氏], 평양고등보통학교 출신의 재원 ; 군산 근래의 미담[美談]",
-    "newspaper": "부산일보",
-    "era": "경성사범",
-    "school_name": "경성사범학교",
-    "summary": "",
-    "keywords": [
-      "경성"
-    ],
-    "url": "https://nl.go.kr/newspaper/detail.do?content_id=CNTS-00114168430",
-    "thumbnail": "data/thumbnails/CNTS-00114168430.png",
-    "verified": true,
-    "_search_term": "경성사범학교",
-    "_issued_date": "19270406",
-    "_news_position": "04"
-  },
-  {
-    "content_id": "CNTS-00099104189",
-    "date": "1927-04-16",
-    "title": "광고, 경성사범학교부속",
-    "title_original": "광고, 京城師範學校附屬",
-    "newspaper": "조선신문",
-    "era": "경성사범",
-    "school_name": "경성사범학교",
-    "summary": "경성사범학교 부속학교 관련 광고.",
-    "keywords": [],
-    "url": "https://nl.go.kr/newspaper/detail.do?content_id=CNTS-00099104189",
-    "thumbnail": "data/thumbnails/CNTS-00099104189.png",
-    "verified": true,
-    "_search_term": "경성사범학교",
-    "_issued_date": "19270416",
-    "_news_position": "02"
-  },
-  {
-    "content_id": "CNTS-00099264194",
-    "date": "1928-11-23",
-    "title": "경성사범학교, 학예전람회",
-    "title_original": "京城師範學校, 學藝展覽會",
-    "newspaper": "조선신문",
-    "era": "경성사범",
-    "school_name": "경성사범학교",
-    "summary": "",
-    "keywords": [
-      "京城"
-    ],
-    "url": "https://nl.go.kr/newspaper/detail.do?content_id=CNTS-00099264194",
-    "thumbnail": "data/thumbnails/CNTS-00099264194.png",
-    "verified": true,
-    "_search_term": "경성사범학교",
-    "_issued_date": "19281123",
-    "_news_position": "02"
-  },
-  {
-    "content_id": "CNTS-00114191109",
-    "date": "1928-12-05",
-    "title": "향정[향정] 경성사범학교 교윤 목포 오다",
-    "title_original": "향정[向井] 경성사범학교 교윤 목포 오다",
-    "newspaper": "부산일보",
-    "era": "경성사범",
-    "school_name": "경성사범학교",
-    "summary": "",
-    "keywords": [
-      "경성"
-    ],
-    "url": "https://nl.go.kr/newspaper/detail.do?content_id=CNTS-00114191109",
-    "thumbnail": "data/thumbnails/CNTS-00114191109.png",
-    "verified": true,
-    "_search_term": "경성사범학교",
-    "_issued_date": "19281205",
-    "_news_position": "05"
-  },
-  {
-    "content_id": "CNTS-00099268136",
-    "date": "1928-12-07",
-    "title": "경성사범학교",
-    "title_original": "京城師範學校",
-    "newspaper": "조선신문",
-    "era": "경성사범",
-    "school_name": "경성사범학교",
-    "summary": "",
-    "keywords": [],
-    "url": "https://nl.go.kr/newspaper/detail.do?content_id=CNTS-00099268136",
-    "thumbnail": "data/thumbnails/CNTS-00099268136.png",
-    "verified": true,
-    "_search_term": "경성사범학교",
-    "_issued_date": "19281207",
-    "_news_position": "03"
-  },
-  {
-    "content_id": "CNTS-00114194231",
-    "date": "1929-01-18",
-    "title": "관립사범학교 입학시험 ; 경성사범 등 기타 4학교에서 200명 모집",
-    "title_original": "관립사범학교 입학시험 ; 경성사범 등 기타 4학교에서 200명 모집",
-    "newspaper": "부산일보",
-    "era": "경성사범",
-    "school_name": "경성사범학교",
-    "summary": "",
-    "keywords": [
-      "경성"
-    ],
-    "url": "https://nl.go.kr/newspaper/detail.do?content_id=CNTS-00114194231",
-    "thumbnail": "data/thumbnails/CNTS-00114194231.png",
-    "verified": true,
-    "_search_term": "경성사범학교",
-    "_issued_date": "19290118",
-    "_news_position": "07"
-  },
-  {
     "content_id": "CNTS-00099305844",
     "date": "1929-05-01",
     "title": "광고, 경성사범학교",
@@ -733,51 +318,6 @@
     "_search_term": "경성사범학교",
     "_issued_date": "19290501",
     "_news_position": "03"
-  },
-  {
-    "content_id": "CNTS-00120649866",
-    "date": "1930-01-10",
-    "title": "경성사범학교내に『학교치과치료소』, 유락치과의전교장の알선で진んだ구강위생の시설",
-    "title_original": "京城師範學校內に『學校齒科治療所』, 柳樂齒科醫專校長の斡旋で進んだ口腔衛生の施設",
-    "newspaper": "경성일보",
-    "era": "경성사범",
-    "school_name": "경성사범학교",
-    "summary": "",
-    "keywords": [
-      "柳樂達見",
-      "朝鮮",
-      "大阪",
-      "東京",
-      "京城師範學校",
-      "中山文化硏究所",
-      "京城齒科醫專"
-    ],
-    "url": "https://nl.go.kr/newspaper/detail.do?content_id=CNTS-00120649866",
-    "thumbnail": "data/thumbnails/CNTS-00120649866.png",
-    "verified": true,
-    "_search_term": "경성사범학교",
-    "_issued_date": "19300110",
-    "_news_position": "11"
-  },
-  {
-    "content_id": "CNTS-00125740260",
-    "date": "1931-01-08",
-    "title": "경성사범학교견사우승す, 전국중등학교のラ식축구대회にて",
-    "title_original": "京城師範學校見事優勝す, 全國中等學校のラ式蹴球大會にて",
-    "newspaper": "경성일보",
-    "era": "경성사범",
-    "school_name": "경성사범학교",
-    "summary": "",
-    "keywords": [
-      "甲子園運動塲",
-      "京城師範學校"
-    ],
-    "url": "https://nl.go.kr/newspaper/detail.do?content_id=CNTS-00125740260",
-    "thumbnail": "data/thumbnails/CNTS-00125740260.png",
-    "verified": true,
-    "_search_term": "경성사범학교",
-    "_issued_date": "19310108",
-    "_news_position": "07"
   },
   {
     "content_id": "CNTS-00115121125",
@@ -995,7 +535,8 @@
     "verified": true,
     "_search_term": "경성사범학교",
     "_issued_date": "19310315",
-    "_news_position": "02"
+    "_news_position": "02",
+    "summary2": "경성사범학교 보통과의 그해 입학 합격자, 즉 입학 허가자 명단을 발표한 기사다."
   },
   {
     "content_id": "CNTS-00099488271",
@@ -1134,45 +675,8 @@
     "verified": true,
     "_search_term": "경성사범학교",
     "_issued_date": "19310511",
-    "_news_position": "02"
-  },
-  {
-    "content_id": "CNTS-00094491243",
-    "date": "1931-08-09",
-    "title": "사건의 발각단서는 신흥교육과 밀서 경성사범학교에 온 것이 발각되여 경찰활동, 검거개시",
-    "title_original": "事件의 發覺端緖는 新興敎育과 密書 경성사범학교에 온 것이 발각되여 警察活動, 檢擧開始",
-    "newspaper": "매일신보",
-    "era": "경성사범",
-    "school_name": "경성사범학교",
-    "summary": "",
-    "keywords": [
-      "山下德治"
-    ],
-    "url": "https://nl.go.kr/newspaper/detail.do?content_id=CNTS-00094491243",
-    "thumbnail": "data/thumbnails/CNTS-00094491243.png",
-    "verified": true,
-    "_search_term": "경성사범학교",
-    "_issued_date": "19310809",
-    "_news_position": "02"
-  },
-  {
-    "content_id": "CNTS-00125806463",
-    "date": "1931-09-09",
-    "title": "작야동상の경성사범학교육상경기부の일행",
-    "title_original": "昨夜東上の京城師範學校陸上競技部の一行",
-    "newspaper": "경성일보",
-    "era": "경성사범",
-    "school_name": "경성사범학교",
-    "summary": "",
-    "keywords": [
-      "京城師範學校陸上競技部"
-    ],
-    "url": "https://nl.go.kr/newspaper/detail.do?content_id=CNTS-00125806463",
-    "thumbnail": "data/thumbnails/CNTS-00125806463.png",
-    "verified": true,
-    "_search_term": "경성사범학교",
-    "_issued_date": "19310909",
-    "_news_position": "03"
+    "_news_position": "02",
+    "summary2": "경성사범학교 창립 10주년 기념식이 총감 임석 하에 성대히 거행되었다는 기사다. 전임 적목(赤木) 교장의 기념비 제막식도 함께 열렸다."
   },
   {
     "content_id": "CNTS-00108859773",
@@ -1361,7 +865,8 @@
     "verified": true,
     "_search_term": "경성사범학교",
     "_issued_date": "19321118",
-    "_news_position": "05"
+    "_news_position": "05",
+    "summary2": "경성사범학교가 학예회를 개최한다는 소식을 전한 기사다."
   },
   {
     "content_id": "CNTS-00126012632",
@@ -1380,7 +885,9 @@
     "verified": true,
     "_search_term": "경성사범학교",
     "_issued_date": "19330110",
-    "_news_position": "03"
+    "_news_position": "03",
+    "_cluster": "C0019",
+    "summary2": "경성사범학교 아이스하키부를 다룬 연재 기사의 첫 회로, 영관(우승)을 목표로 하는 팀의 모습을 소개한다."
   },
   {
     "content_id": "CNTS-00126014038",
@@ -1405,7 +912,9 @@
     "verified": true,
     "_search_term": "경성사범학교",
     "_issued_date": "19330113",
-    "_news_position": "03"
+    "_news_position": "03",
+    "_cluster": "C0019",
+    "summary2": "경성사범학교 아이스하키부를 다룬 연재 기사의 제2신으로, 우승을 목표로 하는 팀을 조명한다."
   },
   {
     "content_id": "CNTS-00126014987",
@@ -1425,7 +934,9 @@
     "verified": true,
     "_search_term": "경성사범학교",
     "_issued_date": "19330117",
-    "_news_position": "03"
+    "_news_position": "03",
+    "_cluster": "C0020",
+    "summary2": "경성사범학교 아이스하키부를 다룬 연재 기사의 제3신으로, 우승을 향한 팀의 활동을 전한다."
   },
   {
     "content_id": "CNTS-00126015236",
@@ -1445,7 +956,9 @@
     "verified": true,
     "_search_term": "경성사범학교",
     "_issued_date": "19330118",
-    "_news_position": "03"
+    "_news_position": "03",
+    "_cluster": "C0020",
+    "summary2": "경성사범학교 아이스하키부를 다룬 연재 기사의 제4신으로, 우승을 목표로 한 팀의 이야기를 이어간다."
   },
   {
     "content_id": "CNTS-00126015508",
@@ -1464,7 +977,9 @@
     "verified": true,
     "_search_term": "경성사범학교",
     "_issued_date": "19330119",
-    "_news_position": "03"
+    "_news_position": "03",
+    "_cluster": "C0020",
+    "summary2": "경성사범학교 아이스하키부를 다룬 연재 기사의 제5신으로, 우승을 향한 팀의 행보를 소개한다."
   },
   {
     "content_id": "CNTS-00126017455",
@@ -1485,7 +1000,9 @@
     "verified": true,
     "_search_term": "경성사범학교",
     "_issued_date": "19330127",
-    "_news_position": "03"
+    "_news_position": "03",
+    "_cluster": "C0022",
+    "summary2": "경성사범학교 아이스하키부를 다룬 연재 기사로, 우승을 목표로 하는 팀의 활동을 전한다."
   },
   {
     "content_id": "CNTS-00126018011",
@@ -1504,7 +1021,9 @@
     "verified": true,
     "_search_term": "경성사범학교",
     "_issued_date": "19330129",
-    "_news_position": "03"
+    "_news_position": "03",
+    "_cluster": "C0022",
+    "summary2": "경성사범학교 아이스하키부를 다룬 연재 기사로, 우승을 향한 팀의 모습을 이어 소개한다."
   },
   {
     "content_id": "CNTS-00126018382",
@@ -1528,47 +1047,8 @@
     "verified": true,
     "_search_term": "경성사범학교",
     "_issued_date": "19330131",
-    "_news_position": "03"
-  },
-  {
-    "content_id": "CNTS-00094580735",
-    "date": "1933-03-26",
-    "title": "경성사범학교의 횡령소사취박 안동현에 출장하야 잡어와 공범이명도 체포",
-    "title_original": "京城師範學校의 橫領小使就縛 안동현에 출장하야 잡어와 共犯二名도 逮捕",
-    "newspaper": "매일신보",
-    "era": "경성사범",
-    "school_name": "경성사범학교",
-    "summary": "",
-    "keywords": [
-      "玄點山",
-      "金星南",
-      "金顯圭"
-    ],
-    "url": "https://nl.go.kr/newspaper/detail.do?content_id=CNTS-00094580735",
-    "thumbnail": "data/thumbnails/CNTS-00094580735.png",
-    "verified": true,
-    "_search_term": "경성사범학교",
-    "_issued_date": "19330326",
-    "_news_position": "02"
-  },
-  {
-    "content_id": "CNTS-00108999586",
-    "date": "1933-05-28",
-    "title": "광고, 사근화어견무, 경성사범학교부속단급소학교",
-    "title_original": "광고, 謝近火御見舞, 京城師範學校附屬單級小學校",
-    "newspaper": "조선신문",
-    "era": "경성사범",
-    "school_name": "경성사범학교",
-    "summary": "",
-    "keywords": [
-      "京城師範學校附屬單級小學校"
-    ],
-    "url": "https://nl.go.kr/newspaper/detail.do?content_id=CNTS-00108999586",
-    "thumbnail": "data/thumbnails/CNTS-00108999586.png",
-    "verified": true,
-    "_search_term": "경성사범학교",
-    "_issued_date": "19330528",
-    "_news_position": "02"
+    "_news_position": "03",
+    "summary2": "경성사범학교 아이스하키부를 다룬 연재 기사로, 우승을 목표로 한 팀의 이야기를 전한다."
   },
   {
     "content_id": "CNTS-00093581087",
@@ -1682,7 +1162,8 @@
     "verified": true,
     "_search_term": "경성사범학교",
     "_issued_date": "19350314",
-    "_news_position": "02"
+    "_news_position": "02",
+    "summary2": "경성사범학교 입학시험 합격자 발표를 전하는 조선중앙일보 기사다. 본교 계통인 경성사범학교의 입시 합격 발표를 다룬다."
   },
   {
     "content_id": "CNTS-00093581576",
@@ -1727,7 +1208,8 @@
     "verified": true,
     "_search_term": "경성사범학교",
     "_issued_date": "19350317",
-    "_news_position": "02"
+    "_news_position": "02",
+    "_cluster": "C0031"
   },
   {
     "content_id": "CNTS-00093581577",
@@ -1785,7 +1267,8 @@
     "verified": true,
     "_search_term": "경성사범학교",
     "_issued_date": "19350317",
-    "_news_position": "02"
+    "_news_position": "02",
+    "_cluster": "C0031"
   },
   {
     "content_id": "CNTS-00093583002",
@@ -1854,7 +1337,8 @@
     "verified": true,
     "_search_term": "경성사범학교",
     "_issued_date": "19350403",
-    "_news_position": "03"
+    "_news_position": "03",
+    "_cluster": "C0032"
   },
   {
     "content_id": "CNTS-00109117491",
@@ -1873,7 +1357,8 @@
     "verified": true,
     "_search_term": "경성사범학교",
     "_issued_date": "19350405",
-    "_news_position": "03"
+    "_news_position": "03",
+    "_cluster": "C0032"
   },
   {
     "content_id": "CNTS-00109117818",
@@ -1892,7 +1377,8 @@
     "verified": true,
     "_search_term": "경성사범학교",
     "_issued_date": "19350406",
-    "_news_position": "03"
+    "_news_position": "03",
+    "_cluster": "C0032"
   },
   {
     "content_id": "CNTS-00109118627",
@@ -1911,7 +1397,8 @@
     "verified": true,
     "_search_term": "경성사범학교",
     "_issued_date": "19350409",
-    "_news_position": "03"
+    "_news_position": "03",
+    "_cluster": "C0033"
   },
   {
     "content_id": "CNTS-00109118964",
@@ -1930,28 +1417,8 @@
     "verified": true,
     "_search_term": "경성사범학교",
     "_issued_date": "19350410",
-    "_news_position": "03"
-  },
-  {
-    "content_id": "CNTS-00117875732",
-    "date": "1936-01-15",
-    "title": "약해입학안내, 경성사범학교の권",
-    "title_original": "略解入學案内, 京城師範學校の卷",
-    "newspaper": "조선신문",
-    "era": "경성사범",
-    "school_name": "경성사범학교",
-    "summary": "",
-    "keywords": [
-      "朝鮮",
-      "全州",
-      "京城"
-    ],
-    "url": "https://nl.go.kr/newspaper/detail.do?content_id=CNTS-00117875732",
-    "thumbnail": "data/thumbnails/CNTS-00117875732.png",
-    "verified": true,
-    "_search_term": "경성사범학교",
-    "_issued_date": "19360115",
-    "_news_position": "07"
+    "_news_position": "03",
+    "_cluster": "C0033"
   },
   {
     "content_id": "CNTS-00118286378",
@@ -1989,45 +1456,8 @@
     "verified": true,
     "_search_term": "경성사범학교",
     "_issued_date": "19360310",
-    "_news_position": "02"
-  },
-  {
-    "content_id": "CNTS-00118307133",
-    "date": "1936-05-23",
-    "title": "광고, 제구회전선학생각력대회, 경성사범학교",
-    "title_original": "광고, 第九回全鮮學生角力大會, 京城師範學校",
-    "newspaper": "조선신문",
-    "era": "경성사범",
-    "school_name": "경성사범학교",
-    "summary": "",
-    "keywords": [
-      "京城師範學校"
-    ],
-    "url": "https://nl.go.kr/newspaper/detail.do?content_id=CNTS-00118307133",
-    "thumbnail": "data/thumbnails/CNTS-00118307133.png",
-    "verified": true,
-    "_search_term": "경성사범학교",
-    "_issued_date": "19360523",
-    "_news_position": "06"
-  },
-  {
-    "content_id": "CNTS-00118317070",
-    "date": "1936-06-28",
-    "title": "경사경중룡중삼교수상경기【완】, 경성사범학교",
-    "title_original": "京師京中龍中三校水上競技【完】, 京城師範學校",
-    "newspaper": "조선신문",
-    "era": "경성사범",
-    "school_name": "경성사범학교",
-    "summary": "",
-    "keywords": [
-      "京城師範學校"
-    ],
-    "url": "https://nl.go.kr/newspaper/detail.do?content_id=CNTS-00118317070",
-    "thumbnail": "data/thumbnails/CNTS-00118317070.png",
-    "verified": true,
-    "_search_term": "경성사범학교",
-    "_issued_date": "19360628",
-    "_news_position": "03"
+    "_news_position": "02",
+    "summary2": "1936년도 경성사범학교 보통과 입학 허가자 명단이 발표되었음을 알리는 기사다."
   },
   {
     "content_id": "CNTS-00118375503",
@@ -2047,7 +1477,8 @@
     "verified": true,
     "_search_term": "경성사범학교",
     "_issued_date": "19370130",
-    "_news_position": "02"
+    "_news_position": "02",
+    "summary2": "입학기를 앞두고 경성사범학교를 소개한 학교 안내 기사다. 칠 년간 학교에 헌신해 온 도변(渡邊) 교장의 활동도 함께 다뤘다."
   },
   {
     "content_id": "CNTS-00118382475",
@@ -2114,7 +1545,8 @@
     "verified": true,
     "_search_term": "경성여자사범학교",
     "_issued_date": "19370305",
-    "_news_position": "02"
+    "_news_position": "02",
+    "summary2": "경성여자사범학교의 입학시험 합격자 발표 소식을 전한 기사다."
   },
   {
     "content_id": "CNTS-00129032664",
@@ -2174,25 +1606,6 @@
     "_search_term": "경성사범학교",
     "_issued_date": "19370306",
     "_news_position": "02"
-  },
-  {
-    "content_id": "CNTS-00114334622",
-    "date": "1937-03-16",
-    "title": "김창주[김창주] 면서기 딸이 경성사범학교에 합격(구룡포)",
-    "title_original": "김창주[金滄洲] 면서기 딸이 경성사범학교에 합격(구룡포)",
-    "newspaper": "부산일보",
-    "era": "경성사범",
-    "school_name": "경성사범학교",
-    "summary": "",
-    "keywords": [
-      "포항"
-    ],
-    "url": "https://nl.go.kr/newspaper/detail.do?content_id=CNTS-00114334622",
-    "thumbnail": "data/thumbnails/CNTS-00114334622.png",
-    "verified": true,
-    "_search_term": "경성사범학교",
-    "_issued_date": "19370316",
-    "_news_position": "05"
   },
   {
     "content_id": "CNTS-00118386196",
@@ -2273,83 +1686,6 @@
     "_news_position": "02"
   },
   {
-    "content_id": "CNTS-00124464555",
-    "date": "1937-09-15",
-    "title": "アカツキ, 시국교육といふのさ, 경성사범학교교장도변신치씨",
-    "title_original": "アカツキ, 時局敎育といふのさ, 京城師範學校校長渡邊信治氏",
-    "newspaper": "조선신문",
-    "era": "경성사범",
-    "school_name": "경성사범학교",
-    "summary": "",
-    "keywords": [],
-    "url": "https://nl.go.kr/newspaper/detail.do?content_id=CNTS-00124464555",
-    "thumbnail": "data/thumbnails/CNTS-00124464555.png",
-    "verified": true,
-    "_search_term": "경성사범학교",
-    "_issued_date": "19370915",
-    "_news_position": "02"
-  },
-  {
-    "content_id": "CNTS-00124484028",
-    "date": "1937-11-11",
-    "title": "경성사범학교조서봉독식",
-    "title_original": "京城師範學校詔書奉讀式",
-    "newspaper": "조선신문",
-    "era": "경성사범",
-    "school_name": "경성사범학교",
-    "summary": "",
-    "keywords": [
-      "京城師範學校"
-    ],
-    "url": "https://nl.go.kr/newspaper/detail.do?content_id=CNTS-00124484028",
-    "thumbnail": "data/thumbnails/CNTS-00124484028.png",
-    "verified": true,
-    "_search_term": "경성사범학교",
-    "_issued_date": "19371111",
-    "_news_position": "02"
-  },
-  {
-    "content_id": "CNTS-00124493725",
-    "date": "1937-12-16",
-    "title": "제일선にたつ인の횡안, 발전は경이の이자, それからそれへとこの노력, 경성사범학교교장도변신치씨",
-    "title_original": "第一線にたつ人の橫顔, 發展は驚異の二字, それからそれへとこの努力, 京城師範學校校長渡邊信治氏",
-    "newspaper": "조선신문",
-    "era": "경성사범",
-    "school_name": "경성사범학교",
-    "summary": "",
-    "keywords": [
-      "渡邊信治",
-      "東京",
-      "京城師範學",
-      "東京高等師範學校"
-    ],
-    "url": "https://nl.go.kr/newspaper/detail.do?content_id=CNTS-00124493725",
-    "thumbnail": "data/thumbnails/CNTS-00124493725.png",
-    "verified": true,
-    "_search_term": "경성사범학교",
-    "_issued_date": "19371216",
-    "_news_position": "02"
-  },
-  {
-    "content_id": "CNTS-00129248049",
-    "date": "1938-01-21",
-    "title": "경성사범학교では내る이십구일",
-    "title_original": "京城師範學校では來る二十九日",
-    "newspaper": "경성일보",
-    "era": "경성사범",
-    "school_name": "경성사범학교",
-    "summary": "",
-    "keywords": [
-      "京城師範學校"
-    ],
-    "url": "https://nl.go.kr/newspaper/detail.do?content_id=CNTS-00129248049",
-    "thumbnail": "data/thumbnails/CNTS-00129248049.png",
-    "verified": true,
-    "_search_term": "경성사범학교",
-    "_issued_date": "19380121",
-    "_news_position": "02"
-  },
-  {
     "content_id": "CNTS-00129258262",
     "date": "1938-02-26",
     "title": "입학시험の문제, 경성사범학교【1】",
@@ -2383,7 +1719,8 @@
     "verified": true,
     "_search_term": "경성사범학교",
     "_issued_date": "19380302",
-    "_news_position": "04"
+    "_news_position": "04",
+    "_cluster": "C0050"
   },
   {
     "content_id": "CNTS-00129260314",
@@ -2402,7 +1739,8 @@
     "verified": true,
     "_search_term": "경성사범학교",
     "_issued_date": "19380305",
-    "_news_position": "04"
+    "_news_position": "04",
+    "_cluster": "C0050"
   },
   {
     "content_id": "CNTS-00129261063",
@@ -2421,7 +1759,8 @@
     "verified": true,
     "_search_term": "경성사범학교",
     "_issued_date": "19380308",
-    "_news_position": "04"
+    "_news_position": "04",
+    "_cluster": "C0051"
   },
   {
     "content_id": "CNTS-00129261328",
@@ -2443,96 +1782,8 @@
     "verified": true,
     "_search_term": "경성사범학교",
     "_issued_date": "19380309",
-    "_news_position": "04"
-  },
-  {
-    "content_id": "CNTS-00124674035",
-    "date": "1938-07-21",
-    "title": "경성사범학교근노보국대いよいよ활동개시",
-    "title_original": "京城師範學校勤勞報國隊いよいよ活動開始",
-    "newspaper": "조선신문",
-    "era": "경성사범",
-    "school_name": "경성사범학교",
-    "summary": "",
-    "keywords": [
-      "京城師範學校勤勞報國隊"
-    ],
-    "url": "https://nl.go.kr/newspaper/detail.do?content_id=CNTS-00124674035",
-    "thumbnail": "data/thumbnails/CNTS-00124674035.png",
-    "verified": true,
-    "_search_term": "경성사범학교",
-    "_issued_date": "19380721",
-    "_news_position": "07"
-  },
-  {
-    "content_id": "CNTS-00124785240",
-    "date": "1939-02-22",
-    "title": "경성사범학교입학시험문제",
-    "title_original": "京城師範學校入學試驗問題",
-    "newspaper": "조선신문",
-    "era": "경성사범",
-    "school_name": "경성사범학교",
-    "summary": "",
-    "keywords": [],
-    "url": "https://nl.go.kr/newspaper/detail.do?content_id=CNTS-00124785240",
-    "thumbnail": "data/thumbnails/CNTS-00124785240.png",
-    "verified": true,
-    "_search_term": "경성사범학교",
-    "_issued_date": "19390222",
-    "_news_position": "03"
-  },
-  {
-    "content_id": "CNTS-00124785550",
-    "date": "1939-02-23",
-    "title": "경성사범학교입학시험문제",
-    "title_original": "京城師範學校入學試驗問題",
-    "newspaper": "조선신문",
-    "era": "경성사범",
-    "school_name": "경성사범학교",
-    "summary": "",
-    "keywords": [],
-    "url": "https://nl.go.kr/newspaper/detail.do?content_id=CNTS-00124785550",
-    "thumbnail": "data/thumbnails/CNTS-00124785550.png",
-    "verified": true,
-    "_search_term": "경성사범학교",
-    "_issued_date": "19390223",
-    "_news_position": "03"
-  },
-  {
-    "content_id": "CNTS-00094946518",
-    "date": "1939-03-04",
-    "title": "경성사범학교 보통과합격자",
-    "title_original": "京城師範學校 普通科合格者",
-    "newspaper": "매일신보",
-    "era": "경성사범",
-    "school_name": "경성사범학교",
-    "summary": "경성사범학교 보통과 합격자 발표.",
-    "keywords": [],
-    "url": "https://nl.go.kr/newspaper/detail.do?content_id=CNTS-00094946518",
-    "thumbnail": "data/thumbnails/CNTS-00094946518.png",
-    "verified": true,
-    "_search_term": "경성사범학교",
-    "_issued_date": "19390304",
-    "_news_position": "02"
-  },
-  {
-    "content_id": "CNTS-00114939799",
-    "date": "1939-12-17",
-    "title": "관립진주사범학교강습과생도모집, 사무は경성사범で",
-    "title_original": "官立晋州師範學校講習科生徒募集, 事務は京城師範で",
-    "newspaper": "조선시보",
-    "era": "경성사범",
-    "school_name": "경성사범학교",
-    "summary": "",
-    "keywords": [
-      "官立晋州師範學校"
-    ],
-    "url": "https://nl.go.kr/newspaper/detail.do?content_id=CNTS-00114939799",
-    "thumbnail": "data/thumbnails/CNTS-00114939799.png",
-    "verified": true,
-    "_search_term": "경성사범학교",
-    "_issued_date": "19391217",
-    "_news_position": "03"
+    "_news_position": "04",
+    "_cluster": "C0051"
   },
   {
     "content_id": "CNTS-00124971138",
@@ -2552,7 +1803,8 @@
     "verified": true,
     "_search_term": "경성사범학교",
     "_issued_date": "19400214",
-    "_news_position": "03"
+    "_news_position": "03",
+    "summary2": "경성사범학교 도변(渡邊) 교장에 관한 학교 이야기 연재 기사다. 학교의 인물과 일화를 다룬 내용으로 보인다."
   },
   {
     "content_id": "CNTS-00124992132",
@@ -2580,360 +1832,8 @@
     "verified": true,
     "_search_term": "경성사범학교",
     "_issued_date": "19400421",
-    "_news_position": "02"
-  },
-  {
-    "content_id": "CNTS-00125135806",
-    "date": "1940-07-18",
-    "title": "광고, 경성사범학교교유종육위",
-    "title_original": "광고, 京城師範學校敎諭從六位",
-    "newspaper": "조선신문",
-    "era": "경성사범",
-    "school_name": "경성사범학교",
-    "summary": "",
-    "keywords": [
-      "日笠護"
-    ],
-    "url": "https://nl.go.kr/newspaper/detail.do?content_id=CNTS-00125135806",
-    "thumbnail": "data/thumbnails/CNTS-00125135806.png",
-    "verified": true,
-    "_search_term": "경성사범학교",
-    "_issued_date": "19400718",
-    "_news_position": "02"
-  },
-  {
-    "content_id": "CNTS-00130068511",
-    "date": "1940-07-18",
-    "title": "광고, 경성사범학교교유종육위일립",
-    "title_original": "광고, 京城師範學校敎諭從六位日笠",
-    "newspaper": "경성일보",
-    "era": "경성사범",
-    "school_name": "경성사범학교",
-    "summary": "",
-    "keywords": [
-      "日笠護"
-    ],
-    "url": "https://nl.go.kr/newspaper/detail.do?content_id=CNTS-00130068511",
-    "thumbnail": "data/thumbnails/CNTS-00130068511.png",
-    "verified": true,
-    "_search_term": "경성사범학교",
-    "_issued_date": "19400718",
-    "_news_position": "02"
-  },
-  {
-    "content_id": "CNTS-00095054628",
-    "date": "1940-11-23",
-    "title": "경성사범교학예회",
-    "title_original": "京城師範校學藝會",
-    "newspaper": "매일신보",
-    "era": "경성사범",
-    "school_name": "경성사범학교",
-    "summary": "",
-    "keywords": [
-      "경성사범학교"
-    ],
-    "url": "https://nl.go.kr/newspaper/detail.do?content_id=CNTS-00095054628",
-    "thumbnail": "data/thumbnails/CNTS-00095054628.png",
-    "verified": true,
-    "_search_term": "경성사범학교",
-    "_issued_date": "19401123",
-    "_news_position": "02"
-  },
-  {
-    "content_id": "CNTS-00095068564",
-    "date": "1941-02-14",
-    "title": "˝좁은문˝에 전초전-오늘부터 경성사범학교 입학시험-5대1",
-    "title_original": "˝좁은門˝에 戰哨戰-오늘부터 京城師範學校 入學試驗-5對1",
-    "newspaper": "매일신보",
-    "era": "경성사범",
-    "school_name": "경성사범학교",
-    "summary": "'좁은 문' 경성사범학교 입학시험이 5대 1의 경쟁률로 시작됐음을 전한다.",
-    "keywords": [
-      "경성사범학교(京城師範學校 )"
-    ],
-    "url": "https://nl.go.kr/newspaper/detail.do?content_id=CNTS-00095068564",
-    "thumbnail": "data/thumbnails/CNTS-00095068564.png",
-    "verified": true,
-    "_search_term": "경성사범학교",
-    "_issued_date": "19410214",
-    "_news_position": "02"
-  },
-  {
-    "content_id": "CNTS-00095069238",
-    "date": "1941-02-17",
-    "title": "국어란-금년도 입학시험문제-경성사범학교",
-    "title_original": "國語欄-今年度 入學試驗問題-京城師範學校",
-    "newspaper": "매일신보",
-    "era": "경성사범",
-    "school_name": "경성사범학교",
-    "summary": "",
-    "keywords": [],
-    "url": "https://nl.go.kr/newspaper/detail.do?content_id=CNTS-00095069238",
-    "thumbnail": "data/thumbnails/CNTS-00095069238.png",
-    "verified": true,
-    "_search_term": "경성사범학교",
-    "_issued_date": "19410217",
-    "_news_position": "04"
-  },
-  {
-    "content_id": "CNTS-00095069308",
-    "date": "1941-02-18",
-    "title": "국어란-금년도입학시험문제-경성사범학교",
-    "title_original": "國語欄-今年度入學試驗問題-京城師範學校",
-    "newspaper": "매일신보",
-    "era": "경성사범",
-    "school_name": "경성사범학교",
-    "summary": "",
-    "keywords": [],
-    "url": "https://nl.go.kr/newspaper/detail.do?content_id=CNTS-00095069308",
-    "thumbnail": "data/thumbnails/CNTS-00095069308.png",
-    "verified": true,
-    "_search_term": "경성사범학교",
-    "_issued_date": "19410218",
-    "_news_position": "04"
-  },
-  {
-    "content_id": "CNTS-00095069536",
-    "date": "1941-02-19",
-    "title": "쌍협에 홍조 팔백처녀수난의 문-1대6.7 여사심상과시험",
-    "title_original": "双頰에 紅潮 八百處女水難의 門-1對6.7 女師尋常科試驗",
-    "newspaper": "매일신보",
-    "era": "경성사범",
-    "school_name": "경성여자사범학교",
-    "summary": "경성여자사범학교 심상과 입학시험 소식 — 1대 6.7의 경쟁. 심상과는 뒷날 부속중학교로 이어지는 직접 전신이다.",
-    "keywords": [
-      "경성여자사범학교"
-    ],
-    "url": "https://nl.go.kr/newspaper/detail.do?content_id=CNTS-00095069536",
-    "thumbnail": "data/thumbnails/CNTS-00095069536.png",
-    "verified": true,
-    "_search_term": "경성여자사범학교",
-    "_issued_date": "19410219",
-    "_news_position": "02"
-  },
-  {
-    "content_id": "CNTS-00095069490",
-    "date": "1941-02-19",
-    "title": "국어란-금년도입학시험문제-경성사범학교 3",
-    "title_original": "國語欄-今年度入學試驗問題-京城師範學校 3",
-    "newspaper": "매일신보",
-    "era": "경성사범",
-    "school_name": "경성사범학교",
-    "summary": "",
-    "keywords": [],
-    "url": "https://nl.go.kr/newspaper/detail.do?content_id=CNTS-00095069490",
-    "thumbnail": "data/thumbnails/CNTS-00095069490.png",
-    "verified": true,
-    "_search_term": "경성사범학교",
-    "_issued_date": "19410219",
-    "_news_position": "04"
-  },
-  {
-    "content_id": "CNTS-00095071602",
-    "date": "1941-03-02",
-    "title": "합격자-경성녀자사범학교-경성사범학교",
-    "title_original": "合格者-京城女子師範學校-京城師範學校",
-    "newspaper": "매일신보",
-    "era": "경성사범",
-    "school_name": "경성사범학교",
-    "summary": "",
-    "keywords": [],
-    "url": "https://nl.go.kr/newspaper/detail.do?content_id=CNTS-00095071602",
-    "thumbnail": "data/thumbnails/CNTS-00095071602.png",
-    "verified": true,
-    "_search_term": "경성사범학교",
-    "_issued_date": "19410302",
-    "_news_position": "02"
-  },
-  {
-    "content_id": "CNTS-00125282954",
-    "date": "1941-03-02",
-    "title": "おめでたう, 경성사범학교입시합격자",
-    "title_original": "おめでたう, 京城師範學校入試合格者",
-    "newspaper": "조선신문",
-    "era": "경성사범",
-    "school_name": "경성사범학교",
-    "summary": "",
-    "keywords": [
-      "青木正吉",
-      "秋山豊",
-      "朝原昭道",
-      "雨宮得二",
-      "泉龍平",
-      "岩本剛",
-      "今井弘",
-      "池田昭三",
-      "井上彦",
-      "稻垣昭正",
-      "井上昭雄",
-      "市川洋",
-      "上田市夫",
-      "上野一昭",
-      "植田康夫",
-      "江南彰夫",
-      "江田裕英",
-      "大森章弘",
-      "小川全明",
-      "大友竹雄",
-      "大仁田慶二",
-      "太田修"
-    ],
-    "url": "https://nl.go.kr/newspaper/detail.do?content_id=CNTS-00125282954",
-    "thumbnail": "data/thumbnails/CNTS-00125282954.png",
-    "verified": true,
-    "_search_term": "경성사범학교",
-    "_issued_date": "19410302",
-    "_news_position": "02"
-  },
-  {
-    "content_id": "CNTS-00095168094",
-    "date": "1943-02-16",
-    "title": "12대1의 격전전개 ˝좁은문˝ 경사입시부터 개시",
-    "title_original": "12對1의 激戰展開 ˝좁은門˝ 京師入試부터 開始",
-    "newspaper": "매일신보",
-    "era": "경성사범",
-    "school_name": "경성사범학교",
-    "summary": "12대 1의 격전으로 시작된 경성사범학교 입시 소식.",
-    "keywords": [
-      "경성사범학교"
-    ],
-    "url": "https://nl.go.kr/newspaper/detail.do?content_id=CNTS-00095168094",
-    "thumbnail": "data/thumbnails/CNTS-00095168094.png",
-    "verified": true,
-    "_search_term": "경성사범학교",
-    "_issued_date": "19430216",
-    "_news_position": "02"
-  },
-  {
-    "content_id": "CNTS-00095171794",
-    "date": "1943-03-19",
-    "title": "각 학교 합격자 발표 - 경성사범학교(이년제예과)",
-    "title_original": "各 學校 合格者 發表 - 京城師範學校(二年制豫科)",
-    "newspaper": "매일신보",
-    "era": "경성사범",
-    "school_name": "경성사범학교",
-    "summary": "",
-    "keywords": [
-      "阿比留芳之",
-      "靑木茂光",
-      "靑木尙洙",
-      "東谷允敬",
-      "伊原慶雲",
-      "稻尾昭四郞",
-      "稻村信夫",
-      "今林隆",
-      "東口績",
-      "遠藤昭彦",
-      "小川仙太郞",
-      "大岡宗世",
-      "太田博",
-      "大野勇",
-      "小野泰雄",
-      "算良一郞",
-      "加藤輝夫",
-      "川野尙雄",
-      "川本肇",
-      "河村吉春",
-      "金丸賢光",
-      "菊池隼士",
-      "木村健治",
-      "黑原賢一",
-      "五藤貢",
-      "佐藤喜四雄",
-      "鹽川謙二",
-      "淸水凡平",
-      "進藤英通",
-      "鈴木裕",
-      "田上友士",
-      "鶴岡忠",
-      "德田登",
-      "中出治夫",
-      "中村勉",
-      "長坂義男",
-      "橋本敬三",
-      "平野實",
-      "帆足信",
-      "前田農祐",
-      "匡平泰浩",
-      "松村常雄",
-      "丸山立美",
-      "三谷和雄",
-      "村上寬",
-      "村田敏",
-      "木達二",
-      "森近弘之",
-      "八杉健二",
-      "安本智行",
-      "山崎幸作",
-      "山田辰夫",
-      "吉國美代治",
-      "佳村聲讚",
-      "渡邊幸一"
-    ],
-    "url": "https://nl.go.kr/newspaper/detail.do?content_id=CNTS-00095171794",
-    "thumbnail": "data/thumbnails/CNTS-00095171794.png",
-    "verified": true,
-    "_search_term": "경성사범학교",
-    "_issued_date": "19430319",
-    "_news_position": "02"
-  },
-  {
-    "content_id": "CNTS-00132163126",
-    "date": "1943-04-23",
-    "title": "웃고 바들 위문대, 경성여사생이 손수 맨든 칠십일개",
-    "title_original": "웃고 바들 慰問袋, 京城女師生이 손수 맨든 七十一個",
-    "newspaper": "매일신보",
-    "era": "경성사범",
-    "school_name": "경성여자사범학교",
-    "summary": "경성여자사범학교 학생들이 손수 만든 위문대 칠십여 개를 보냈다는 전시(戰時) 동원 기사.",
-    "keywords": [
-      "盛頭正",
-      "경성여자사범학교"
-    ],
-    "url": "https://nl.go.kr/newspaper/detail.do?content_id=CNTS-00132163126",
-    "thumbnail": "data/thumbnails/CNTS-00132163126.png",
-    "verified": true,
-    "_search_term": "경성여자사범학교",
-    "_issued_date": "19430423",
-    "_news_position": "04"
-  },
-  {
-    "content_id": "CNTS-00115080635",
-    "date": "1944-01-16",
-    "title": "유가족 여교원 지망자, 경성사범학교에서 구함",
-    "title_original": "유가족 여교원 지망자, 경성사범학교에서 구함",
-    "newspaper": "부산일보",
-    "era": "경성사범",
-    "school_name": "경성사범학교",
-    "summary": "",
-    "keywords": [
-      "경성"
-    ],
-    "url": "https://nl.go.kr/newspaper/detail.do?content_id=CNTS-00115080635",
-    "thumbnail": "data/thumbnails/CNTS-00115080635.png",
-    "verified": true,
-    "_search_term": "경성사범학교",
-    "_issued_date": "19440116",
-    "_news_position": "02"
-  },
-  {
-    "content_id": "CNTS-00130757705",
-    "date": "1945-05-02",
-    "title": "광고, 도기손이(경성사범학교교수)의예て병기요양중の처사월삼십",
-    "title_original": "광고, 嶋崎孫二(京城師範學校敎授)儀豫て病氣療養中の處四月三十",
-    "newspaper": "경성일보",
-    "era": "경성사범",
-    "school_name": "경성사범학교",
-    "summary": "",
-    "keywords": [
-      "嶋崎孫二"
-    ],
-    "url": "https://nl.go.kr/newspaper/detail.do?content_id=CNTS-00130757705",
-    "thumbnail": "data/thumbnails/CNTS-00130757705.png",
-    "verified": true,
-    "_search_term": "경성사범학교",
-    "_issued_date": "19450502",
-    "_news_position": "02"
+    "_news_position": "02",
+    "summary2": "경성사범학교 특별강습과 합격자에 관한 기사다. 강습과 입시 합격 소식을 전한다."
   },
   {
     "content_id": "CNTS-00132518014",
@@ -2950,7 +1850,9 @@
     "verified": true,
     "_search_term": "경성사범학교",
     "_issued_date": "19451012",
-    "_news_position": "01"
+    "_news_position": "01",
+    "_cluster": "C0088",
+    "summary2": "광복 직후 경성사범학교가 보결생을 모집한다는 내용의 광고다. 본교의 전신인 경성사범학교 학생 모집 관련 자료다."
   },
   {
     "content_id": "CNTS-00132518094",
@@ -2967,7 +1869,8 @@
     "verified": true,
     "_search_term": "경성사범학교",
     "_issued_date": "19451013",
-    "_news_position": "01"
+    "_news_position": "01",
+    "_cluster": "C0088"
   },
   {
     "content_id": "CNTS-00065287840",
@@ -2986,7 +1889,8 @@
     "verified": true,
     "_search_term": "경성사범학교",
     "_issued_date": "19460328",
-    "_news_position": "01"
+    "_news_position": "01",
+    "summary2": "광복 직후 경성사범학교와 관련된 중앙신문 광고다. 본교 전신 경성사범학교 관련 자료다."
   },
   {
     "content_id": "CNTS-00133397256",
@@ -3005,7 +1909,9 @@
     "verified": true,
     "_search_term": "사범대학 부속중학교",
     "_issued_date": "19460608",
-    "_news_position": "02"
+    "_news_position": "02",
+    "_cluster": "C0090",
+    "summary2": "광복 직후 경성사범대학 부속중학교의 신입생 모집 요항을 담은 광고다. 현 서울사대부고의 전신인 부속중학교 설립기 자료다."
   },
   {
     "content_id": "CNTS-00065297767",
@@ -3027,7 +1933,9 @@
     "_news_position": "01",
     "_also_terms": [
       "사범대학 부속중학교"
-    ]
+    ],
+    "_cluster": "C0090",
+    "summary2": "경성사범대학 부속중학교가 생도를 모집한다는 중앙신문 광고다. 1946년 9월 서울대 사범대 부속중학교로 이어지는 본교의 직접적인 전신 자료다."
   },
   {
     "content_id": "CNTS-00115167766",
@@ -3046,7 +1954,8 @@
     "verified": true,
     "_search_term": "경성사범학교",
     "_issued_date": "19460708",
-    "_news_position": "02"
+    "_news_position": "02",
+    "summary2": "경성사범학교 체육연구회가 주관하는 체육무용 강습회 관련 자료다. 본교 전신 경성사범학교의 교육 행사 자료다."
   },
   {
     "content_id": "CNTS-00113759045",
@@ -3067,7 +1976,8 @@
     "verified": true,
     "_search_term": "사대부중",
     "_issued_date": "19480919",
-    "_news_position": "02"
+    "_news_position": "02",
+    "summary2": "남녀공학을 둘러싼 갈등기에 사대부중에서 학생들 간 충돌이 일어나 무장경관까지 출동하는 불상사가 발생했다. 본교 내부의 분쟁 상황을 전하는 보도다."
   },
   {
     "content_id": "CNTS-00088016404",
@@ -3084,7 +1994,8 @@
     "verified": true,
     "_search_term": "사대부중",
     "_issued_date": "19480928",
-    "_news_position": "02"
+    "_news_position": "02",
+    "summary2": "사대부중이 남녀공학을 시행하면서 빚어진 파장을 다룬 기사다. 본교의 남녀공학 도입이 이변으로 받아들여진 상황을 전한다."
   },
   {
     "content_id": "CNTS-00133623780",
@@ -3101,7 +2012,8 @@
     "verified": true,
     "_search_term": "사대부중",
     "_issued_date": "19480928",
-    "_news_position": "03"
+    "_news_position": "03",
+    "summary2": "사대부중 학부형들이 남녀공학 폐지를 요구하며 진정에 나섰다는 보도다. 본교의 남녀공학 시행에 대한 학부모들의 반발을 전한다."
   },
   {
     "content_id": "CNTS-00114967424",
@@ -3121,7 +2033,8 @@
     "_news_position": "02",
     "_also_terms": [
       "사대부중"
-    ]
+    ],
+    "summary2": "사대부중 학부형들이 남녀공학제 폐지를 건의했다는 보도다. 본교의 남녀공학 시행에 대한 학부모들의 폐지 요구를 전한다."
   },
   {
     "content_id": "CNTS-00088021236",
@@ -3138,7 +2051,8 @@
     "verified": true,
     "_search_term": "경성사범학교",
     "_issued_date": "19481013",
-    "_news_position": "02"
+    "_news_position": "02",
+    "summary2": "경성사범학교의 교사(校舍) 이전 사실을 전하는 기사다. 본교 계통 학교의 시설 이전 소식을 보도한다."
   },
   {
     "content_id": "CNTS-00088037963",
@@ -3155,7 +2069,8 @@
     "verified": true,
     "_search_term": "사대부중",
     "_issued_date": "19481215",
-    "_news_position": "02"
+    "_news_position": "02",
+    "summary2": "사대부중 기독학생회가 모은 성금을 신문사에 기탁했다는 소식이다. 본교 학생들의 의연 활동을 전하는 기사다."
   },
   {
     "content_id": "CNTS-00069070187",
@@ -3177,7 +2092,8 @@
     "verified": true,
     "_search_term": "사대부중",
     "_issued_date": "19490227",
-    "_news_position": "04"
+    "_news_position": "04",
+    "summary2": "'학원 순례' 연재로 사대부중을 소개하며 남녀공학 시험실과 창립 초기의 일화를 다룬 기사다. 본교의 남녀공학 운영과 설립 초기 모습을 전한다."
   },
   {
     "content_id": "CNTS-00069083141",
@@ -3199,7 +2115,8 @@
     "_news_position": "03",
     "_also_terms": [
       "사범대학 부속중학교"
-    ]
+    ],
+    "_cluster": "C0091"
   },
   {
     "content_id": "CNTS-00069083385",
@@ -3221,7 +2138,8 @@
     "_news_position": "01",
     "_also_terms": [
       "사범대학 부속중학교"
-    ]
+    ],
+    "_cluster": "C0091"
   },
   {
     "content_id": "CNTS-00115215409",
@@ -3240,7 +2158,8 @@
     "verified": true,
     "_search_term": "사대부중",
     "_issued_date": "19491222",
-    "_news_position": "02"
+    "_news_position": "02",
+    "summary2": "사대부중 학생들이 국방헌금으로 비행기를 헌납하기 위한 모금에 나섰다는 보도다. 본교 학생들의 애국 기금 헌납 활동을 다루고 있다."
   },
   {
     "content_id": "CNTS-00069189960",
@@ -3260,7 +2179,8 @@
     "verified": true,
     "_search_term": "사대부중",
     "_issued_date": "19491222",
-    "_news_position": "02"
+    "_news_position": "02",
+    "summary2": "'학생호' 헌납 모금에 사대부중도 동참해 칠만 원을 모았다는 소식이다. 본교 학생들의 국방헌금 참여 사실을 전한다."
   },
   {
     "content_id": "CNTS-00108821358",
@@ -3279,7 +2199,8 @@
     "verified": true,
     "_search_term": "사대부중",
     "_issued_date": "19491223",
-    "_news_position": "02"
+    "_news_position": "02",
+    "summary2": "국방헌금 분위기 속에서 사대부중이 칠만 원을 모금했다는 보도다. 본교 학생들의 비행기 헌납 모금 활동을 다룬다."
   },
   {
     "content_id": "CNTS-00133929643",
@@ -3302,7 +2223,8 @@
     "_news_position": "02",
     "_also_terms": [
       "사대부중"
-    ]
+    ],
+    "summary2": "1951년 한국전쟁 중에 게재된 서울사대부중 학생 박승준 관련 광고다. 본교 학생을 직접 언급하고 있다."
   },
   {
     "content_id": "CNTS-00133931696",
@@ -3324,7 +2246,8 @@
     "_news_position": "01",
     "_also_terms": [
       "사범대학 부속중학교"
-    ]
+    ],
+    "summary2": "한국전쟁 와중에 실린 국립서울대학교 사범대학 부속중학교의 학생 모집 요항 광고다. 본교의 전시 신입생 모집 사실을 보여주는 자료다."
   },
   {
     "content_id": "CNTS-00133986719",
@@ -3345,7 +2268,8 @@
     "verified": true,
     "_search_term": "사대부고",
     "_issued_date": "19521030",
-    "_news_position": "02"
+    "_news_position": "02",
+    "summary2": "세계청년토론회에 사대부고 학생 이 군이 참가했다는 소식이다. 본교 학생의 국제 행사 참가 사실을 전한다."
   },
   {
     "content_id": "CNTS-00131839893",
@@ -3368,7 +2292,8 @@
     "_news_position": "01",
     "_also_terms": [
       "사범대학 부속고등학교"
-    ]
+    ],
+    "summary2": "중·고 분리 이후 '서울대학교 사범대학 부속고등학교'라는 명칭이 등장하는 광고 자료다. 본교의 명칭 변천을 확인할 수 있는 기록이다."
   },
   {
     "content_id": "CNTS-00132178209",
@@ -3390,7 +2315,8 @@
     "_news_position": "03",
     "_also_terms": [
       "사대부중"
-    ]
+    ],
+    "summary2": "치열한 중학교 입시 경쟁을 다루면서 서울사대부중을 으뜸가는 좁은 문으로 소개한 보도다. 당시 명문으로 꼽히던 부속중학교의 높은 입학 경쟁률을 조명하고 있다."
   },
   {
     "content_id": "CNTS-00132184425",
@@ -3415,7 +2341,8 @@
     "_news_position": "03",
     "_also_terms": [
       "사대부고"
-    ]
+    ],
+    "summary2": "신임 교장 부임을 받아들일 수 없다며 서울사대부고 학생들이 동맹휴학에 들어간 사건을 보도했다. 교장 인사에 반발한 학생들의 집단행동을 다루고 있다."
   },
   {
     "content_id": "CNTS-00132342286",
@@ -3437,6 +2364,7 @@
     "_news_position": "04",
     "_also_terms": [
       "사대부고"
-    ]
+    ],
+    "summary2": "지상 과학전 연재에서 서울사대부고 화학반의 연구 작품이 소개되었다. 화학 실험을 소형화한 시도를 다룬 출품작이었다."
   }
 ]

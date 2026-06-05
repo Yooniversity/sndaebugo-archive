@@ -9,3 +9,5 @@ tools/_class_out/
 # OS
 .DS_Store
 Thumbs.db
+tools/_class_input_all.jsonl
+tools/_class_out2/
