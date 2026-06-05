@@ -396,7 +396,9 @@ function itemEl(r, yearLabel, subs) {
 
   const hasSubs = subs && subs.length;
   const subLabel = (open) =>
-    `${open ? "▾" : "▸"} 같은 사건 관련 보도 ${subs.length}건 ${open ? "접기" : "더보기"}`;
+    `${open ? "▾" : "▸"} 비슷한 시기 같은 주제 ${subs.length}건 ${open ? "접기" : "더보기"}`;
+  const subMeta = (m) =>
+    m._source === "naver" && m.viewCount ? `조회 ${m.viewCount}` : (m.date || "");
   const subHtml = hasSubs
     ? `<button type="button" class="cluster-toggle" aria-expanded="false">${subLabel(false)}</button>` +
       `<div class="sub-articles" hidden>${subs
@@ -405,7 +407,7 @@ function itemEl(r, yearLabel, subs) {
             `<button type="button" class="subitem" data-cid="${m.content_id}">` +
             `<span class="sub-paper">${escapeHtml(m.newspaper || "")}</span>` +
             `<span class="sub-title">${escapeHtml(m.title || "")}</span>` +
-            `<span class="sub-vc">조회 ${m.viewCount || 0}</span></button>`
+            `<span class="sub-vc">${escapeHtml(subMeta(m))}</span></button>`
         )
         .join("")}</div>`
     : "";
