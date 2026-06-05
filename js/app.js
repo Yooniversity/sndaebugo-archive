@@ -526,10 +526,17 @@ function setupModal() {
   $("#c-restore").addEventListener("click", restoreCurrent);
   $("#c-fav").addEventListener("click", favoriteCurrent);
   $("#m-star").addEventListener("click", starCurrent);
+  // 위임 + 각 버튼 직접 바인딩(이중 안전)
   $("#m-classify").addEventListener("click", (ev) => {
     const b = ev.target.closest("[data-cls]");
     if (b) classifyCurrent(b.dataset.cls);
   });
+  document.querySelectorAll("#m-classify .cls-btn").forEach((b) =>
+    b.addEventListener("click", (ev) => {
+      ev.stopPropagation();
+      classifyCurrent(b.dataset.cls);
+    })
+  );
   $("#tag-input").addEventListener("keydown", (ev) => {
     if (ev.key !== "Enter" || !curRec) return;
     ev.preventDefault();
@@ -559,6 +566,7 @@ function openModal(r) {
   link.href = r.url;
   link.textContent = r.url || "";
   renderStar(r);
+  setClassifyMsg("");
   renderClassify(r);
   renderTags(r);
   renderCurate(r);
@@ -633,14 +641,24 @@ function renderClassify(r) {
   );
 }
 
+function setClassifyMsg(t) {
+  const el = $("#m-classify-msg");
+  if (el) el.textContent = t;
+}
+
 async function classifyCurrent(target) {
-  if (!curRec || !API_OK) return;
+  if (!curRec) return;
+  if (!API_OK) {
+    setClassifyMsg("로컬 검수 서버에서만 분류할 수 있습니다.");
+    return;
+  }
   const cid = curRec.content_id;
   const isV = VERIFIED_IDS.has(cid);
   const isR = REJECTED_IDS.has(cid);
+  setClassifyMsg("이동 중…");
   try {
     if (target === "featured") {
-      if (isV) return;
+      if (isV) return setClassifyMsg("이미 검수완료입니다.");
       const j = await postJSON("/api/promote", {
         content_id: cid,
         era: ERA_ORDER.includes(curRec.era) ? curRec.era : "부속고",
@@ -648,14 +666,14 @@ async function classifyCurrent(target) {
         summary: curRec.summary || "",
       });
       applyPromotion(j.record);
-      setCurMsg("✓ 검수완료로 이동했습니다.");
+      setClassifyMsg("✓ 검수완료로 이동했습니다.");
     } else if (target === "rejected") {
-      if (isR) return;
+      if (isR) return setClassifyMsg("이미 관련없음입니다.");
       await postJSON("/api/reject", { content_id: cid });
       applyReject(cid);
-      setCurMsg("✓ 관련없음으로 이동했습니다.");
+      setClassifyMsg("✓ 관련없음으로 이동했습니다.");
     } else {
-      // 전체 후보 = 검수완료/관련없음 어느 쪽도 아님
+      if (!isV && !isR) return setClassifyMsg("이미 전체 후보입니다.");
       if (isV) {
         await postJSON("/api/demote", { content_id: cid });
         applyDemotion(cid);
@@ -663,12 +681,12 @@ async function classifyCurrent(target) {
         await postJSON("/api/unreject", { content_id: cid });
         applyRestore(cid);
       }
-      setCurMsg("✓ 전체 후보로 이동했습니다.");
+      setClassifyMsg("✓ 전체 후보로 이동했습니다.");
     }
     renderClassify(curRec);
     renderStar(curRec);
   } catch (e) {
-    setCurMsg("분류 실패: " + e.message);
+    setClassifyMsg("분류 실패: " + e.message);
   }
 }
 

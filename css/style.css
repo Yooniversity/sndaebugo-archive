@@ -254,6 +254,7 @@ a { color: var(--ink); text-underline-offset: 2px; }
 }
 .cls-btn:hover { border-color: var(--ink); color: var(--ink); }
 .cls-btn.on { background: var(--ink); border-color: var(--ink); color: #fff; }
+.classify-msg { font-size: .8rem; color: var(--gold); margin-left: 4px; }
 /* 태그 */
 .m-tagrow { display: flex; align-items: center; flex-wrap: wrap; gap: 7px; margin: 0 0 16px; }
 .tagrow-label { font-size: .78rem; font-weight: 700; color: var(--muted); }
