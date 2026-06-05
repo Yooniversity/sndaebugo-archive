@@ -175,6 +175,7 @@ a { color: var(--ink); text-underline-offset: 2px; }
 .badge.era-부설고 { color: var(--ink); }
 .badge.paper { color: var(--muted); }
 .badge.date { color: var(--muted); font-variant-numeric: tabular-nums; }
+.badge.source { color: #b3b3b3; }
 .badge.featured,
 .badge.fav { color: var(--ink); }
 .card.is-fav { box-shadow: none; }
@@ -204,7 +205,8 @@ a { color: var(--ink); text-underline-offset: 2px; }
 .m-sub { margin: 0 0 16px; color: var(--muted); font-size: .88rem; }
 #m-img { width: 100%; border: 1px solid var(--line); border-radius: 0; background: #f2f2f2; }
 .m-summary { margin: 16px 0 8px; line-height: 1.7; }
-.m-keywords { margin: 0 0 20px; font-size: .84rem; color: var(--muted); }
+.m-keywords { margin: 0 0 10px; font-size: .84rem; color: var(--muted); }
+.m-source { margin: 0 0 16px; font-size: .82rem; color: var(--muted); }
 .btn {
   display: inline-block; background: var(--ink); color: #fff; text-decoration: none;
   padding: 12px 18px; border-radius: 2px; font-weight: 600; font-size: .92rem;

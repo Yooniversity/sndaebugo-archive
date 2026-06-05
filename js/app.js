@@ -29,6 +29,16 @@ const TOPIC_RULES = [
   { key: "학교운영·인사", words: ["교장", "교유", "사령", "인사", "이전", "교사", "예산", "치과", "위생", "교명", "운영"] },
 ];
 
+// 기사별 출처(아카이브 제공처) — content_id/_source 로 판별
+const SOURCES = {
+  naver: { full: "네이버 뉴스 라이브러리", short: "네이버 뉴스 라이브러리" },
+  nl: { full: "국립중앙도서관 대한민국 신문 아카이브", short: "대한민국 신문 아카이브" },
+};
+function sourceOf(r) {
+  const isNaver = r._source === "naver" || (r.content_id || "").startsWith("NAVER-");
+  return isNaver ? SOURCES.naver : SOURCES.nl;
+}
+
 function recordTopics(r) {
   const hay = [r.title, r.title_original, (r.keywords || []).join(" ")].join(" ");
   const out = TOPIC_RULES.filter((t) => t.words.some((w) => hay.includes(w))).map((t) => t.key);
@@ -358,6 +368,7 @@ function itemEl(r, yearLabel) {
           <span class="badge paper">${escapeHtml(r.newspaper || "")}</span>
           <span class="badge era-${r.era}">${ERA_LABEL[r.era] || r.era}</span>
           <span class="badge date">${r.date || "연도 미상"}</span>
+          <span class="badge source">${escapeHtml(sourceOf(r).short)}</span>
         </div>
         <h3>${escapeHtml(r.title)}</h3>
         ${r.title_original && r.title_original !== r.title ? `<p class="orig">${escapeHtml(r.title_original)}</p>` : ""}
@@ -393,8 +404,11 @@ function openModal(r) {
     `${r.date} · ${r.newspaper || ""} · ${r.school_name || ERA_LABEL[r.era] || ""}`;
   $(".m-summary").textContent = r.summary || "";
   $(".m-keywords").textContent = (r.keywords || []).map((k) => "#" + k).join("  ");
+  const src = sourceOf(r);
+  $(".m-source").textContent = `출처: ${src.full}`;
   const link = $("#m-link");
   link.href = r.url;
+  link.textContent = `${src.short}에서 원문 보기 ↗`;
   renderCurate(r);
   modalEl.hidden = false;
   document.body.style.overflow = "hidden";
