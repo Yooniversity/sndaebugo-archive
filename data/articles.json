@@ -67,8 +67,8 @@
     "_search_term": "경성사범학교",
     "_issued_date": "19220510",
     "_news_position": "04",
-    "_cluster": "C0002",
-    "summary2": "경성사범학교 보통과의 입학시험 문제를 소개한 기사다. 이 보통과는 뒷날 부속중학교로 이어지는 직접적인 전신에 해당한다."
+    "summary2": "경성사범학교 보통과의 입학시험 문제를 소개한 기사다. 이 보통과는 뒷날 부속중학교로 이어지는 직접적인 전신에 해당한다.",
+    "_cluster": "C0001"
   },
   {
     "content_id": "CNTS-00094157840",
@@ -86,8 +86,8 @@
     "_search_term": "경성사범학교",
     "_issued_date": "19220511",
     "_news_position": "04",
-    "_cluster": "C0002",
-    "summary2": "경성사범학교 보통과 입학시험 문제를 이어서 실은 기사다. 보통과는 훗날 부속중학교로 연결되는 학교 계통의 출발점이다."
+    "summary2": "경성사범학교 보통과 입학시험 문제를 이어서 실은 기사다. 보통과는 훗날 부속중학교로 연결되는 학교 계통의 출발점이다.",
+    "_cluster": "C0001"
   },
   {
     "content_id": "CNTS-00094179807",
@@ -168,8 +168,8 @@
     "_search_term": "경성사범학교",
     "_issued_date": "19240306",
     "_news_position": "04",
-    "_cluster": "C0004",
-    "summary2": "경성사범학교의 입학시험 문제가 소개되었다. 응시생들이 풀어야 했던 출제 내용을 다룬다."
+    "summary2": "경성사범학교의 입학시험 문제가 소개되었다. 응시생들이 풀어야 했던 출제 내용을 다룬다.",
+    "_cluster": "C0002"
   },
   {
     "content_id": "CNTS-00113727501",
@@ -189,8 +189,8 @@
     "_search_term": "경성사범학교",
     "_issued_date": "19240307",
     "_news_position": "04",
-    "_cluster": "C0004",
-    "summary2": "경성사범학교의 입학시험 문제가 소개되었다. 시험에 출제된 문항 내용을 전한다."
+    "summary2": "경성사범학교의 입학시험 문제가 소개되었다. 시험에 출제된 문항 내용을 전한다.",
+    "_cluster": "C0002"
   },
   {
     "content_id": "CNTS-00094212607",
@@ -886,8 +886,8 @@
     "_search_term": "경성사범학교",
     "_issued_date": "19330110",
     "_news_position": "03",
-    "_cluster": "C0019",
-    "summary2": "경성사범학교 아이스하키부를 다룬 연재 기사의 첫 회로, 영관(우승)을 목표로 하는 팀의 모습을 소개한다."
+    "summary2": "경성사범학교 아이스하키부를 다룬 연재 기사의 첫 회로, 영관(우승)을 목표로 하는 팀의 모습을 소개한다.",
+    "_cluster": "C0005"
   },
   {
     "content_id": "CNTS-00126014038",
@@ -913,8 +913,8 @@
     "_search_term": "경성사범학교",
     "_issued_date": "19330113",
     "_news_position": "03",
-    "_cluster": "C0019",
-    "summary2": "경성사범학교 아이스하키부를 다룬 연재 기사의 제2신으로, 우승을 목표로 하는 팀을 조명한다."
+    "summary2": "경성사범학교 아이스하키부를 다룬 연재 기사의 제2신으로, 우승을 목표로 하는 팀을 조명한다.",
+    "_cluster": "C0005"
   },
   {
     "content_id": "CNTS-00126014987",
@@ -935,8 +935,8 @@
     "_search_term": "경성사범학교",
     "_issued_date": "19330117",
     "_news_position": "03",
-    "_cluster": "C0020",
-    "summary2": "경성사범학교 아이스하키부를 다룬 연재 기사의 제3신으로, 우승을 향한 팀의 활동을 전한다."
+    "summary2": "경성사범학교 아이스하키부를 다룬 연재 기사의 제3신으로, 우승을 향한 팀의 활동을 전한다.",
+    "_cluster": "C0006"
   },
   {
     "content_id": "CNTS-00126015236",
@@ -957,8 +957,8 @@
     "_search_term": "경성사범학교",
     "_issued_date": "19330118",
     "_news_position": "03",
-    "_cluster": "C0020",
-    "summary2": "경성사범학교 아이스하키부를 다룬 연재 기사의 제4신으로, 우승을 목표로 한 팀의 이야기를 이어간다."
+    "summary2": "경성사범학교 아이스하키부를 다룬 연재 기사의 제4신으로, 우승을 목표로 한 팀의 이야기를 이어간다.",
+    "_cluster": "C0006"
   },
   {
     "content_id": "CNTS-00126015508",
@@ -978,8 +978,8 @@
     "_search_term": "경성사범학교",
     "_issued_date": "19330119",
     "_news_position": "03",
-    "_cluster": "C0020",
-    "summary2": "경성사범학교 아이스하키부를 다룬 연재 기사의 제5신으로, 우승을 향한 팀의 행보를 소개한다."
+    "summary2": "경성사범학교 아이스하키부를 다룬 연재 기사의 제5신으로, 우승을 향한 팀의 행보를 소개한다.",
+    "_cluster": "C0006"
   },
   {
     "content_id": "CNTS-00126017455",
@@ -1001,8 +1001,8 @@
     "_search_term": "경성사범학교",
     "_issued_date": "19330127",
     "_news_position": "03",
-    "_cluster": "C0022",
-    "summary2": "경성사범학교 아이스하키부를 다룬 연재 기사로, 우승을 목표로 하는 팀의 활동을 전한다."
+    "summary2": "경성사범학교 아이스하키부를 다룬 연재 기사로, 우승을 목표로 하는 팀의 활동을 전한다.",
+    "_cluster": "C0007"
   },
   {
     "content_id": "CNTS-00126018011",
@@ -1022,8 +1022,8 @@
     "_search_term": "경성사범학교",
     "_issued_date": "19330129",
     "_news_position": "03",
-    "_cluster": "C0022",
-    "summary2": "경성사범학교 아이스하키부를 다룬 연재 기사로, 우승을 향한 팀의 모습을 이어 소개한다."
+    "summary2": "경성사범학교 아이스하키부를 다룬 연재 기사로, 우승을 향한 팀의 모습을 이어 소개한다.",
+    "_cluster": "C0007"
   },
   {
     "content_id": "CNTS-00126018382",
@@ -1209,7 +1209,7 @@
     "_search_term": "경성사범학교",
     "_issued_date": "19350317",
     "_news_position": "02",
-    "_cluster": "C0031"
+    "_cluster": "C0009"
   },
   {
     "content_id": "CNTS-00093581577",
@@ -1268,7 +1268,7 @@
     "_search_term": "경성사범학교",
     "_issued_date": "19350317",
     "_news_position": "02",
-    "_cluster": "C0031"
+    "_cluster": "C0009"
   },
   {
     "content_id": "CNTS-00093583002",
@@ -1338,7 +1338,7 @@
     "_search_term": "경성사범학교",
     "_issued_date": "19350403",
     "_news_position": "03",
-    "_cluster": "C0032"
+    "_cluster": "C0010"
   },
   {
     "content_id": "CNTS-00109117491",
@@ -1358,7 +1358,7 @@
     "_search_term": "경성사범학교",
     "_issued_date": "19350405",
     "_news_position": "03",
-    "_cluster": "C0032"
+    "_cluster": "C0010"
   },
   {
     "content_id": "CNTS-00109117818",
@@ -1378,7 +1378,7 @@
     "_search_term": "경성사범학교",
     "_issued_date": "19350406",
     "_news_position": "03",
-    "_cluster": "C0032"
+    "_cluster": "C0010"
   },
   {
     "content_id": "CNTS-00109118627",
@@ -1398,7 +1398,7 @@
     "_search_term": "경성사범학교",
     "_issued_date": "19350409",
     "_news_position": "03",
-    "_cluster": "C0033"
+    "_cluster": "C0011"
   },
   {
     "content_id": "CNTS-00109118964",
@@ -1418,7 +1418,7 @@
     "_search_term": "경성사범학교",
     "_issued_date": "19350410",
     "_news_position": "03",
-    "_cluster": "C0033"
+    "_cluster": "C0011"
   },
   {
     "content_id": "CNTS-00118286378",
@@ -1720,7 +1720,7 @@
     "_search_term": "경성사범학교",
     "_issued_date": "19380302",
     "_news_position": "04",
-    "_cluster": "C0050"
+    "_cluster": "C0016"
   },
   {
     "content_id": "CNTS-00129260314",
@@ -1740,7 +1740,7 @@
     "_search_term": "경성사범학교",
     "_issued_date": "19380305",
     "_news_position": "04",
-    "_cluster": "C0050"
+    "_cluster": "C0016"
   },
   {
     "content_id": "CNTS-00129261063",
@@ -1760,7 +1760,7 @@
     "_search_term": "경성사범학교",
     "_issued_date": "19380308",
     "_news_position": "04",
-    "_cluster": "C0051"
+    "_cluster": "C0017"
   },
   {
     "content_id": "CNTS-00129261328",
@@ -1783,7 +1783,7 @@
     "_search_term": "경성사범학교",
     "_issued_date": "19380309",
     "_news_position": "04",
-    "_cluster": "C0051"
+    "_cluster": "C0017"
   },
   {
     "content_id": "CNTS-00124971138",
@@ -1851,8 +1851,8 @@
     "_search_term": "경성사범학교",
     "_issued_date": "19451012",
     "_news_position": "01",
-    "_cluster": "C0088",
-    "summary2": "광복 직후 경성사범학교가 보결생을 모집한다는 내용의 광고다. 본교의 전신인 경성사범학교 학생 모집 관련 자료다."
+    "summary2": "광복 직후 경성사범학교가 보결생을 모집한다는 내용의 광고다. 본교의 전신인 경성사범학교 학생 모집 관련 자료다.",
+    "_cluster": "C0020"
   },
   {
     "content_id": "CNTS-00132518094",
@@ -1870,7 +1870,7 @@
     "_search_term": "경성사범학교",
     "_issued_date": "19451013",
     "_news_position": "01",
-    "_cluster": "C0088"
+    "_cluster": "C0020"
   },
   {
     "content_id": "CNTS-00065287840",
@@ -1910,8 +1910,8 @@
     "_search_term": "사범대학 부속중학교",
     "_issued_date": "19460608",
     "_news_position": "02",
-    "_cluster": "C0090",
-    "summary2": "광복 직후 경성사범대학 부속중학교의 신입생 모집 요항을 담은 광고다. 현 서울사대부고의 전신인 부속중학교 설립기 자료다."
+    "summary2": "광복 직후 경성사범대학 부속중학교의 신입생 모집 요항을 담은 광고다. 현 서울사대부고의 전신인 부속중학교 설립기 자료다.",
+    "_cluster": "C0022"
   },
   {
     "content_id": "CNTS-00065297767",
@@ -1934,8 +1934,8 @@
     "_also_terms": [
       "사범대학 부속중학교"
     ],
-    "_cluster": "C0090",
-    "summary2": "경성사범대학 부속중학교가 생도를 모집한다는 중앙신문 광고다. 1946년 9월 서울대 사범대 부속중학교로 이어지는 본교의 직접적인 전신 자료다."
+    "summary2": "경성사범대학 부속중학교가 생도를 모집한다는 중앙신문 광고다. 1946년 9월 서울대 사범대 부속중학교로 이어지는 본교의 직접적인 전신 자료다.",
+    "_cluster": "C0022"
   },
   {
     "content_id": "CNTS-00115167766",
@@ -2116,7 +2116,7 @@
     "_also_terms": [
       "사범대학 부속중학교"
     ],
-    "_cluster": "C0091"
+    "_cluster": "C0023"
   },
   {
     "content_id": "CNTS-00069083385",
@@ -2139,7 +2139,7 @@
     "_also_terms": [
       "사범대학 부속중학교"
     ],
-    "_cluster": "C0091"
+    "_cluster": "C0023"
   },
   {
     "content_id": "CNTS-00115215409",

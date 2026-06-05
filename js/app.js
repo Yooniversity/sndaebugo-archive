@@ -515,6 +515,11 @@ function setupModal() {
   $("#c-reject").addEventListener("click", rejectCurrent);
   $("#c-restore").addEventListener("click", restoreCurrent);
   $("#c-fav").addEventListener("click", favoriteCurrent);
+  $("#m-star").addEventListener("click", starCurrent);
+  $("#m-classify").addEventListener("click", (ev) => {
+    const b = ev.target.closest("[data-cls]");
+    if (b) classifyCurrent(b.dataset.cls);
+  });
   $("#tag-input").addEventListener("keydown", (ev) => {
     if (ev.key !== "Enter" || !curRec) return;
     ev.preventDefault();
@@ -543,11 +548,104 @@ function openModal(r) {
   const link = $("#m-link");
   link.href = r.url;
   link.textContent = r.url || "";
+  renderStar(r);
+  renderClassify(r);
   renderTags(r);
   renderCurate(r);
   loadGiscus(r.content_id);
   modalEl.hidden = false;
   document.body.style.overflow = "hidden";
+}
+
+async function postJSON(url, body) {
+  const res = await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
+  const j = await res.json();
+  if (!j.ok) throw new Error(j.error || "실패");
+  return j;
+}
+
+/* ---------- 별표(중요) — 제목 앞 ---------- */
+function renderStar(r) {
+  const fav = FAVORITE_IDS.has(r.content_id);
+  const star = $("#m-star");
+  star.hidden = !(API_OK || fav); // 공개 사이트에선 중요 기사만 별 표시(읽기전용)
+  star.textContent = fav ? "★" : "☆";
+  star.classList.toggle("on", fav);
+  star.style.cursor = API_OK ? "pointer" : "default";
+}
+
+async function starCurrent() {
+  if (!curRec || !API_OK) return;
+  const cid = curRec.content_id;
+  const turnOn = !FAVORITE_IDS.has(cid);
+  try {
+    const j = await postJSON("/api/favorite", { content_id: cid, on: turnOn });
+    if (j.favorited) FAVORITE_IDS.add(cid);
+    else FAVORITE_IDS.delete(cid);
+    renderStar(curRec);
+    render(); // 카드의 ⭐ 중요 배지 갱신
+  } catch (e) {
+    /* 무시 */
+  }
+}
+
+/* ---------- 분류 이동 버튼(검수완료/전체후보/관련없음) ---------- */
+function renderClassify(r) {
+  const box = $("#m-classify");
+  if (!API_OK) {
+    box.hidden = true;
+    return;
+  }
+  box.hidden = false;
+  const cid = r.content_id;
+  const cur = VERIFIED_IDS.has(cid)
+    ? "featured"
+    : REJECTED_IDS.has(cid)
+    ? "rejected"
+    : "all";
+  box.querySelectorAll(".cls-btn").forEach((b) =>
+    b.classList.toggle("on", b.dataset.cls === cur)
+  );
+}
+
+async function classifyCurrent(target) {
+  if (!curRec || !API_OK) return;
+  const cid = curRec.content_id;
+  const isV = VERIFIED_IDS.has(cid);
+  const isR = REJECTED_IDS.has(cid);
+  try {
+    if (target === "featured") {
+      if (isV) return;
+      const j = await postJSON("/api/promote", {
+        content_id: cid,
+        era: ERA_ORDER.includes(curRec.era) ? curRec.era : "부속고",
+        school_name: curRec.school_name || "",
+        summary: curRec.summary || "",
+      });
+      applyPromotion(j.record);
+    } else if (target === "rejected") {
+      if (isR) return;
+      await postJSON("/api/reject", { content_id: cid });
+      applyReject(cid);
+    } else {
+      // 전체 후보 = 검수완료/관련없음 어느 쪽도 아님
+      if (isV) {
+        await postJSON("/api/demote", { content_id: cid });
+        applyDemotion(cid);
+      } else if (isR) {
+        await postJSON("/api/unreject", { content_id: cid });
+        applyRestore(cid);
+      }
+    }
+    renderClassify(curRec);
+    renderStar(curRec);
+  } catch (e) {
+    setCurMsg("분류 실패: " + e.message);
+  }
 }
 
 /* ---------- 태그 ---------- */
@@ -760,7 +858,6 @@ function applyPromotion(record) {
 
 function applyDemotion(cid) {
   VERIFIED_IDS.delete(cid);
-  FAVORITE_IDS.delete(cid); // 검수완료에서 빠지면 찜도 해제(서버와 동일)
   const i = FEATURED.findIndex((r) => r.content_id === cid);
   if (i >= 0) FEATURED.splice(i, 1);
   // 후보 레코드는 그대로 두되 검수 표시만 제거
@@ -780,7 +877,6 @@ function applyReject(cid) {
   // 검수완료였다면 함께 해제(서버에서 articles.json 재생성됨)
   if (VERIFIED_IDS.has(cid)) {
     VERIFIED_IDS.delete(cid);
-    FAVORITE_IDS.delete(cid);
     const i = FEATURED.findIndex((r) => r.content_id === cid);
     if (i >= 0) FEATURED.splice(i, 1);
   }

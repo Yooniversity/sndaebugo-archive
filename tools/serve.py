@@ -168,22 +168,14 @@ class Handler(SimpleHTTPRequestHandler):
         curation.pop(cid, None)
         curate.save_curation(curation)
         out, _ = curate.build_articles(curation)
-        self._unfavorite(cid)  # 검수완료에서 빠지면 찜도 해제
         self._json(200, {"ok": True, "featured_count": len(out)})
-
-    def _unfavorite(self, cid):
-        favs = load_favorites()
-        if cid in favs:
-            save_favorites([x for x in favs if x != cid])
 
     def _favorite(self):
         data = self._read_json()
         cid = (data.get("content_id") or "").strip()
         if not cid:
             return self._json(400, {"ok": False, "error": "content_id 누락"})
-        # 찜은 검수완료 기사에만 — 검수완료가 아니면 거부
-        if cid not in curate.load_curation():
-            return self._json(400, {"ok": False, "error": "검수완료 기사만 찜할 수 있습니다"})
+        # 별표(중요)는 모든 기사에 가능(분류 상태와 무관)
         on = bool(data.get("on", True))
         favs = load_favorites()
         if on and cid not in favs:
@@ -227,7 +219,6 @@ class Handler(SimpleHTTPRequestHandler):
             curate.save_curation(curation)
             out, _ = curate.build_articles(curation)
             featured_count = len(out)
-            self._unfavorite(cid)  # 검수완료에서 빠지면 찜도 해제
         rejected = load_rejected()
         if cid not in rejected:
             rejected.append(cid)
