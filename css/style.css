@@ -40,6 +40,15 @@ a { color: var(--ink); text-underline-offset: 2px; }
   color: var(--ink);
   padding: 84px 0 56px;
 }
+/* 로그인 바(공동 분류) */
+.authbar { display: flex; justify-content: flex-end; align-items: center; gap: 10px; min-height: 22px; margin-bottom: 12px; }
+.auth-user { font-size: .8rem; color: var(--muted); }
+.auth-btn {
+  border: 1px solid var(--line); background: #fff; cursor: pointer;
+  font-size: .8rem; font-family: inherit; color: var(--ink);
+  padding: 5px 12px; border-radius: 4px;
+}
+.auth-btn:hover { border-color: var(--ink); }
 .header-inner { display: flex; align-items: flex-end; justify-content: space-between; gap: 48px; }
 .header-left { flex: 1 1 auto; min-width: 0; }
 .header-right, .header-inner .era-track { flex: 0 0 auto; }

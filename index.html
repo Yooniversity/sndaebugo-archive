@@ -7,10 +7,14 @@
   <meta name="description" content="옛 신문 속 서울대학교 사범대학 부설고등학교(서울사대부고)의 역사 — 역사관 전시 아카이브">
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
-  <link rel="stylesheet" href="css/style.css?v=22">
+  <link rel="stylesheet" href="css/style.css?v=23">
 </head>
 <body>
   <header class="site-header">
+    <div class="wrap authbar">
+      <span id="auth-user" class="auth-user"></span>
+      <button id="auth-btn" class="auth-btn" type="button" hidden></button>
+    </div>
     <div class="wrap header-inner">
       <div class="header-left">
         <p class="eyebrow">서울대학교 사범대학 부설고등학교 역사관</p>
@@ -162,6 +166,11 @@
     </div>
   </div>
 
-  <script src="js/app.js?v=22"></script>
+  <!-- Firebase(공동 분류 공유 백엔드) — compat SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  <script src="js/firebase-config.js?v=23"></script>
+  <script src="js/app.js?v=23"></script>
 </body>
 </html>

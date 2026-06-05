@@ -26,16 +26,57 @@ function periodOf(date) {
   return "7시기";
 }
 
-let FEATURED = [];          // articles.json (검수완료)
-let CANDIDATES = [];        // candidates.json (전체 후보)
+let FEATURED = [];          // 검수완료(유효) 레코드 — rebuildEffective 에서 파생
+let CANDIDATES = [];        // candidates.json (전체 기사 메타)
 let VERIFIED_IDS = new Set();
-let REJECTED_IDS = new Set(); // rejected.json (관련없음)
-let FAVORITE_IDS = new Set(); // favorites.json (서버에 저장된 중요 표시)
-let LOCAL_FAV = new Set();    // 공개 사이트: 브라우저(localStorage) 중요 표시
-let TAGS = {}; // tags.json (content_id → [tag, ...])
+let REJECTED_IDS = new Set(); // 유효 관련없음
+let FAVORITE_IDS = new Set(); // 유효 중요(공유)
+let LOCAL_FAV = new Set();    // (Firebase 미설정 시) 브라우저 중요 표시
+let TAGS = {}; // 유효 태그 (content_id → [tag, ...])
 const LS_FAV = "snha_fav";
 function isFav(cid) {
   return FAVORITE_IDS.has(cid) || LOCAL_FAV.has(cid);
+}
+
+// ── 베이스라인(커밋된 JSON) ──────────────────────────────────────────────
+let baselineVerified = new Set();   // articles.json 의 content_id
+let baselineCuration = {};          // cid → {era, school_name, summary}
+let baselineRejected = new Set();
+let baselineFav = new Set();
+let baselineTags = {};
+
+// ── 공유 오버라이드(Firestore, 델타) ─────────────────────────────────────
+let OVERRIDES = {};                 // cid → {state?, era?, school?, summary?, tags?, fav?}
+
+// baseline + overrides → 유효 상태 재계산
+function rebuildEffective() {
+  VERIFIED_IDS = new Set();
+  REJECTED_IDS = new Set();
+  FAVORITE_IDS = new Set();
+  TAGS = {};
+  for (const r of CANDIDATES) {
+    const cid = r.content_id;
+    const ov = OVERRIDES[cid] || {};
+    const base = baselineCuration[cid];
+    let state = ov.state;
+    if (!state)
+      state = baselineVerified.has(cid)
+        ? "featured"
+        : baselineRejected.has(cid)
+        ? "rejected"
+        : "all";
+    if (state === "featured") VERIFIED_IDS.add(cid);
+    else if (state === "rejected") REJECTED_IDS.add(cid);
+    // 검수 메타 오버레이(표시는 기존 필드 그대로 사용)
+    r.era = ov.era || (base && base.era) || r._baseEra;
+    r.school_name = "school" in ov ? ov.school : base ? base.school_name : "";
+    r.summary = "summary" in ov ? ov.summary : base ? base.summary : "";
+    const fav = "fav" in ov ? ov.fav : baselineFav.has(cid);
+    if (fav) FAVORITE_IDS.add(cid);
+    const t = "tags" in ov ? ov.tags : baselineTags[cid];
+    if (t && t.length) TAGS[cid] = t;
+  }
+  FEATURED = CANDIDATES.filter((r) => VERIFIED_IDS.has(r.content_id)).sort(byDate);
 }
 const GISCUS = {
   repo: "Yooniversity/sndaebugo-archive",
@@ -91,49 +132,58 @@ const TAB_HINT = {
 const $ = (sel) => document.querySelector(sel);
 
 async function load() {
+  let featuredBaseline = [];
   try {
     const [fRes, cRes] = await Promise.all([
       fetch("data/articles.json", { cache: "no-store" }),
       fetch("data/candidates.json", { cache: "no-store" }),
     ]);
-    FEATURED = await fRes.json();
+    featuredBaseline = await fRes.json();
     CANDIDATES = await cRes.json();
   } catch (e) {
     $("#timeline").innerHTML =
       '<p class="empty">데이터를 불러오지 못했습니다. 로컬 서버(python -m http.server)로 열어 주세요.</p>';
     return;
   }
-  VERIFIED_IDS = new Set(FEATURED.map((r) => r.content_id));
+  // 베이스라인 검수완료 + 검수 메타
+  baselineVerified = new Set(featuredBaseline.map((r) => r.content_id));
+  baselineCuration = {};
+  featuredBaseline.forEach((r) => {
+    baselineCuration[r.content_id] = {
+      era: r.era,
+      school_name: r.school_name,
+      summary: r.summary,
+    };
+  });
   try {
-    const rRes = await fetch("data/rejected.json", { cache: "no-store" });
-    REJECTED_IDS = new Set(await rRes.json());
+    baselineRejected = new Set(await (await fetch("data/rejected.json", { cache: "no-store" })).json());
   } catch (e) {
-    REJECTED_IDS = new Set(); // 파일 없음(정적 배포 초기 상태) → 빈 목록
+    baselineRejected = new Set();
   }
   try {
-    const favRes = await fetch("data/favorites.json", { cache: "no-store" });
-    FAVORITE_IDS = new Set(await favRes.json());
+    baselineFav = new Set(await (await fetch("data/favorites.json", { cache: "no-store" })).json());
   } catch (e) {
-    FAVORITE_IDS = new Set();
+    baselineFav = new Set();
   }
   try {
-    const tagRes = await fetch("data/tags.json", { cache: "no-store" });
-    TAGS = await tagRes.json();
+    baselineTags = await (await fetch("data/tags.json", { cache: "no-store" })).json();
   } catch (e) {
-    TAGS = {};
+    baselineTags = {};
   }
   try {
     LOCAL_FAV = new Set(JSON.parse(localStorage.getItem(LS_FAV) || "[]"));
   } catch (e) {
     LOCAL_FAV = new Set();
   }
+  // 발행연도 기준 era 보존(검수 메타가 era 를 덮어쓸 수 있으므로)
+  CANDIDATES.forEach((r) => (r._baseEra = r.era));
   CANDIDATES.sort(byDate);
-  FEATURED.sort(byDate);
+  rebuildEffective(); // baseline(+빈 overrides) → 유효 상태
   refreshCounts();
   setupTabs();
   selectTab("featured");
   setupModal();
-  detectCurationApi();
+  initBackend(); // Firebase 또는 serve.py 폴백
 }
 
 const byDate = (a, b) => (a.date || "").localeCompare(b.date || "");
@@ -162,9 +212,31 @@ function refreshCounts() {
   ).length;
 }
 
-/* ---------- 검수(큐레이션) API ---------- */
-let API_OK = false;
-let curRec = null; // 현재 모달에 열린 기사
+/* ---------- 백엔드: Firebase(공유) 또는 serve.py(로컬 폴백) ---------- */
+let API_OK = false;        // serve.py 폴백 감지
+let curRec = null;         // 현재 모달에 열린 기사
+let FIREBASE_ON = false;
+let DB = null, AUTH = null;
+let CURRENT_USER = null;
+let ALLOWLIST = new Set();
+let CAN_EDIT = false;
+
+function firebaseEnabled() {
+  return !!(window.FIREBASE_CONFIG && window.FIREBASE_CONFIG.apiKey && window.firebase);
+}
+function canEditNow() {
+  return FIREBASE_ON ? CAN_EDIT : API_OK;
+}
+function editHint() {
+  return FIREBASE_ON
+    ? "허용된 동료만 분류할 수 있습니다. 우측 상단에서 로그인하세요."
+    : "로컬 검수 서버(python tools/serve.py)에서만 분류할 수 있습니다.";
+}
+
+function initBackend() {
+  if (firebaseEnabled()) return initFirebase();
+  detectCurationApi(); // serve.py 폴백
+}
 
 async function detectCurationApi() {
   try {
@@ -174,6 +246,157 @@ async function detectCurationApi() {
   } catch (e) {
     API_OK = false; // 정적 배포 → 승격 버튼 숨김
   }
+}
+
+function initFirebase() {
+  FIREBASE_ON = true;
+  firebase.initializeApp(window.FIREBASE_CONFIG);
+  DB = firebase.firestore();
+  AUTH = firebase.auth();
+  // 허용목록
+  DB.collection("meta").doc("allowlist").get()
+    .then((d) => {
+      const emails = (d.exists && d.data().emails) || [];
+      ALLOWLIST = new Set(emails.map((e) => String(e).toLowerCase()));
+      updateCanEdit();
+    })
+    .catch(() => {});
+  // 로그인 상태
+  AUTH.onAuthStateChanged((u) => {
+    CURRENT_USER = u;
+    updateCanEdit();
+  });
+  // 오버라이드 실시간 구독
+  DB.collection("overrides").onSnapshot(
+    (snap) => {
+      OVERRIDES = {};
+      snap.forEach((doc) => (OVERRIDES[doc.id] = doc.data()));
+      rebuildEffective();
+      refreshCounts();
+      render();
+      if (curRec && !modalEl.hidden) refreshModalControls();
+    },
+    (err) => console.warn("overrides snapshot:", err && err.code)
+  );
+  renderAuth();
+}
+
+function updateCanEdit() {
+  CAN_EDIT = !!(
+    CURRENT_USER &&
+    CURRENT_USER.email &&
+    ALLOWLIST.has(CURRENT_USER.email.toLowerCase())
+  );
+  renderAuth();
+  if (curRec && modalEl && !modalEl.hidden) refreshModalControls();
+}
+
+function renderAuth() {
+  const btn = $("#auth-btn");
+  const userEl = $("#auth-user");
+  if (!btn || !userEl) return;
+  if (!FIREBASE_ON) {
+    btn.hidden = true;
+    userEl.textContent = "";
+    return;
+  }
+  btn.hidden = false;
+  if (CURRENT_USER) {
+    userEl.textContent =
+      CURRENT_USER.email + (CAN_EDIT ? " · 편집 가능" : " · 열람 전용");
+    btn.textContent = "로그아웃";
+  } else {
+    userEl.textContent = "";
+    btn.textContent = "Google 로그인";
+  }
+}
+
+function refreshModalControls() {
+  renderClassify(curRec);
+  renderStar(curRec);
+  renderTags(curRec);
+  renderCurate(curRec);
+}
+
+/* ---------- 편집 쓰기(공유 오버라이드 또는 serve.py) ---------- */
+async function writeOverride(cid, delta) {
+  OVERRIDES[cid] = Object.assign({}, OVERRIDES[cid], delta); // 낙관적 갱신
+  rebuildEffective();
+  refreshCounts();
+  render();
+  if (curRec && !modalEl.hidden) refreshModalControls();
+  try {
+    await DB.collection("overrides")
+      .doc(cid)
+      .set(
+        Object.assign({}, delta, {
+          by: CURRENT_USER ? CURRENT_USER.email : "",
+          at: firebase.firestore.FieldValue.serverTimestamp(),
+        }),
+        { merge: true }
+      );
+  } catch (e) {
+    console.warn("override write failed:", e && e.code);
+    throw e;
+  }
+}
+
+async function setClassification(cid, state, extra) {
+  if (FIREBASE_ON) {
+    const delta = Object.assign({ state }, extra || {});
+    await writeOverride(cid, delta);
+    return;
+  }
+  // serve.py 폴백
+  if (state === "featured") {
+    const j = await postJSON("/api/promote", {
+      content_id: cid,
+      era: (extra && extra.era) || "부속고",
+      school_name: (extra && extra.school) || "",
+      summary: (extra && extra.summary) || "",
+    });
+    applyPromotion(j.record);
+  } else if (state === "rejected") {
+    await postJSON("/api/reject", { content_id: cid });
+    applyReject(cid);
+  } else {
+    if (VERIFIED_IDS.has(cid)) {
+      await postJSON("/api/demote", { content_id: cid });
+      applyDemotion(cid);
+    } else if (REJECTED_IDS.has(cid)) {
+      await postJSON("/api/unreject", { content_id: cid });
+      applyRestore(cid);
+    }
+  }
+}
+
+async function setFav(cid, on) {
+  if (FIREBASE_ON) {
+    await writeOverride(cid, { fav: on });
+    return;
+  }
+  if (API_OK) {
+    const j = await postJSON("/api/favorite", { content_id: cid, on });
+    if (j.favorited) FAVORITE_IDS.add(cid);
+    else FAVORITE_IDS.delete(cid);
+  } else {
+    if (LOCAL_FAV.has(cid)) LOCAL_FAV.delete(cid);
+    else LOCAL_FAV.add(cid);
+    try {
+      localStorage.setItem(LS_FAV, JSON.stringify([...LOCAL_FAV]));
+    } catch (e) {}
+  }
+  render();
+}
+
+async function setTagsFor(cid, tags) {
+  if (FIREBASE_ON) {
+    await writeOverride(cid, { tags });
+    return;
+  }
+  const j = await postJSON("/api/tags", { content_id: cid, tags });
+  if (j.tags.length) TAGS[cid] = j.tags;
+  else delete TAGS[cid];
 }
 
 function setupTabs() {
@@ -545,6 +768,13 @@ function setupModal() {
     ev.target.value = "";
     if (adds.length) setTags(curRec, [...cur, ...adds]);
   });
+  const authBtn = $("#auth-btn");
+  if (authBtn)
+    authBtn.addEventListener("click", () => {
+      if (!FIREBASE_ON || !AUTH) return;
+      if (CURRENT_USER) AUTH.signOut();
+      else AUTH.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+    });
 }
 function openModal(r) {
   curRec = r;
@@ -573,15 +803,12 @@ function openModal(r) {
   loadGiscus(r.content_id);
   modalEl.hidden = false;
   document.body.style.overflow = "hidden";
-  // 로컬 검수 서버 상태를 다시 확인(늦게 떠도/세션 중 떠도 반영)
-  detectCurationApi().then(() => {
-    if (curRec === r) {
-      renderClassify(r);
-      renderStar(r);
-      renderTags(r);
-      renderCurate(r);
-    }
-  });
+  // serve.py 폴백 모드에서만: 로컬 서버 상태 재확인(늦게 떠도 반영)
+  if (!FIREBASE_ON) {
+    detectCurationApi().then(() => {
+      if (curRec === r) refreshModalControls();
+    });
+  }
 }
 
 async function postJSON(url, body) {
@@ -595,46 +822,35 @@ async function postJSON(url, body) {
   return j;
 }
 
-/* ---------- 별표(중요) — 제목 앞 (어디서나 표시·동작) ---------- */
+/* ---------- 별표(중요) — 제목 앞 ---------- */
+function starEditable() {
+  // Firebase 설정 시: 허용 동료만. 미설정 시: 누구나(서버 또는 localStorage).
+  return FIREBASE_ON ? CAN_EDIT : true;
+}
 function renderStar(r) {
   const fav = isFav(r.content_id);
   const star = $("#m-star");
-  star.hidden = false; // 항상 표시(공개 사이트 포함)
+  star.hidden = false; // 항상 표시(중요 표시는 모두에게 보임)
   star.textContent = fav ? "★" : "☆";
   star.classList.toggle("on", fav);
+  star.style.cursor = starEditable() ? "pointer" : "default";
 }
 
 async function starCurrent() {
   if (!curRec) return;
-  const cid = curRec.content_id;
-  if (API_OK) {
-    // 로컬 서버: favorites.json 에 저장
-    const turnOn = !FAVORITE_IDS.has(cid);
-    try {
-      const j = await postJSON("/api/favorite", { content_id: cid, on: turnOn });
-      if (j.favorited) FAVORITE_IDS.add(cid);
-      else FAVORITE_IDS.delete(cid);
-    } catch (e) {
-      /* 무시 */
-    }
-  } else {
-    // 공개 사이트: 브라우저(localStorage) 에 저장
-    if (LOCAL_FAV.has(cid)) LOCAL_FAV.delete(cid);
-    else LOCAL_FAV.add(cid);
-    try {
-      localStorage.setItem(LS_FAV, JSON.stringify([...LOCAL_FAV]));
-    } catch (e) {
-      /* 무시 */
-    }
+  if (!starEditable()) return; // Firebase면 허용 동료만
+  try {
+    await setFav(curRec.content_id, !isFav(curRec.content_id));
+    renderStar(curRec);
+  } catch (e) {
+    /* 무시 */
   }
-  renderStar(curRec);
-  render(); // 카드의 ⭐ 중요 배지 갱신
 }
 
 /* ---------- 분류 이동 버튼(검수완료/전체후보/관련없음) ---------- */
 function renderClassify(r) {
   const box = $("#m-classify");
-  if (!API_OK) {
+  if (!canEditNow()) {
     box.hidden = true;
     return;
   }
@@ -657,85 +873,70 @@ function setClassifyMsg(t) {
 
 async function classifyCurrent(target) {
   if (!curRec) return;
-  if (!API_OK) {
+  if (!FIREBASE_ON && !API_OK) {
     setClassifyMsg("서버 확인 중…");
-    await detectCurationApi(); // 클릭 시점에 서버 재확인
+    await detectCurationApi(); // serve.py 폴백: 클릭 시점 재확인
   }
-  if (!API_OK) {
-    setClassifyMsg("로컬 검수 서버(python tools/serve.py)에서만 분류할 수 있습니다.");
+  if (!canEditNow()) {
+    setClassifyMsg(editHint());
     return;
   }
   const cid = curRec.content_id;
   const isV = VERIFIED_IDS.has(cid);
   const isR = REJECTED_IDS.has(cid);
+  if (target === "featured" && isV) return setClassifyMsg("이미 검수완료입니다.");
+  if (target === "rejected" && isR) return setClassifyMsg("이미 관련없음입니다.");
+  if (target === "all" && !isV && !isR) return setClassifyMsg("이미 전체 후보입니다.");
   setClassifyMsg("이동 중…");
   try {
-    if (target === "featured") {
-      if (isV) return setClassifyMsg("이미 검수완료입니다.");
-      const j = await postJSON("/api/promote", {
-        content_id: cid,
-        era: ERA_ORDER.includes(curRec.era) ? curRec.era : "부속고",
-        school_name: curRec.school_name || "",
-        summary: curRec.summary || "",
-      });
-      applyPromotion(j.record);
-      setClassifyMsg("✓ 검수완료로 이동했습니다.");
-    } else if (target === "rejected") {
-      if (isR) return setClassifyMsg("이미 관련없음입니다.");
-      await postJSON("/api/reject", { content_id: cid });
-      applyReject(cid);
-      setClassifyMsg("✓ 관련없음으로 이동했습니다.");
-    } else {
-      if (!isV && !isR) return setClassifyMsg("이미 전체 후보입니다.");
-      if (isV) {
-        await postJSON("/api/demote", { content_id: cid });
-        applyDemotion(cid);
-      } else if (isR) {
-        await postJSON("/api/unreject", { content_id: cid });
-        applyRestore(cid);
-      }
-      setClassifyMsg("✓ 전체 후보로 이동했습니다.");
+    const extra =
+      target === "featured"
+        ? { era: ERA_ORDER.includes(curRec.era) ? curRec.era : "부속고", school: curRec.school_name || "", summary: curRec.summary || "" }
+        : null;
+    await setClassification(cid, target, extra);
+    setClassifyMsg(
+      target === "featured"
+        ? "✓ 검수완료로 이동했습니다."
+        : target === "rejected"
+        ? "✓ 관련없음으로 이동했습니다."
+        : "✓ 전체 후보로 이동했습니다."
+    );
+    if (curRec) {
+      renderClassify(curRec);
+      renderStar(curRec);
     }
-    renderClassify(curRec);
-    renderStar(curRec);
   } catch (e) {
-    setClassifyMsg("분류 실패: " + e.message);
+    setClassifyMsg("분류 실패: " + (e.message || e.code || ""));
   }
 }
 
 /* ---------- 태그 ---------- */
 function renderTags(r) {
   const tags = TAGS[r.content_id] || [];
+  const editable = canEditNow();
   const chips = $("#m-tags");
   chips.innerHTML = tags
     .map(
       (t) =>
         `<span class="tag-chip">${escapeHtml(t)}` +
-        (API_OK ? `<button type="button" class="tag-x" data-tag="${escapeHtml(t)}" aria-label="삭제">×</button>` : "") +
+        (editable ? `<button type="button" class="tag-x" data-tag="${escapeHtml(t)}" aria-label="삭제">×</button>` : "") +
         `</span>`
     )
     .join("");
-  $("#m-tagrow").hidden = !(tags.length || API_OK);
-  $("#tag-input").hidden = !API_OK;
+  $("#m-tagrow").hidden = !(tags.length || editable);
+  $("#tag-input").hidden = !editable;
   chips.querySelectorAll(".tag-x").forEach((b) =>
     b.addEventListener("click", () => setTags(r, tags.filter((t) => t !== b.dataset.tag)))
   );
 }
 
 async function setTags(r, tags) {
+  if (!canEditNow()) return;
   try {
-    const res = await fetch("/api/tags", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ content_id: r.content_id, tags }),
-    });
-    const j = await res.json();
-    if (!j.ok) throw new Error(j.error || "실패");
-    if (j.tags.length) TAGS[r.content_id] = j.tags;
-    else delete TAGS[r.content_id];
+    await setTagsFor(r.content_id, tags);
     renderTags(r);
   } catch (e) {
-    /* 정적 배포(서버 없음): 무시 */
+    /* 무시 */
   }
 }
 
@@ -769,7 +970,7 @@ function loadGiscus(cid) {
 
 function renderCurate(r) {
   const box = $("#m-curate");
-  if (!API_OK) {
+  if (!canEditNow()) {
     box.hidden = true;
     return;
   }
@@ -796,102 +997,63 @@ function renderCurate(r) {
 }
 
 async function promoteCurrent() {
-  if (!curRec) return;
-  const body = {
-    content_id: curRec.content_id,
-    era: $("#c-era").value,
-    school_name: $("#c-school").value.trim(),
-    summary: $("#c-summary").value.trim(),
-  };
+  if (!curRec || !canEditNow()) return;
   setCurMsg("승격 중…");
   try {
-    const res = await fetch("/api/promote", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
+    await setClassification(curRec.content_id, "featured", {
+      era: $("#c-era").value,
+      school: $("#c-school").value.trim(),
+      summary: $("#c-summary").value.trim(),
     });
-    const j = await res.json();
-    if (!j.ok) throw new Error(j.error || "실패");
-    applyPromotion(j.record);
     setCurMsg("★ 검수완료로 승격되었습니다.");
   } catch (e) {
-    setCurMsg("승격 실패: " + e.message);
+    setCurMsg("승격 실패: " + (e.message || ""));
   }
 }
 
 async function demoteCurrent() {
-  if (!curRec) return;
+  if (!curRec || !canEditNow()) return;
   setCurMsg("내리는 중…");
   try {
-    const res = await fetch("/api/demote", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ content_id: curRec.content_id }),
-    });
-    const j = await res.json();
-    if (!j.ok) throw new Error(j.error || "실패");
-    applyDemotion(curRec.content_id);
+    await setClassification(curRec.content_id, "all");
     setCurMsg("검수완료에서 내렸습니다.");
   } catch (e) {
-    setCurMsg("실패: " + e.message);
+    setCurMsg("실패: " + (e.message || ""));
   }
 }
 
 async function favoriteCurrent() {
-  if (!curRec) return;
-  const turnOn = !FAVORITE_IDS.has(curRec.content_id);
+  if (!curRec || !canEditNow()) return;
+  const turnOn = !isFav(curRec.content_id);
   setCurMsg(turnOn ? "찜하는 중…" : "해제하는 중…");
   try {
-    const res = await fetch("/api/favorite", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ content_id: curRec.content_id, on: turnOn }),
-    });
-    const j = await res.json();
-    if (!j.ok) throw new Error(j.error || "실패");
-    if (j.favorited) FAVORITE_IDS.add(curRec.content_id);
-    else FAVORITE_IDS.delete(curRec.content_id);
-    render();
-    renderCurate(curRec);
-    setCurMsg(j.favorited ? "⭐ 중요 기사로 찜했습니다." : "중요 표시를 해제했습니다.");
+    await setFav(curRec.content_id, turnOn);
+    if (curRec) renderCurate(curRec);
+    setCurMsg(turnOn ? "⭐ 중요 기사로 찜했습니다." : "중요 표시를 해제했습니다.");
   } catch (e) {
-    setCurMsg("실패: " + e.message);
+    setCurMsg("실패: " + (e.message || ""));
   }
 }
 
 async function rejectCurrent() {
-  if (!curRec) return;
+  if (!curRec || !canEditNow()) return;
   setCurMsg("이동 중…");
   try {
-    const res = await fetch("/api/reject", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ content_id: curRec.content_id }),
-    });
-    const j = await res.json();
-    if (!j.ok) throw new Error(j.error || "실패");
-    applyReject(curRec.content_id);
+    await setClassification(curRec.content_id, "rejected");
     setCurMsg("✕ 관련없음으로 이동했습니다.");
   } catch (e) {
-    setCurMsg("실패: " + e.message);
+    setCurMsg("실패: " + (e.message || ""));
   }
 }
 
 async function restoreCurrent() {
-  if (!curRec) return;
+  if (!curRec || !canEditNow()) return;
   setCurMsg("되돌리는 중…");
   try {
-    const res = await fetch("/api/unreject", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ content_id: curRec.content_id }),
-    });
-    const j = await res.json();
-    if (!j.ok) throw new Error(j.error || "실패");
-    applyRestore(curRec.content_id);
+    await setClassification(curRec.content_id, "all");
     setCurMsg("전체 후보로 되돌렸습니다.");
   } catch (e) {
-    setCurMsg("실패: " + e.message);
+    setCurMsg("실패: " + (e.message || ""));
   }
 }
 
