@@ -322,16 +322,38 @@ function render() {
     $("#range").textContent = "";
   }
 
+  // 동일사건 묶음 사전계산: 현재 목록에 보이는 멤버끼리만, 대표 = 조회수 최고(동적)
+  const clusters = {};
+  for (const r of list) {
+    if (r._cluster) (clusters[r._cluster] = clusters[r._cluster] || []).push(r);
+  }
+  const repId = {};
+  for (const cid in clusters) {
+    const mem = clusters[cid];
+    if (mem.length < 2) continue;
+    let best = mem[0];
+    for (const m of mem) if ((m.viewCount || 0) > (best.viewCount || 0)) best = m;
+    repId[cid] = best.content_id;
+  }
+
   let curYear = null;
   for (const r of list) {
+    const cid = r._cluster;
+    const grouped = cid && clusters[cid] && clusters[cid].length >= 2;
+    if (grouped && repId[cid] !== r.content_id) continue; // 하위 멤버는 대표 밑에서 렌더
     const yr = (r.date || "").slice(0, 4);
     const yearLabel = yr !== curYear ? yr : null; // 해당 연도 첫 기사에만 연도 표시
     if (yearLabel) curYear = yr;
-    tl.appendChild(itemEl(r, yearLabel));
+    const subs = grouped
+      ? clusters[cid]
+          .filter((m) => m.content_id !== r.content_id)
+          .sort((a, b) => (b.viewCount || 0) - (a.viewCount || 0))
+      : null;
+    tl.appendChild(itemEl(r, yearLabel, subs));
   }
 }
 
-function itemEl(r, yearLabel) {
+function itemEl(r, yearLabel, subs) {
   const wrap = document.createElement("div");
   wrap.className = yearLabel ? "item year-start" : "item";
   wrap.dataset.era = r.era;
@@ -358,6 +380,22 @@ function itemEl(r, yearLabel) {
 
   const yearTag = yearLabel ? `<div class="year-label">${yearLabel}년</div>` : "";
 
+  const hasSubs = subs && subs.length;
+  const relatedNote = hasSubs
+    ? `<p class="related-note">같은 사건 관련 보도 ${subs.length + 1}건 · 대표(조회수 최고)</p>`
+    : "";
+  const subHtml = hasSubs
+    ? `<div class="sub-articles">${subs
+        .map(
+          (m) =>
+            `<button type="button" class="subitem" data-cid="${m.content_id}">` +
+            `<span class="sub-paper">${escapeHtml(m.newspaper || "")}</span>` +
+            `<span class="sub-title">${escapeHtml(m.title || "")}</span>` +
+            `<span class="sub-vc">조회 ${m.viewCount || 0}</span></button>`
+        )
+        .join("")}</div>`
+    : "";
+
   wrap.innerHTML = `
     ${yearTag}
     <div class="card${fav ? " is-fav" : ""}">
@@ -373,9 +411,18 @@ function itemEl(r, yearLabel) {
         <h3>${escapeHtml(r.title)}</h3>
         ${r.title_original && r.title_original !== r.title ? `<p class="orig">${escapeHtml(r.title_original)}</p>` : ""}
         ${bodyText}
+        ${relatedNote}
       </div>
-    </div>`;
+    </div>
+    ${subHtml}`;
   wrap.querySelector(".card").addEventListener("click", () => openModal(r));
+  wrap.querySelectorAll(".subitem").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const m = subs.find((x) => x.content_id === btn.dataset.cid);
+      if (m) openModal(m);
+    });
+  });
   return wrap;
 }
 
@@ -401,7 +448,8 @@ function openModal(r) {
   $("#m-img").src = r.thumbnail || "";
   $("#m-img").style.display = r.thumbnail ? "" : "none";
   $(".m-sub").textContent =
-    `${r.date} · ${r.newspaper || ""} · ${r.school_name || ERA_LABEL[r.era] || ""}`;
+    `${r.date} · ${r.newspaper || ""} · ${r.school_name || ERA_LABEL[r.era] || ""}` +
+    (r._source === "naver" && r.viewCount ? ` · 조회 ${r.viewCount}` : "");
   $(".m-summary").textContent = r.summary || "";
   $(".m-keywords").textContent = (r.keywords || []).map((k) => "#" + k).join("  ");
   const src = sourceOf(r);

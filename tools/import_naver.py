@@ -1,15 +1,13 @@
 # -*- coding: utf-8 -*-
 """
-네이버 뉴스 라이브러리 CSV → data/candidates.json 후보로 추가(append-only).
+네이버 뉴스 라이브러리 CSV → data/candidates.json 교체 적재.
 
-기존 수집 규칙과 동일하게, 가져온 기사는 모두 '전체 후보'(candidates.json)에만
-들어간다(verified=False). 검수를 거쳐 curation.json 으로 승격해야 '검수완료'가 된다.
+이 스크립트는 기존 네이버 기사(content_id 가 'NAVER-' 로 시작)를 candidates.json·
+curation.json·rejected.json·favorites.json 에서 **모두 제거**한 뒤, 새 CSV 를 후보로
+새로 적재한다. 국립중앙도서관(CNTS-) 데이터는 건드리지 않는다.
 
-- 기존 candidates.json 은 절대 덮어쓰지 않고, content_id 가 새로운 항목만 덧붙인다.
-- content_id 는 'NAVER-{articleId}' 로 부여(국립중앙도서관 CNTS- 와 충돌 없음).
-- 썸네일은 네이버 이미지 URL 을 그대로 사용(원격), 원문 링크는 articleUrl.
-- 저작권 고려: 기사 본문(content)·요약(summary)은 저장하지 않는다. 제목·날짜·신문명·
-  키워드(짧은 태그)·링크·썸네일만 보관한다.
+저작권: 기사 본문(content)·요약(summary)은 사이트 데이터에 저장하지 않는다. 관련성
+분류(LLM)용으로만 tools/_naver_class_input.jsonl 에 제목·요약을 임시로 내보낸다.
 
 사용법:
   python tools/import_naver.py <csv_path>
@@ -21,7 +19,14 @@ import json
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
-CANDIDATES = os.path.join(ROOT, "data", "candidates.json")
+DATA = os.path.join(ROOT, "data")
+CANDIDATES = os.path.join(DATA, "candidates.json")
+REJECTED = os.path.join(DATA, "rejected.json")
+FAVORITES = os.path.join(DATA, "favorites.json")
+CURATION = os.path.join(HERE, "curation.json")
+CLASS_INPUT = os.path.join(HERE, "_naver_class_input.jsonl")
+
+NAVER = "NAVER-"
 
 
 def era_by_date(d):
@@ -34,21 +39,57 @@ def era_by_date(d):
     return "경성사범"
 
 
+def load(path, default):
+    if not os.path.exists(path):
+        return default
+    with open(path, encoding="utf-8") as f:
+        return json.load(f)
+
+
+def dump(path, obj):
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(obj, f, ensure_ascii=False, indent=2)
+
+
+def purge_naver():
+    """모든 데이터 파일에서 NAVER- 항목 제거."""
+    cands = load(CANDIDATES, [])
+    n0 = len(cands)
+    cands = [r for r in cands if not (r.get("content_id", "") or "").startswith(NAVER)]
+    dump(CANDIDATES, cands)
+
+    curation = load(CURATION, {})
+    cur_removed = [k for k in curation if k.startswith(NAVER)]
+    for k in cur_removed:
+        curation.pop(k, None)
+    dump(CURATION, curation)
+
+    rejected = [x for x in load(REJECTED, []) if not str(x).startswith(NAVER)]
+    dump(REJECTED, rejected)
+
+    favorites = [x for x in load(FAVORITES, []) if not str(x).startswith(NAVER)]
+    dump(FAVORITES, favorites)
+
+    print("기존 NAVER- 제거: candidates %d→%d, curation %d건, rejected/favorites 정리" %
+          (n0, len(cands), len(cur_removed)))
+    return cands
+
+
 def main():
     if len(sys.argv) < 2:
         print("사용법: python tools/import_naver.py <csv_path>")
         return
     csv_path = sys.argv[1]
 
+    cands = purge_naver()
+    existing = {r["content_id"] for r in cands}
+
     with open(csv_path, encoding="utf-8-sig") as f:
         rows = list(csv.DictReader(f))
 
-    with open(CANDIDATES, encoding="utf-8") as f:
-        cands = json.load(f)
-    existing = {r["content_id"] for r in cands}
-
     added = 0
     skipped = 0
+    class_lines = []
     for r in rows:
         rid = (r.get("id") or "").strip()
         date = (r.get("date") or "").strip()
@@ -56,12 +97,16 @@ def main():
         if not rid or not date or not title:
             skipped += 1
             continue
-        cid = "NAVER-" + rid
+        cid = NAVER + rid
         if cid in existing:
             skipped += 1
             continue
+        try:
+            vc = int((r.get("viewCount") or "0").strip() or 0)
+        except ValueError:
+            vc = 0
         kws = [k.strip() for k in (r.get("keywords") or "").split(",") if k.strip()]
-        rec = {
+        cands.append({
             "content_id": cid,
             "date": date,
             "title": title,
@@ -74,20 +119,28 @@ def main():
             "url": (r.get("articleUrl") or "").strip(),
             "thumbnail": (r.get("imageUrl") or "").strip(),
             "verified": False,
-            "_search_term": "서울사대부고(네이버 뉴스 라이브러리)",
+            "viewCount": vc,
+            "_searchTerm": (r.get("searchTerm") or "").strip(),
             "_issued_date": date.replace("-", ""),
             "_news_position": (r.get("pageNo") or "").strip(),
             "_source": "naver",
-        }
-        cands.append(rec)
+        })
         existing.add(cid)
         added += 1
+        # 분류용(제목+요약) — 개행 제거
+        summary = " ".join((r.get("summary") or "").split())
+        class_lines.append(json.dumps(
+            {"id": cid, "title": " ".join(title.split()), "summary": summary},
+            ensure_ascii=False))
 
     cands.sort(key=lambda r: r.get("date") or "")
-    with open(CANDIDATES, "w", encoding="utf-8") as f:
-        json.dump(cands, f, ensure_ascii=False, indent=2)
+    dump(CANDIDATES, cands)
 
-    print("추가 %d건 (건너뜀 %d건) → 후보 총 %d건" % (added, skipped, len(cands)))
+    with open(CLASS_INPUT, "w", encoding="utf-8") as f:
+        f.write("\n".join(class_lines) + ("\n" if class_lines else ""))
+
+    print("새 네이버 적재: %d건 (건너뜀 %d) → 후보 총 %d건" % (added, skipped, len(cands)))
+    print("분류 입력: %s (%d줄)" % (CLASS_INPUT, len(class_lines)))
 
 
 if __name__ == "__main__":

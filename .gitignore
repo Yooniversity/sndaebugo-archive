@@ -2,6 +2,10 @@
 tools/__pycache__/
 *.pyc
 
+# 분류용 임시 입력/출력(제목·요약 — 비공개, 저장소에 올리지 않음)
+tools/_naver_class_input.jsonl
+tools/_class_out/
+
 # OS
 .DS_Store
 Thumbs.db

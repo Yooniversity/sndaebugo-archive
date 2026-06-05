@@ -186,6 +186,18 @@ a { color: var(--ink); text-underline-offset: 2px; }
 .card h3 { margin: 0 0 6px; font-size: 1.06rem; line-height: 1.45; font-weight: 600; letter-spacing: -.015em; }
 .card .orig { font-size: .82rem; color: var(--muted); margin: 0 0 6px; }
 .card .sum { margin: 0; font-size: .9rem; color: #555; line-height: 1.6; }
+.related-note { margin: 8px 0 0; font-size: .76rem; color: var(--muted); }
+/* 동일사건 하위 기사들(대표 카드 아래 작게) */
+.sub-articles { margin: 6px 0 0 106px; padding-top: 6px; border-top: 1px solid var(--line); }
+.subitem {
+  display: flex; gap: 10px; align-items: baseline; width: 100%;
+  border: none; background: none; cursor: pointer; text-align: left;
+  padding: 4px 0; font-family: inherit; color: var(--muted); font-size: .8rem;
+}
+.subitem:hover .sub-title { text-decoration: underline; text-underline-offset: 2px; color: var(--ink); }
+.subitem .sub-paper { flex: 0 0 auto; color: var(--ink); font-weight: 600; }
+.subitem .sub-title { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.subitem .sub-vc { flex: 0 0 auto; color: #b3b3b3; font-variant-numeric: tabular-nums; }
 
 /* ---------- modal ---------- */
 .modal { position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center; }
