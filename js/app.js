@@ -573,6 +573,15 @@ function openModal(r) {
   loadGiscus(r.content_id);
   modalEl.hidden = false;
   document.body.style.overflow = "hidden";
+  // 로컬 검수 서버 상태를 다시 확인(늦게 떠도/세션 중 떠도 반영)
+  detectCurationApi().then(() => {
+    if (curRec === r) {
+      renderClassify(r);
+      renderStar(r);
+      renderTags(r);
+      renderCurate(r);
+    }
+  });
 }
 
 async function postJSON(url, body) {
@@ -649,7 +658,11 @@ function setClassifyMsg(t) {
 async function classifyCurrent(target) {
   if (!curRec) return;
   if (!API_OK) {
-    setClassifyMsg("로컬 검수 서버에서만 분류할 수 있습니다.");
+    setClassifyMsg("서버 확인 중…");
+    await detectCurationApi(); // 클릭 시점에 서버 재확인
+  }
+  if (!API_OK) {
+    setClassifyMsg("로컬 검수 서버(python tools/serve.py)에서만 분류할 수 있습니다.");
     return;
   }
   const cid = curRec.content_id;
