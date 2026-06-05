@@ -39,6 +39,13 @@ function sourceOf(r) {
   return isNaver ? SOURCES.naver : SOURCES.nl;
 }
 
+// 안정적 의사난수(문자열 해시) — 조회수 없을 때 대표 선택용
+function hashStr(s) {
+  let h = 0;
+  for (let i = 0; i < (s || "").length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0;
+  return h;
+}
+
 function recordTopics(r) {
   const hay = [r.title, r.title_original, (r.keywords || []).join(" ")].join(" ");
   const out = TOPIC_RULES.filter((t) => t.words.some((w) => hay.includes(w))).map((t) => t.key);
@@ -331,8 +338,15 @@ function render() {
   for (const cid in clusters) {
     const mem = clusters[cid];
     if (mem.length < 2) continue;
-    let best = mem[0];
-    for (const m of mem) if ((m.viewCount || 0) > (best.viewCount || 0)) best = m;
+    const maxVc = Math.max.apply(null, mem.map((m) => m.viewCount || 0));
+    let best;
+    if (maxVc > 0) {
+      best = mem[0];
+      for (const m of mem) if ((m.viewCount || 0) > (best.viewCount || 0)) best = m;
+    } else {
+      // 조회수 데이터 없음 → content_id 해시로 안정적 무작위 1건 선택(렌더마다 동일)
+      best = mem.reduce((a, b) => (hashStr(a.content_id) <= hashStr(b.content_id) ? a : b));
+    }
     repId[cid] = best.content_id;
   }
 
@@ -381,11 +395,11 @@ function itemEl(r, yearLabel, subs) {
   const yearTag = yearLabel ? `<div class="year-label">${yearLabel}년</div>` : "";
 
   const hasSubs = subs && subs.length;
-  const relatedNote = hasSubs
-    ? `<p class="related-note">같은 사건 관련 보도 ${subs.length + 1}건 · 대표(조회수 최고)</p>`
-    : "";
+  const subLabel = (open) =>
+    `${open ? "▾" : "▸"} 같은 사건 관련 보도 ${subs.length}건 ${open ? "접기" : "더보기"}`;
   const subHtml = hasSubs
-    ? `<div class="sub-articles">${subs
+    ? `<button type="button" class="cluster-toggle" aria-expanded="false">${subLabel(false)}</button>` +
+      `<div class="sub-articles" hidden>${subs
         .map(
           (m) =>
             `<button type="button" class="subitem" data-cid="${m.content_id}">` +
@@ -411,18 +425,28 @@ function itemEl(r, yearLabel, subs) {
         <h3>${escapeHtml(r.title)}</h3>
         ${r.title_original && r.title_original !== r.title ? `<p class="orig">${escapeHtml(r.title_original)}</p>` : ""}
         ${bodyText}
-        ${relatedNote}
       </div>
     </div>
     ${subHtml}`;
   wrap.querySelector(".card").addEventListener("click", () => openModal(r));
-  wrap.querySelectorAll(".subitem").forEach((btn) => {
-    btn.addEventListener("click", (e) => {
+  if (hasSubs) {
+    const toggle = wrap.querySelector(".cluster-toggle");
+    const subsEl = wrap.querySelector(".sub-articles");
+    toggle.addEventListener("click", (e) => {
       e.stopPropagation();
-      const m = subs.find((x) => x.content_id === btn.dataset.cid);
-      if (m) openModal(m);
+      const open = subsEl.hidden;
+      subsEl.hidden = !open;
+      toggle.setAttribute("aria-expanded", String(open));
+      toggle.textContent = subLabel(open);
     });
-  });
+    wrap.querySelectorAll(".subitem").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const m = subs.find((x) => x.content_id === btn.dataset.cid);
+        if (m) openModal(m);
+      });
+    });
+  }
   return wrap;
 }
 
