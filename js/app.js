@@ -408,7 +408,7 @@ function openModal(r) {
   $(".m-source").textContent = `출처: ${src.full}`;
   const link = $("#m-link");
   link.href = r.url;
-  link.textContent = `${src.short}에서 원문 보기 ↗`;
+  link.textContent = r.url || "";
   renderCurate(r);
   modalEl.hidden = false;
   document.body.style.overflow = "hidden";
