@@ -8,6 +8,24 @@ const ERA_LABEL = {
   "부설고": "부설고등학교",
 };
 
+// 시기(7단계) — 기사 발행 연도로 분류
+const PERIODS = [
+  { key: "1시기", label: "1시기 (1895–1945)", max: 1945 },
+  { key: "2시기", label: "2시기 (1946–1950)", max: 1950 },
+  { key: "3시기", label: "3시기 (1950년대)", max: 1959 },
+  { key: "4시기", label: "4시기 (1960–1972)", max: 1972 },
+  { key: "5시기", label: "5시기 (1973–1980)", max: 1980 },
+  { key: "6시기", label: "6시기 (1980년대)", max: 1989 },
+  { key: "7시기", label: "7시기 (1990년대–현재)", max: 9999 },
+];
+const PERIOD_LABEL = Object.fromEntries(PERIODS.map((p) => [p.key, p.label]));
+function periodOf(date) {
+  const y = parseInt((date || "").slice(0, 4), 10);
+  if (!y) return "";
+  for (const p of PERIODS) if (y <= p.max) return p.key;
+  return "7시기";
+}
+
 let FEATURED = [];          // articles.json (검수완료)
 let CANDIDATES = [];        // candidates.json (전체 후보)
 let VERIFIED_IDS = new Set();
@@ -22,7 +40,7 @@ const GISCUS = {
 };
 let ALL = [];               // 현재 탭의 활성 데이터셋
 let tab = "featured";
-const state = { q: "", eras: new Set(), papers: new Set(), topics: new Set(), favOnly: false };
+const state = { q: "", periods: new Set(), papers: new Set(), topics: new Set(), favOnly: false };
 
 // 기사 내용(제목·키워드)으로 '주제'를 분류하는 규칙. 한 기사가 여러 주제에 속할 수 있다.
 const TOPIC_RULES = [
@@ -160,7 +178,7 @@ function selectTab(name) {
   tab = name;
   ALL = activeData();
   state.q = "";
-  state.eras.clear();
+  state.periods.clear();
   state.papers.clear();
   state.topics.clear();
   state.favOnly = false;
@@ -191,15 +209,15 @@ function buildFilters() {
   // 칩 건수: 현재 탭 데이터(ALL) 기준 (다른 선택과 무관한 정적 값)
   const n = (label, count) => `${label} <span class="chip-n">${count}</span>`;
 
-  // era chips (고정 순서) — 현재 탭 데이터에 존재하는 era 만
-  const eraCount = {};
-  ALL.forEach((r) => (eraCount[r.era] = (eraCount[r.era] || 0) + 1));
-  const erasPresent = ERA_ORDER.filter((e) => eraCount[e]);
-  $("#eraFilters").innerHTML = erasPresent
-    .map(
-      (e) =>
-        `<button class="chip" data-era="${e}"><span class="dot" style="background:var(--era-${e})"></span>${n(ERA_LABEL[e], eraCount[e])}</button>`
-    )
+  // 시기 chips (7단계, 고정 순서) — 발행 연도로 분류
+  const periodCount = {};
+  ALL.forEach((r) => {
+    const p = periodOf(r.date);
+    if (p) periodCount[p] = (periodCount[p] || 0) + 1;
+  });
+  const periodsPresent = PERIODS.map((p) => p.key).filter((k) => periodCount[k]);
+  $("#eraFilters").innerHTML = periodsPresent
+    .map((k) => `<button class="chip" data-period="${k}">${n(PERIOD_LABEL[k], periodCount[k])}</button>`)
     .join("");
 
   // topic chips (주제) — 현재 탭 데이터에서 도출, 규칙 순서 유지(+기타)
@@ -224,9 +242,9 @@ function buildFilters() {
   filtersBound = true;
 
   $("#eraFilters").addEventListener("click", (ev) => {
-    const b = ev.target.closest("[data-era]");
+    const b = ev.target.closest("[data-period]");
     if (!b) return;
-    toggle(state.eras, b.dataset.era, b);
+    toggle(state.periods, b.dataset.period, b);
     render();
   });
   $("#paperFilters").addEventListener("click", (ev) => {
@@ -262,25 +280,39 @@ function buildFilters() {
     render();
   });
 
-  // era band → filter shortcut
+  // 명칭변천 띠 클릭 → 해당 시기(들) 필터 토글
   document.querySelectorAll(".era-track li").forEach((li) => {
     li.addEventListener("click", () => {
-      const e = li.dataset.era;
-      const chip = $(`#eraFilters [data-era="${e}"]`);
-      if (chip) {
-        toggle(state.eras, e, chip);
-        // 패널이 접혀 있으면 펼쳐서 적용된 필터가 보이도록
-        if ($("#filterPanel").hidden) $("#filterToggle").click();
-        render();
-        document.querySelector(".controls").scrollIntoView({ behavior: "smooth" });
-      }
+      const ps = ERA_PERIODS[li.dataset.era] || [];
+      const allOn = ps.length && ps.every((p) => state.periods.has(p));
+      ps.forEach((p) => {
+        const chip = $(`#eraFilters [data-period="${p}"]`);
+        if (allOn) {
+          state.periods.delete(p);
+          if (chip) chip.classList.remove("on");
+        } else {
+          state.periods.add(p);
+          if (chip) chip.classList.add("on");
+        }
+      });
+      if ($("#filterPanel").hidden) $("#filterToggle").click();
+      render();
+      document.querySelector(".controls").scrollIntoView({ behavior: "smooth" });
     });
   });
 }
 
+// 명칭(era) → 시기(period) 매핑(띠 클릭용)
+const ERA_PERIODS = {
+  "경성사범": ["1시기"],
+  "부속중학교": ["2시기"],
+  "부속고": ["3시기", "4시기", "5시기", "6시기", "7시기"],
+  "부설고": ["7시기"],
+};
+
 function clearFilters() {
   // 패널 안 세 그룹(시기·주제·신문사) 선택만 해제. 찜 필터·검색어는 유지.
-  state.eras.clear();
+  state.periods.clear();
   state.topics.clear();
   state.papers.clear();
   document
@@ -301,7 +333,7 @@ function toggle(set, val, btn) {
 
 function matches(r) {
   if (state.favOnly && !FAVORITE_IDS.has(r.content_id)) return false;
-  if (state.eras.size && !state.eras.has(r.era)) return false;
+  if (state.periods.size && !state.periods.has(periodOf(r.date))) return false;
   if (state.papers.size && !state.papers.has(r.newspaper)) return false;
   if (state.topics.size) {
     const ts = recordTopics(r);
@@ -329,9 +361,12 @@ function render() {
   const tl = $("#timeline");
   tl.innerHTML = "";
 
-  // era band 활성 표시
+  // 명칭변천 띠 활성 표시(매핑된 시기 중 하나라도 선택되면)
   document.querySelectorAll(".era-track li").forEach((li) =>
-    li.classList.toggle("active", state.eras.has(li.dataset.era))
+    li.classList.toggle(
+      "active",
+      (ERA_PERIODS[li.dataset.era] || []).some((p) => state.periods.has(p))
+    )
   );
 
   $("#empty").hidden = list.length !== 0;
@@ -433,7 +468,7 @@ function itemEl(r, yearLabel, subs) {
         <div class="badges">
           ${fav}
           <span class="badge paper">${escapeHtml(r.newspaper || "")}</span>
-          <span class="badge era-${r.era}">${ERA_LABEL[r.era] || r.era}</span>
+          <span class="badge period">${periodOf(r.date) || ERA_LABEL[r.era] || r.era}</span>
           <span class="badge date">${r.date || "연도 미상"}</span>
           <span class="badge source">${escapeHtml(sourceOf(r).short)}</span>
         </div>
