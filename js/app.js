@@ -307,7 +307,7 @@ function renderAuth() {
     btn.textContent = "로그아웃";
   } else {
     userEl.textContent = "";
-    btn.textContent = "Google 로그인";
+    btn.textContent = "로그인";
   }
 }
 
@@ -773,7 +773,96 @@ function setupModal() {
     authBtn.addEventListener("click", () => {
       if (!FIREBASE_ON || !AUTH) return;
       if (CURRENT_USER) AUTH.signOut();
-      else AUTH.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+      else openLoginDialog();
+    });
+  wireLoginDialog();
+}
+
+/* ---------- 로그인 다이얼로그(이메일/비밀번호 + Google) ---------- */
+function openLoginDialog() {
+  const m = $("#login-modal");
+  if (!m) return;
+  setLoginMsg("");
+  m.hidden = false;
+  const email = $("#login-email");
+  if (email) setTimeout(() => email.focus(), 0);
+}
+function closeLoginDialog() {
+  const m = $("#login-modal");
+  if (m) m.hidden = true;
+}
+function setLoginMsg(text, ok) {
+  const el = $("#login-msg");
+  if (!el) return;
+  el.textContent = text || "";
+  el.classList.toggle("ok", !!ok);
+}
+function authErrorText(e) {
+  const code = (e && e.code) || "";
+  const map = {
+    "auth/invalid-email": "이메일 형식이 올바르지 않습니다.",
+    "auth/missing-password": "비밀번호를 입력하세요.",
+    "auth/weak-password": "비밀번호는 6자 이상이어야 합니다.",
+    "auth/email-already-in-use": "이미 가입된 이메일입니다. ‘로그인’을 눌러주세요.",
+    "auth/invalid-credential": "이메일 또는 비밀번호가 올바르지 않습니다.",
+    "auth/wrong-password": "비밀번호가 올바르지 않습니다.",
+    "auth/user-not-found": "등록되지 않은 이메일입니다. ‘계정 만들기’를 눌러주세요.",
+    "auth/too-many-requests": "시도가 많아 잠시 후 다시 해주세요.",
+    "auth/operation-not-allowed":
+      "이메일/비밀번호 로그인이 콘솔에서 아직 켜지지 않았습니다.",
+    "auth/popup-closed-by-user": "로그인 창이 닫혔습니다.",
+    "auth/popup-blocked": "팝업이 차단되었습니다. 팝업 허용 후 다시 시도하세요.",
+  };
+  return map[code] || "오류: " + (code || (e && e.message) || "알 수 없음");
+}
+function wireLoginDialog() {
+  const m = $("#login-modal");
+  if (!m) return;
+  m.addEventListener("click", (ev) => {
+    if (ev.target.closest("[data-login-close]")) closeLoginDialog();
+  });
+  document.addEventListener("keydown", (ev) => {
+    if (ev.key === "Escape" && !m.hidden) closeLoginDialog();
+  });
+  const submit = $("#login-submit");
+  const signup = $("#login-signup");
+  const google = $("#login-google");
+  const pwEl = $("#login-pw");
+  const creds = () => ({
+    email: ($("#login-email").value || "").trim(),
+    pw: $("#login-pw").value || "",
+  });
+  const doSignIn = () => {
+    if (!AUTH) return;
+    const { email, pw } = creds();
+    if (!email) return setLoginMsg("이메일을 입력하세요.");
+    setLoginMsg("로그인 중…");
+    AUTH.signInWithEmailAndPassword(email, pw)
+      .then(() => closeLoginDialog())
+      .catch((e) => setLoginMsg(authErrorText(e)));
+  };
+  const doSignUp = () => {
+    if (!AUTH) return;
+    const { email, pw } = creds();
+    if (!email) return setLoginMsg("이메일을 입력하세요.");
+    setLoginMsg("계정 생성 중…");
+    AUTH.createUserWithEmailAndPassword(email, pw)
+      .then(() => closeLoginDialog())
+      .catch((e) => setLoginMsg(authErrorText(e)));
+  };
+  if (submit) submit.addEventListener("click", doSignIn);
+  if (signup) signup.addEventListener("click", doSignUp);
+  if (pwEl)
+    pwEl.addEventListener("keydown", (ev) => {
+      if (ev.key === "Enter") doSignIn();
+    });
+  if (google)
+    google.addEventListener("click", () => {
+      if (!AUTH) return;
+      setLoginMsg("Google 로그인 중…");
+      AUTH.signInWithPopup(new firebase.auth.GoogleAuthProvider())
+        .then(() => closeLoginDialog())
+        .catch((e) => setLoginMsg(authErrorText(e)));
     });
 }
 function openModal(r) {

@@ -294,6 +294,30 @@ a { color: var(--ink); text-underline-offset: 2px; }
   background: #fff; color: var(--muted);
 }
 .btn-outline:hover { background: #fafafa; color: var(--ink); border-color: var(--ink); }
+.btn-block { display: block; width: 100%; text-align: center; }
+
+/* ---------- 로그인 다이얼로그 ---------- */
+.login-modal { position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center; padding: 20px; }
+.login-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,.45); }
+.login-box {
+  position: relative; background: #fff; border: 1px solid var(--line); border-radius: 4px;
+  width: 100%; max-width: 360px; padding: 26px 24px 24px; box-shadow: 0 10px 40px rgba(0,0,0,.18);
+}
+.login-box h2 { margin: 0 0 6px; font-size: 1.25rem; font-weight: 700; color: var(--ink); }
+.login-hint { margin: 0 0 18px; font-size: .82rem; color: var(--muted); line-height: 1.5; }
+.login-field { display: block; margin-bottom: 12px; font-size: .82rem; color: var(--muted); }
+.login-field input {
+  display: block; width: 100%; margin-top: 5px; padding: 10px 12px; box-sizing: border-box;
+  border: 1px solid var(--line); border-radius: 2px; font-size: .95rem; font-family: inherit;
+}
+.login-field input:focus { outline: none; border-color: var(--ink); }
+.login-msg { min-height: 18px; margin: 4px 0 12px; font-size: .82rem; color: #c0392b; }
+.login-msg.ok { color: #1a7f37; }
+.login-actions { display: flex; gap: 8px; }
+.login-actions .btn { flex: 1; text-align: center; padding: 11px 12px; }
+.login-sep { text-align: center; margin: 16px 0 12px; font-size: .78rem; color: var(--muted); position: relative; }
+.login-sep::before, .login-sep::after { content: ""; position: absolute; top: 50%; width: 38%; height: 1px; background: var(--line); }
+.login-sep::before { left: 0; } .login-sep::after { right: 0; }
 
 /* ---------- 검수(승격/강등) 패널 ---------- */
 .curate { margin-top: 22px; padding-top: 20px; border-top: 1px solid var(--line); }
