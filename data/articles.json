@@ -153,31 +153,6 @@
     "summary2": "경성사범학교 입학 지원자가 모집 정원을 크게 초과했다. 100명 모집에 4천 명이 몰렸으며, 재계 불황에 따른 학비 부담이 원인으로 분석된다."
   },
   {
-    "content_id": "NAVER-1924022400239204006",
-    "date": "1924-02-24",
-    "title": "磻溪人士(반계인사)의敎育熱(교육열)",
-    "title_original": "磻溪人士(반계인사)의敎育熱(교육열)",
-    "newspaper": "기타 신문",
-    "era": "경성사범",
-    "school_name": "",
-    "summary": "",
-    "keywords": [
-      "서울사대부고",
-      "반계인사",
-      "교육열",
-      "조선일보",
-      "사회"
-    ],
-    "url": "https://newslibrary.naver.com/viewer/index.naver?articleId=1924022400239204006&editNo=0&printCount=1&publishDate=1924-02-24&officeId=00023&pageNo=4&printNo=1263&publishType=00020",
-    "thumbnail": "https://img-newslibrary.naver.net/images/1924/02/24/cs/1263/05_04/highlight_bw-57_-cs-19240224-e-0-4-6.jpg",
-    "verified": true,
-    "viewCount": 17,
-    "_searchTerm": "",
-    "_issued_date": "19240224",
-    "_news_position": "4면",
-    "_source": "naver"
-  },
-  {
     "content_id": "CNTS-00113727231",
     "date": "1924-03-06",
     "title": "경성사범학교입학시험문제",
@@ -2441,7 +2416,8 @@
     "_searchTerm": "",
     "_issued_date": "19620801",
     "_news_position": "3면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "여수경찰서 경비정 서 선장의 애환을 \"인간 갈매기\"라 부르며 소개한 인물 기사로 보인다. 바다를 누비는 한 뱃사람의 삶을 다룬 1960년대 사회면 보도다."
   },
   {
     "content_id": "NAVER-1962080200209103005",
@@ -2466,7 +2442,8 @@
     "_searchTerm": "",
     "_issued_date": "19620802",
     "_news_position": "3면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "남해 여수경비선의 서가오수 경사를 \"인간 나침반\"이라 칭하며 그의 활약을 다룬 인물 기사로 보인다. 험한 바닷길을 정확히 안내하는 베테랑 경찰관을 조명한 보도다."
   },
   {
     "content_id": "NAVER-1963020900200101002",
@@ -2491,7 +2468,8 @@
     "_searchTerm": "",
     "_issued_date": "19630209",
     "_news_position": "1면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "1963년 서울 시내 중학교 입시 합격자 명단을 발표한 기사다. 입시 결과를 신문 지면에 게재하던 당시 관행을 보여 주는 보도다."
   },
   {
     "content_id": "NAVER-1963021000239104001",
@@ -2516,7 +2494,8 @@
     "_searchTerm": "",
     "_issued_date": "19630210",
     "_news_position": "4면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "1963년도 서울 시내 중학 입시 합격자 명단을 실은 기사다. 합격자 명단을 신문에 공개하던 시기의 입시 발표 보도다."
   },
   {
     "content_id": "NAVER-1965112900329203015",
@@ -2541,7 +2520,8 @@
     "_searchTerm": "",
     "_issued_date": "19651129",
     "_news_position": "3면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "경비정이 여객선과 충돌해 침몰했으나 승무원은 구조되었다는 사고 기사다. 1960년대 해상 충돌 사고를 전한 사회면 보도다."
   },
   {
     "content_id": "NAVER-1966020800230201001",
@@ -2566,7 +2546,8 @@
     "_searchTerm": "",
     "_issued_date": "19660208",
     "_news_position": "1면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "전기 고등학교 입시 합격자 명단을 발표한 기사다. 합격자 명단을 신문 지면에 싣던 당시의 입시 발표 보도다."
   },
   {
     "content_id": "NAVER-1966020800200103001",
@@ -2591,7 +2572,8 @@
     "_searchTerm": "",
     "_issued_date": "19660208",
     "_news_position": "3면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "전기 고등학교 입시 합격자 명단을 게재한 기사다. 입시 결과를 신문에 공개하던 시기의 발표 보도다."
   },
   {
     "content_id": "NAVER-1966021300239108001",
@@ -2616,7 +2598,8 @@
     "_searchTerm": "",
     "_issued_date": "19660213",
     "_news_position": "8면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "서울대학교 입시 합격자 명단을 실은 기사다. 대학 합격자 명단을 신문 지면에 게재하던 당시의 입시 발표 보도다."
   },
   {
     "content_id": "NAVER-1967071300329203006",
@@ -2641,7 +2624,8 @@
     "_searchTerm": "",
     "_issued_date": "19670713",
     "_news_position": "3면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "16일부터 피서열차가 운행을 시작한다는 소식이다. 여름 휴가철 철도 피서객 수송을 알린 1960년대 사회면 보도다."
   },
   {
     "content_id": "NAVER-1967071400239103024",
@@ -2666,7 +2650,8 @@
     "_searchTerm": "",
     "_issued_date": "19670714",
     "_news_position": "3면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "6개 노선에서 피서열차를 운행한다는 소식이다. 여름철 바다와 산을 찾는 피서객을 위한 임시 열차 편성을 전한 보도다."
   },
   {
     "content_id": "NAVER-1967071800239107001",
@@ -2691,7 +2676,8 @@
     "_searchTerm": "",
     "_issued_date": "19670718",
     "_news_position": "7면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "무더위와 불쾌지수가 그해 들어 최고치를 기록했다는 기사다. 한여름 폭염을 전한 당시의 날씨 보도다."
   },
   {
     "content_id": "NAVER-1967071800329203008",
@@ -2716,7 +2702,8 @@
     "_searchTerm": "",
     "_issued_date": "19670718",
     "_news_position": "3면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "연휴를 맞아 승객이 37퍼센트 늘었다는 소식이다. 휴가철 교통 수요 증가를 전한 사회면 보도다."
   },
   {
     "content_id": "NAVER-1967071900239103007",
@@ -2741,7 +2728,8 @@
     "_searchTerm": "",
     "_issued_date": "19670719",
     "_news_position": "3면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "서울역이 피서객으로 붐비는 대목을 맞았다는 기사다. 여름 휴가철 철도 이용객이 몰린 풍경을 전한 사회면 보도다."
   },
   {
     "content_id": "NAVER-1967072000329201029",
@@ -2766,7 +2754,8 @@
     "_searchTerm": "",
     "_issued_date": "19670720",
     "_news_position": "1면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "바다로 떠나는 피서객을 위한 피서열차를 안내한 기사로 보인다. 여름철 해변 피서 수송을 홍보한 1960년대 보도다."
   },
   {
     "content_id": "NAVER-1967081900239103006",
@@ -2791,7 +2780,8 @@
     "_searchTerm": "",
     "_issued_date": "19670819",
     "_news_position": "3면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "어린이 세 명이 열차나 차량에 치여 숨졌다는 사고 기사로 보인다. 당시 빈번했던 어린이 교통 사망 사고를 전한 사회면 잡보다."
   },
   {
     "content_id": "NAVER-1968021900099203018",
@@ -2816,7 +2806,8 @@
     "_searchTerm": "",
     "_issued_date": "19680219",
     "_news_position": "3면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "갈매기호가 25일부터 다시 운행한다는 소식이다. 운행이 중단되었던 열차의 재개를 알린 경제면 보도다."
   },
   {
     "content_id": "NAVER-1968021900209203034",
@@ -2841,7 +2832,8 @@
     "_searchTerm": "",
     "_issued_date": "19680219",
     "_news_position": "3면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "호남 지역을 오가던 갈매기호가 부활했다는 기사다. 중단되었던 열차 운행이 재개된 소식을 전한 사회면 보도다."
   },
   {
     "content_id": "NAVER-1968022000239107021",
@@ -2866,7 +2858,8 @@
     "_searchTerm": "",
     "_issued_date": "19680220",
     "_news_position": "7면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "부산과 전주를 잇는 갈매기호가 부활했다는 소식이다. 끊겼던 노선의 열차 운행이 다시 시작된 것을 알린 보도다."
   },
   {
     "content_id": "NAVER-1968030400329207018",
@@ -2891,7 +2884,8 @@
     "_searchTerm": "",
     "_issued_date": "19680304",
     "_news_position": "7면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "어린이를 구하고 두 다리에 관통상을 입은 건널목지기 조영환 씨를 다룬 기사다. 역전의 용사이기도 했던 그가 대구역장으로 치러진 사연을 전한 사회면 보도다."
   },
   {
     "content_id": "NAVER-1970070200239103002",
@@ -2916,7 +2910,8 @@
     "_searchTerm": "",
     "_issued_date": "19700702",
     "_news_position": "3면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "직물업계가 받은 타격이 두드러진다는 기사다. 1970년대 초 섬유·직물 산업의 경기 부진을 전한 경제 보도다."
   },
   {
     "content_id": "NAVER-1970102900329208002",
@@ -2941,7 +2936,8 @@
     "_searchTerm": "",
     "_issued_date": "19701029",
     "_news_position": "8면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "개정된 열차 운행 시간표(다이어)를 소개한 기사다. 철도 운행 일정 변경을 안내한 사회면 보도다."
   },
   {
     "content_id": "NAVER-1970103000239107013",
@@ -2966,7 +2962,8 @@
     "_searchTerm": "",
     "_issued_date": "19701030",
     "_news_position": "7면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "1일부터 열차 운행 시간표가 개정된다는 소식이다. 철도 다이어 변경 내용을 알린 안내 보도다."
   },
   {
     "content_id": "NAVER-1970110600099204002",
@@ -2991,7 +2988,8 @@
     "_searchTerm": "",
     "_issued_date": "19701106",
     "_news_position": "4면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "대구 업계가 전주에 시장조사단을 보낸다는 소식이다. 지역 간 상권 진출과 시장 조사 활동을 전한 경제 보도다."
   },
   {
     "content_id": "NAVER-1970111100239106015",
@@ -3016,7 +3014,8 @@
     "_searchTerm": "",
     "_issued_date": "19701111",
     "_news_position": "6면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "갈매기호를 부산까지 연장 운행해 달라는 요청을 전한 기사다. 열차 노선 확대를 둘러싼 지역의 요구를 다룬 보도다."
   },
   {
     "content_id": "NAVER-1972091100209205004",
@@ -3041,7 +3040,8 @@
     "_searchTerm": "",
     "_issued_date": "19720911",
     "_news_position": "5면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "북한의 직장생활과 어민의 구성 및 활동을 다룬 연재 기사다. 북한 사회의 단면을 소개한 \"북한 이모저모\" 시리즈의 한 회로 보인다."
   },
   {
     "content_id": "NAVER-1975032000099201005",
@@ -3066,7 +3066,8 @@
     "_searchTerm": "",
     "_issued_date": "19750320",
     "_news_position": "1면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "수상자 명단을 발표한 기사로 보인다. 시상 결과를 신문 지면에 게재한 경제면 보도다."
   },
   {
     "content_id": "NAVER-1977040100209201014",
@@ -3091,7 +3092,8 @@
     "_searchTerm": "",
     "_issued_date": "19770401",
     "_news_position": "1면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "본보 창간 57주년을 기념한 사고(社告)성 기사다. 신문사가 창간 기념일을 맞아 독자에게 알린 보도다."
   },
   {
     "content_id": "NAVER-1977042200329208008",
@@ -3116,7 +3118,8 @@
     "_searchTerm": "",
     "_issued_date": "19770422",
     "_news_position": "8면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "태평양 횡단에 나설 \"동아 갈매기호\" 요트의 진수식을 \"한국인의 용기를 만방에\"라는 구호로 전한 기사다. 단독 횡단 도전을 앞둔 요트의 출발 준비를 알린 보도다."
   },
   {
     "content_id": "NAVER-1977042200209201012",
@@ -3141,7 +3144,8 @@
     "_searchTerm": "",
     "_issued_date": "19770422",
     "_news_position": "1면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "태평양 횡단용 요트 \"동아 갈매기호\"의 진수 소식을 전한 기사다. 대양 단독 항해 도전을 위한 요트 건조와 진수를 다룬 보도다."
   },
   {
     "content_id": "NAVER-1977051400209208006",
@@ -3166,7 +3170,8 @@
     "_searchTerm": "",
     "_issued_date": "19770514",
     "_news_position": "8면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "김원기 수영회장이 \"동아 갈매기호\"에 금일봉을 전달했다는 소식이다. 태평양 횡단 도전을 응원하는 체육계 인사들의 후원을 전한 보도다."
   },
   {
     "content_id": "NAVER-1977051600209208018",
@@ -3191,7 +3196,8 @@
     "_searchTerm": "",
     "_issued_date": "19770516",
     "_news_position": "8면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "체육계 소식을 모아 전한 기사로, 현광익 등의 동정을 다룬 것으로 보인다. 당시 스포츠계 인물과 행사 소식을 묶은 단신 보도다."
   },
   {
     "content_id": "NAVER-1977053100209208017",
@@ -3216,7 +3222,8 @@
     "_searchTerm": "",
     "_issued_date": "19770531",
     "_news_position": "8면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "체육계 소식을 전한 기사로, 고건석 등의 동정을 다룬 것으로 보인다. 스포츠계의 인물과 활동 소식을 묶은 단신 보도다."
   },
   {
     "content_id": "NAVER-1977060300209201022",
@@ -3241,7 +3248,8 @@
     "_searchTerm": "",
     "_issued_date": "19770603",
     "_news_position": "1면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "\"동아 갈매기호\"가 무선국 허가를 취득해 출범 준비를 마쳤다는 기사다. 태평양 단독 횡단 출항을 앞둔 요트의 막바지 준비를 전한 보도다."
   },
   {
     "content_id": "NAVER-1977060300209208012",
@@ -3266,7 +3274,8 @@
     "_searchTerm": "",
     "_issued_date": "19770603",
     "_news_position": "8면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "체육계 소식을 전한 기사로, 갈매기호 관련 동정을 포함한 것으로 보인다. 스포츠계의 여러 소식을 묶은 단신 보도다."
   },
   {
     "content_id": "NAVER-1977060400209208012",
@@ -3317,7 +3326,8 @@
     "_searchTerm": "",
     "_issued_date": "19770606",
     "_news_position": "8면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "갈매기호가 태평양 횡단길에 올랐다는 소식이다. 단독 항해 도전에 나선 요트의 출항을 전한 스포츠면 보도다."
   },
   {
     "content_id": "NAVER-1977060600209201005",
@@ -3368,7 +3378,8 @@
     "_searchTerm": "",
     "_issued_date": "19770606",
     "_news_position": "8면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "5일 부산을 떠나 태평양 단독 횡단에 나선 동아 갈매기호를 전한 기사다. 대양 도전에 오른 요트의 출발 장면을 담은 보도다."
   },
   {
     "content_id": "NAVER-1977060600209207001",
@@ -3419,7 +3430,8 @@
     "_searchTerm": "",
     "_issued_date": "19770607",
     "_news_position": "1면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "동아 갈매기호의 조타실 밑에 실린 장비와 적재물을 설명한 기사로 보인다. 태평양 횡단 항해에 나선 요트의 구조와 준비 상황을 소개한 보도다."
   },
   {
     "content_id": "NAVER-1977060700209201013",
@@ -3444,7 +3456,8 @@
     "_searchTerm": "",
     "_issued_date": "19770607",
     "_news_position": "1면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "동아 갈매기호가 닷새에 한 번씩 무선 교신을 한다는 소식이다. 항해 중인 요트와의 연락 방식을 전한 보도다."
   },
   {
     "content_id": "NAVER-1977060700239107005",
@@ -3469,7 +3482,8 @@
     "_searchTerm": "",
     "_issued_date": "19770607",
     "_news_position": "7면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "태평양 횡단에 도전한 동아 갈매기호와 항해자 현씨를 담은 사진 기사로 보인다. 단독 대양 항해에 나선 요트와 인물을 소개한 보도다."
   },
   {
     "content_id": "NAVER-1977060700239107017",
@@ -3494,7 +3508,8 @@
     "_searchTerm": "",
     "_issued_date": "19770607",
     "_news_position": "7면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "요트 갈매기호가 태평양 횡단을 위해 출범했다는 소식이다. 1970년대 한국의 해양 모험·요트 도전을 다룬 스포츠 기사로 보인다."
   },
   {
     "content_id": "NAVER-1977061600209207022",
@@ -3519,7 +3534,8 @@
     "_searchTerm": "",
     "_issued_date": "19770616",
     "_news_position": "7면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "태평양 횡단에 나선 동아갈매기호가 보낸 첫 무선 교신 소식과 이를 받은 아마추어 무선·보이스카우트 회원들의 환호를 전한 기사다. 항해 초기 단계의 교신 성공을 다룬 보도로 보인다."
   },
   {
     "content_id": "NAVER-1977061700209207022",
@@ -3544,7 +3560,8 @@
     "_searchTerm": "",
     "_issued_date": "19770617",
     "_news_position": "7면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "동아갈매기호가 거센 파도 속에서 천신만고 끝에 정상적으로 항해를 이어 가고 있다는 소식이다. 태평양 횡단 도전의 험난한 항해 과정을 전한 기사로 보인다."
   },
   {
     "content_id": "NAVER-1977062000329207012",
@@ -3569,7 +3586,8 @@
     "_searchTerm": "",
     "_issued_date": "19770620",
     "_news_position": "7면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "동아갈매기호가 항해를 계속할 수 없어 귀항한다는 소식이다. 태평양 횡단 도전이 중도에 좌절되었음을 알리는 기사로 보인다."
   },
   {
     "content_id": "NAVER-1977062100209207002",
@@ -3594,7 +3612,8 @@
     "_searchTerm": "",
     "_issued_date": "19770621",
     "_news_position": "7면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "항해를 중단한 동아갈매기호가 온산면 목도로 돌아왔다는 소식이다. 태평양 횡단 도전 실패 후 귀환 상황을 전한 기사로 보인다."
   },
   {
     "content_id": "NAVER-1977062100239107016",
@@ -3619,7 +3638,8 @@
     "_searchTerm": "",
     "_issued_date": "19770621",
     "_news_position": "7면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "동아갈매기호와 요트맨이 결국 항해를 포기했다는 소식이다. 1977년 첫 태평양 횡단 도전이 무산되었음을 전한 기사다."
   },
   {
     "content_id": "NAVER-1978051700209208013",
@@ -3644,7 +3664,8 @@
     "_searchTerm": "",
     "_issued_date": "19780517",
     "_news_position": "8면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "동아갈매기호가 새로 진수되어 태평양 요트 횡단에 다시 도전한다는 소식이다. 이전 도전의 실패 이후 재도전을 준비하는 과정을 다룬 기사로 보인다."
   },
   {
     "content_id": "NAVER-1978051700209208014",
@@ -3669,7 +3690,8 @@
     "_searchTerm": "",
     "_issued_date": "19780517",
     "_news_position": "8면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "태평양 단독 횡단 재도전을 위해 요트 선체를 보수했다는 소식이다. 재도전 준비 작업을 전한 스포츠 기사로 보인다."
   },
   {
     "content_id": "NAVER-1978052900209208013",
@@ -3694,7 +3716,8 @@
     "_searchTerm": "",
     "_issued_date": "19780529",
     "_news_position": "8면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "부산과 대마도 사이 시험 항해를 마친 동아갈매기호가 해양대학 선창으로 귀항하는 모습을 담은 사진 기사다. 태평양 재도전을 앞둔 시주 장면을 전한 보도로 보인다."
   },
   {
     "content_id": "NAVER-1978052900209208012",
@@ -3719,7 +3742,8 @@
     "_searchTerm": "",
     "_issued_date": "19780529",
     "_news_position": "8면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "동아갈매기호가 9시간 만에 부산과 대마도를 왕복하는 시험 항해에 성공했다는 소식이다. 태평양 횡단 재도전을 앞둔 점검 항해 성과를 전한 기사로 보인다."
   },
   {
     "content_id": "NAVER-1978060300209201013",
@@ -3744,7 +3768,8 @@
     "_searchTerm": "",
     "_issued_date": "19780603",
     "_news_position": "1면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "요트 동아갈매기호가 태평양 횡단을 위해 다시 출범했다는 소식이다. 1977년 실패 이후 이뤄진 재도전 출항을 전한 기사로 보인다."
   },
   {
     "content_id": "NAVER-1978060300209203003",
@@ -3769,7 +3794,8 @@
     "_searchTerm": "",
     "_issued_date": "19780603",
     "_news_position": "3면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "동아갈매기호가 출범하는 장면을 담은 사진 기사다. 태평양 횡단 재도전 출항 순간을 전한 사회면 보도로 보인다."
   },
   {
     "content_id": "NAVER-1978062700209207021",
@@ -3794,7 +3820,8 @@
     "_searchTerm": "",
     "_issued_date": "19780627",
     "_news_position": "7면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "동아갈매기호가 일본 어선과 충돌했다는 소식이다. 태평양 횡단 항해 도중 일어난 해상 사고를 전한 사회면 기사로 보인다."
   },
   {
     "content_id": "NAVER-1980123000209201018",
@@ -3819,7 +3846,8 @@
     "_searchTerm": "",
     "_issued_date": "19801230",
     "_news_position": "1면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "동아일보가 파랑새호의 두 요트맨을 그해의 인물로 선정했다는 소식이다. 1980년 한 해를 빛낸 요트 항해 도전을 기린 기사로 보인다."
   },
   {
     "content_id": "NAVER-1983021900209211024",
@@ -3844,7 +3872,8 @@
     "_searchTerm": "",
     "_issued_date": "19830219",
     "_news_position": "11면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "여러 짤막한 사건과 화제를 모아 전한 가십성 '휴지통' 코너 기사다. 서울서부경찰서 관련 소식 등을 다룬 당시의 사회면 잡보로 보인다."
   },
   {
     "content_id": "NAVER-1983051900209211001",
@@ -3895,7 +3924,8 @@
     "_searchTerm": "",
     "_issued_date": "19830709",
     "_news_position": "12면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "독자가 함께 풀어 보는 '생각게임 가족놀이' 코너 기사다. 배에 관한 문제 등을 다룬 신문의 오락·교양 지면으로 보인다."
   },
   {
     "content_id": "NAVER-1983101000209211001",
@@ -3920,7 +3950,8 @@
     "_searchTerm": "",
     "_issued_date": "19831010",
     "_news_position": "11면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "유해 없는 빈소에서 흐르는 비통과 분노, 눈물을 전한 기사다. 1983년 KAL기 격추 사건 등 대형 참사 희생자들의 빈소 분위기를 다룬 보도로 보인다."
   },
   {
     "content_id": "NAVER-1983101800209208003",
@@ -3945,7 +3976,8 @@
     "_searchTerm": "",
     "_issued_date": "19831018",
     "_news_position": "8면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "고 이중현 기자의 죽음을 애도하는 글이다. 순직한 동료 기자를 추모하며 쓴 추도 기사로 보인다."
   },
   {
     "content_id": "NAVER-1984090400099211005",
@@ -3970,7 +4002,8 @@
     "_searchTerm": "",
     "_issued_date": "19840904",
     "_news_position": "11면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "수해 피해를 돕기 위한 수재의연금 기탁 소식을 전한 기사다. 성기학 대표가 백만 원을 낸 사실 등 기업·인사들의 의연금 전달을 알리는 단신으로 보인다."
   },
   {
     "content_id": "NAVER-1986071100099211014",
@@ -3995,7 +4028,8 @@
     "_searchTerm": "",
     "_issued_date": "19860711",
     "_news_position": "11면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "매일경제신문의 알림 사항을 모은 '매경게시판' 코너다. 행사 안내와 연락처 등을 전한 경제면 게시판 기사로 보인다."
   },
   {
     "content_id": "NAVER-1986082100239105003",
@@ -4020,7 +4054,8 @@
     "_searchTerm": "",
     "_issued_date": "19860821",
     "_news_position": "5면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "국내 업계에 해외 공장 건설 붐이 일고 있다는 소식이다. 무역업체들의 해외 진출 동향을 다룬 경제 기사로 보인다."
   },
   {
     "content_id": "NAVER-1986101300099210006",
@@ -4045,7 +4080,8 @@
     "_searchTerm": "",
     "_issued_date": "19861013",
     "_news_position": "10면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "광주고속을 영입했다는 소식이다. 기업의 인수·영입 동향을 전한 경제면 단신으로 보인다."
   },
   {
     "content_id": "NAVER-1987021200209210001",
@@ -4070,7 +4106,8 @@
     "_searchTerm": "",
     "_issued_date": "19870212",
     "_news_position": "10면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "여름옷과 겨울옷을 3년에 한 벌씩 배급한다는 소식이다. 북한 주민들의 의류 배급 실태 등을 다룬 기사로 보인다."
   },
   {
     "content_id": "NAVER-1987021300239110005",
@@ -4095,7 +4132,8 @@
     "_searchTerm": "",
     "_issued_date": "19870213",
     "_news_position": "10면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "탈북한 김씨 가족이 밝힌 북한 주민생활을 전한 기사로, 1년에 생선 네 차례와 양말 두 켤레가 배급된다는 내용이다. 1980년대 북한의 열악한 생활 실태를 소개한 보도로 보인다."
   },
   {
     "content_id": "NAVER-1987072600239101022",
@@ -4120,7 +4158,8 @@
     "_searchTerm": "",
     "_issued_date": "19870726",
     "_news_position": "1면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "수재민을 돕자고 호소하며 의연금 기탁 소식을 전한 기사다. 조선일보에 접수된 백만 원 성금 등 수해 구호 모금을 알리는 보도로 보인다."
   },
   {
     "content_id": "NAVER-1987073100099211014",
@@ -4145,7 +4184,8 @@
     "_searchTerm": "",
     "_issued_date": "19870731",
     "_news_position": "11면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "'평화의 댐' 건설을 위한 성금 기탁 소식을 전한 기사다. 1980년대 후반 전국적으로 모금된 평화의 댐 성금 단신으로 보인다."
   },
   {
     "content_id": "NAVER-1988071600209208008",
@@ -4170,7 +4210,8 @@
     "_searchTerm": "",
     "_issued_date": "19880716",
     "_news_position": "8면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "노영문 씨가 처음으로 태평양 요트 횡단에 성공했다는 소식이다. 한국인의 단독 태평양 횡단 성공을 전한 스포츠 기사로 보인다."
   },
   {
     "content_id": "NAVER-1988121600239108009",
@@ -4195,7 +4236,8 @@
     "_searchTerm": "",
     "_issued_date": "19881216",
     "_news_position": "8면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "오리털 제품을 고르고 손질하는 방법을 알려 주는 설명회 소식이다. 겨울철 방한 의류 소비 정보를 다룬 생활 기사로 보인다."
   },
   {
     "content_id": "NAVER-1988122100289108004",
@@ -4220,7 +4262,8 @@
     "_searchTerm": "",
     "_issued_date": "19881221",
     "_news_position": "8면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "오리털 제품을 살 때 다운마크를 확인하라고 알리는 기사다. 소비자에게 오리털 제품 품질 인증 정보를 전한 생활·사회면 보도로 보인다."
   },
   {
     "content_id": "NAVER-1989012800099207016",
@@ -4245,7 +4288,8 @@
     "_searchTerm": "",
     "_issued_date": "19890128",
     "_news_position": "7면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "영원무역이 새 사옥을 착공했다는 소식이다. 의류·무역 기업의 사옥 건설 동향을 전한 경제면 단신으로 보인다."
   },
   {
     "content_id": "NAVER-1989092300099203020",
@@ -4270,7 +4314,8 @@
     "_searchTerm": "",
     "_issued_date": "19890923",
     "_news_position": "3면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "어업기술훈련소를 방문했다는 소식이다. 관계 인사의 시찰·방문 일정을 전한 경제면 단신으로 보인다."
   },
   {
     "content_id": "NAVER-1990022200099211008",
@@ -4295,7 +4340,8 @@
     "_searchTerm": "",
     "_issued_date": "19900222",
     "_news_position": "11면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "영원무역이 방글라데시 재킷공장의 생산라인을 대규모로 증설한다는 소식이다. 의류업체의 해외 생산기지 확대 동향을 다룬 경제 기사로 보인다."
   },
   {
     "content_id": "NAVER-1990041000099211004",
@@ -4320,7 +4366,8 @@
     "_searchTerm": "",
     "_issued_date": "19900410",
     "_news_position": "11면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "스포츠웨어 내수 판매를 시작한다는 소식이다. 의류업체의 국내 시장 진출 동향을 전한 경제면 기사로 보인다."
   },
   {
     "content_id": "NAVER-1991010600099208001",
@@ -4345,7 +4392,8 @@
     "_searchTerm": "",
     "_issued_date": "19910106",
     "_news_position": "8면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "성장과 내실이라는 두 마리 토끼를 겨냥한다는 기업 경영 방침을 전한 기사다. 새해를 맞은 기업의 경영 전략을 소개한 경제 기사로 보인다."
   },
   {
     "content_id": "NAVER-1991042200239119003",
@@ -4370,7 +4418,8 @@
     "_searchTerm": "",
     "_issued_date": "19910422",
     "_news_position": "19면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "해외에 진출한 섬유업체들이 호황을 맞아 현지 공장 증설 붐을 이루고 있다는 소식이다. 1990년대 초 섬유·의류 산업의 해외 생산 확대를 다룬 경제 기사로 보인다."
   },
   {
     "content_id": "NAVER-1991102100099226001",
@@ -4395,7 +4444,8 @@
     "_searchTerm": "",
     "_issued_date": "19911021",
     "_news_position": "26면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "오리털 의류와 스키복으로 미국 시장에 우회 진출한다는 소식이다. 의류업체의 대미 수출 전략을 다룬 경제 기사로 보인다."
   },
   {
     "content_id": "NAVER-1991102100099226014",
@@ -4420,7 +4470,8 @@
     "_searchTerm": "",
     "_issued_date": "19911021",
     "_news_position": "26면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "중국을 방문해 오리털 수입을 타진했다는 소식이다. 원자재 조달을 위한 기업의 중국 시장 접촉을 전한 경제면 단신으로 보인다."
   },
   {
     "content_id": "NAVER-1991102800099226018",
@@ -4445,7 +4496,8 @@
     "_searchTerm": "",
     "_issued_date": "19911028",
     "_news_position": "26면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "오리털 이불 판촉을 위해 중국을 방문했다는 소식이다. 기업의 중국 시장 판촉 활동을 전한 경제면 단신으로 보인다."
   },
   {
     "content_id": "NAVER-1991122300099226013",
@@ -4470,7 +4522,8 @@
     "_searchTerm": "",
     "_issued_date": "19911223",
     "_news_position": "26면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "미국 시장을 둘러본 뒤 귀국했다는 소식이다. 관계 인사의 해외 시장 시찰 일정을 전한 경제면 단신으로 보인다."
   },
   {
     "content_id": "NAVER-1992010700209222009",
@@ -4495,7 +4548,8 @@
     "_searchTerm": "",
     "_issued_date": "19920107",
     "_news_position": "22면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "버스 안에서 31억 원을 분실했다는 소식이다. 경리사원이 거액을 잃어버린 사건을 전한 당시의 사회면 잡보로 보인다."
   },
   {
     "content_id": "NAVER-1992021700099223001",
@@ -4520,7 +4574,8 @@
     "_searchTerm": "",
     "_issued_date": "19920217",
     "_news_position": "23면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "섬유·의류 업체 영원무역이 방글라데시 현지 공장을 두 배로 늘린다는 소식이다. 1990년대 초 봉제·의류 제조의 해외 생산기지 확대 흐름을 보여 주는 경제 기사다."
   },
   {
     "content_id": "NAVER-1992053000099206008",
@@ -4545,7 +4600,8 @@
     "_searchTerm": "",
     "_issued_date": "19920530",
     "_news_position": "6면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "영원무역이 스포츠 의류 생산을 확대한다는 소식을 전한 기사로 보인다. 1990년대 초 국내 의류업체의 생산 품목 다변화를 다룬 경제 기사다."
   },
   {
     "content_id": "NAVER-1992070200329106004",
@@ -4570,7 +4626,8 @@
     "_searchTerm": "",
     "_issued_date": "19920702",
     "_news_position": "6면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "제조업 경쟁력 강화를 주제로 한 대담에서 중소기업에 대한 신용대출 확대가 절실하다는 주장을 소개한 기사다. 1990년대 초 중소 제조업의 금융 애로를 다룬 경제 대화록으로 보인다."
   },
   {
     "content_id": "NAVER-1992070400099218016",
@@ -4595,7 +4652,8 @@
     "_searchTerm": "",
     "_issued_date": "19920704",
     "_news_position": "18면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "어떤 시설이나 선박 등의 건조에 공을 세운 유공자들을 격려했다는 소식으로 보인다. 1990년대 초 산업 현장의 공로자 표창을 전한 경제면 잡보다."
   },
   {
     "content_id": "NAVER-1992102300099208005",
@@ -4620,7 +4678,8 @@
     "_searchTerm": "",
     "_issued_date": "19921023",
     "_news_position": "8면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "목재 화물상자 납품을 전문으로 하던 우진구장(GW코리아)이 스포츠웨어 내수 시장으로 사업을 넓힌다는 기사로 보인다. 1990년대 초 중소기업의 업종 전환과 내수 진출을 다룬 경제 기사다."
   },
   {
     "content_id": "NAVER-1992110400239102001",
@@ -4645,7 +4704,8 @@
     "_searchTerm": "",
     "_issued_date": "19921104",
     "_news_position": "2면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "조선일보의 쓰레기 줄이기 캠페인에 감명을 받았다는 독자 반응을 전한 기사로 보인다. 1990년대 초 환경 의식 확산을 보여 주는 사회면 글이다."
   },
   {
     "content_id": "NAVER-1992120800099208003",
@@ -4670,7 +4730,8 @@
     "_searchTerm": "",
     "_issued_date": "19921208",
     "_news_position": "8면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "영원무역 성기학 사장이 섬유업 불황 속에서 끊임없는 도전으로 활로를 뚫었다는 내용을 다룬 기사다. 1990년대 초 섬유산업 침체기에 기업인의 경영 사례를 소개한 인물 기사로 보인다."
   },
   {
     "content_id": "NAVER-1992120800099208004",
@@ -4694,7 +4755,8 @@
     "_searchTerm": "",
     "_issued_date": "19921208",
     "_news_position": "8면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "영원무역 성기학 사장의 사진을 실은 항목이다. 같은 날짜 인물 기사에 곁들인 인물 사진으로 보인다."
   },
   {
     "content_id": "NAVER-1993071900239109003",
@@ -4719,7 +4781,8 @@
     "_searchTerm": "",
     "_issued_date": "19930719",
     "_news_position": "9면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "품질에 모든 역량을 쏟고 양은 무시하라는 경영 방침을 전한 기사로 보인다. 1990년대 초 삼성 등 재계의 품질 중심 신경영 분위기를 다룬 글로 보인다."
   },
   {
     "content_id": "NAVER-1993072000239113008",
@@ -4744,7 +4807,8 @@
     "_searchTerm": "",
     "_issued_date": "19930720",
     "_news_position": "13면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "금의 전기저항이 구리보다 높다는 과학 상식을 소개한 기사다. 일상 속 금속의 성질을 설명한 생활·과학 잡보로 보인다."
   },
   {
     "content_id": "NAVER-1993072400239110023",
@@ -4769,7 +4833,8 @@
     "_searchTerm": "",
     "_issued_date": "19930724",
     "_news_position": "10면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "이른바 이건희 신드롬이 신선한 충격을 주고 있다는 내용을 다룬 기사다. 1993년 삼성 이건희 회장의 신경영 선언이 사회 전반에 일으킨 반향을 전한 글로 보인다."
   },
   {
     "content_id": "NAVER-1993072400239110019",
@@ -4794,7 +4859,8 @@
     "_searchTerm": "",
     "_issued_date": "19930724",
     "_news_position": "10면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "앞선 보도의 잘못을 바로잡는다는 정정 알림이다. 조선일보 지면에 실린 일상적인 정정·사고 기사로 보인다."
   },
   {
     "content_id": "NAVER-1993073100329118019",
@@ -4819,7 +4885,8 @@
     "_searchTerm": "",
     "_issued_date": "19930731",
     "_news_position": "18면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "이건희 신드롬의 충격을 다룬 MBC 특집방송을 소개한 기사다. 일류와 변화를 강조한 삼성 신경영 메시지가 방송으로 다뤄진 1993년의 분위기를 전한다."
   },
   {
     "content_id": "NAVER-1993073100239115018",
@@ -4844,7 +4911,8 @@
     "_searchTerm": "",
     "_issued_date": "19930731",
     "_news_position": "15면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "이건희 회장의 이른바 독일 발언을 MBC가 당일 특집으로 방영한다는 소식이다. 1993년 삼성 신경영 선언의 발언 내용이 방송으로 공개되는 상황을 전한 기사로 보인다."
   },
   {
     "content_id": "NAVER-1993080300289116001",
@@ -4869,7 +4937,8 @@
     "_searchTerm": "",
     "_issued_date": "19930803",
     "_news_position": "16면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "삼성 이건희 회장의 사원연수 강연을 문화방송이 여과 없이 방영해 물의를 빚었다는 소식이다. 1993년 신경영 강연 방영을 둘러싼 논란을 다룬 기사로 보인다."
   },
   {
     "content_id": "NAVER-1993080300289111010",
@@ -4894,7 +4963,8 @@
     "_searchTerm": "",
     "_issued_date": "19930803",
     "_news_position": "11면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "삼성이 프로야구단 라이온스의 전용구장을 건설한다는 소식이다. 1990년대 초 기업 구단의 야구장 건립 계획을 전한 스포츠·경제 기사로 보인다."
   },
   {
     "content_id": "NAVER-1993080400239105001",
@@ -4919,7 +4989,8 @@
     "_searchTerm": "",
     "_issued_date": "19930804",
     "_news_position": "5면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "재벌이 반성할 점이 많으며 지금이 마지막 변신의 기회라는 주장을 전한 기사로 보인다. 1993년 삼성 신경영 논의 속에서 재계의 자성을 촉구한 글로 보인다."
   },
   {
     "content_id": "NAVER-1993080500239103003",
@@ -4944,7 +5015,8 @@
     "_searchTerm": "",
     "_issued_date": "19930805",
     "_news_position": "3면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "삼성의 이른바 신사고 경영을 다룬 기사다. 1993년 이건희 회장의 신경영 선언과 발상 전환 경영을 소개한 조선일보 기사로 보인다."
   },
   {
     "content_id": "NAVER-1993080500289107001",
@@ -4969,7 +5041,8 @@
     "_searchTerm": "",
     "_issued_date": "19930805",
     "_news_position": "7면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "거침없이 사업을 확장하는 삼성의 행보가 어디까지 이어질지 짚은 기사다. 1990년대 초 삼성그룹의 공격적 경영을 분석한 글로 보인다."
   },
   {
     "content_id": "NAVER-1993081100289110004",
@@ -4994,7 +5067,8 @@
     "_searchTerm": "",
     "_issued_date": "19930811",
     "_news_position": "10면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "삼성 이건희 구상에 관한 보도에 대해 유감을 표한 글이다. 1993년 회장 발언 보도를 둘러싼 입장 표명으로 보인다."
   },
   {
     "content_id": "NAVER-1993081100329117020",
@@ -5019,7 +5093,8 @@
     "_searchTerm": "",
     "_issued_date": "19930811",
     "_news_position": "17면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "재미과학기술자협회 차기 회장 서문원 박사가 기술경쟁에서 질 경쟁의 시대로 간다고 진단한 인터뷰 기사다. 1990년대 초 과학기술계의 질 중심 경쟁 흐름을 전한 글로 보인다."
   },
   {
     "content_id": "NAVER-1993081700239115007",
@@ -5044,7 +5119,8 @@
     "_searchTerm": "",
     "_issued_date": "19930817",
     "_news_position": "15면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "재계 전반으로 번진 이른바 신사고 흐름을 다룬 기사다. 1993년 삼성 신경영을 계기로 한 기업들의 발상 전환 움직임을 짚은 조선일보 글로 보인다."
   },
   {
     "content_id": "NAVER-1993090100289103009",
@@ -5069,7 +5145,8 @@
     "_searchTerm": "",
     "_issued_date": "19930901",
     "_news_position": "3면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "삼성이 여성 전문인력 채용을 확대한다는 소식을 다룬 기사다. 1990년대 초 대기업의 여성 인력 활용 확대 움직임을 전한 사회 기사로 보인다."
   },
   {
     "content_id": "NAVER-1993090600099119001",
@@ -5094,7 +5171,8 @@
     "_searchTerm": "",
     "_issued_date": "19930906",
     "_news_position": "19면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "이건희 신드롬을 다룬 책들이 출판계를 강타하고 있다는 소식이다. 일류와 변화를 내세운 삼성 신경영 열풍이 도서 시장으로 번진 1993년의 현상을 전한다."
   },
   {
     "content_id": "NAVER-1993090800329112015",
@@ -5119,7 +5197,8 @@
     "_searchTerm": "",
     "_issued_date": "19930908",
     "_news_position": "12면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "이건희 신드롬이 서점가를 강타하고 있다는 소식이다. 1993년 삼성 신경영 관련 서적의 출판·판매 열풍을 다룬 경향신문 기사로 보인다."
   },
   {
     "content_id": "NAVER-1993090800209114022",
@@ -5144,7 +5223,8 @@
     "_searchTerm": "",
     "_issued_date": "19930908",
     "_news_position": "14면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "이건희 신드롬으로 출판계가 법석을 떨고 있다는 소식이다. 1993년 신경영 관련 도서가 쏟아지던 출판가 상황을 전한 동아일보 기사로 보인다."
   },
   {
     "content_id": "NAVER-1993091100239116012",
@@ -5169,7 +5249,8 @@
     "_searchTerm": "",
     "_issued_date": "19930911",
     "_news_position": "16면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "새로 나온 책들을 소개한 신간 안내 항목이다. 조선일보 지면에 실린 도서 광고성 코너로 보인다."
   },
   {
     "content_id": "NAVER-1993091600099119007",
@@ -5194,7 +5275,8 @@
     "_searchTerm": "",
     "_issued_date": "19930916",
     "_news_position": "19면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "삼성을 2류라고 말할 수 있는 삼성맨을 내세운 도서 '이건희 신경제학'(김낙봉 엮음)을 소개한 항목이다. 1993년 신경영 열풍 속에 나온 관련 서적을 다룬 기사로 보인다."
   },
   {
     "content_id": "NAVER-1993092000239109002",
@@ -5219,7 +5301,8 @@
     "_searchTerm": "",
     "_issued_date": "19930920",
     "_news_position": "9면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "재래시장 답사와 석학 토론, 단독 여행 등 색다른 활동을 나열한 기사로 보인다. 새로운 경영·학습 방식의 사례를 소개한 1993년의 글로 보인다."
   },
   {
     "content_id": "NAVER-1993092600099105010",
@@ -5244,7 +5327,8 @@
     "_searchTerm": "",
     "_issued_date": "19930926",
     "_news_position": "5면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "한국의류산업협회가 법정 공휴일 축소 등 세 개 항을 정부에 건의했다는 소식이다. 1990년대 초 의류업계가 경쟁력 강화를 위해 제도 개선을 요청한 경제 기사다."
   },
   {
     "content_id": "NAVER-1993092700099124001",
@@ -5269,7 +5353,8 @@
     "_searchTerm": "",
     "_issued_date": "19930927",
     "_news_position": "24면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "경영혁신 이론을 다룬 서적이 잘 팔린다는 소식이다. 1993년 신경영 바람을 타고 경영 관련 도서가 인기를 끌던 출판 동향을 전한 기사다."
   },
   {
     "content_id": "NAVER-1993092800329111001",
@@ -5294,7 +5379,8 @@
     "_searchTerm": "",
     "_issued_date": "19930928",
     "_news_position": "11면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "재계가 다시 뛰며 신사고·신경영이 확산되고 있다는 내용을 다룬 기사다. 1993년 삼성 신경영을 계기로 한 기업들의 변화 움직임을 짚은 경향신문 글로 보인다."
   },
   {
     "content_id": "NAVER-1993101100099118001",
@@ -5319,7 +5405,8 @@
     "_searchTerm": "",
     "_issued_date": "19931011",
     "_news_position": "18면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "경제·경영 도서에 대한 직장인의 관심이 높다는 소식이다. 1993년 신경영 열풍 속 경영 서적이 인기를 끌던 출판 동향을 전한 기사다."
   },
   {
     "content_id": "NAVER-1993102400239107020",
@@ -5344,7 +5431,8 @@
     "_searchTerm": "",
     "_issued_date": "19931024",
     "_news_position": "7면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "삼성이 비서실을 전면 개편해 이른바 이 회장 친정체제로 경영을 쇄신한다는 소식이다. 1993년 삼성 신경영 추진 과정의 조직 개편을 다룬 기사로 보인다."
   },
   {
     "content_id": "NAVER-1993102800099132007",
@@ -5369,7 +5457,8 @@
     "_searchTerm": "",
     "_issued_date": "19931028",
     "_news_position": "32면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "자메이카 투자설명회가 열린다는 소식을 전한 기사로 보인다. 1990년대 초 해외 투자 유치 행사를 알린 경제면 잡보다."
   },
   {
     "content_id": "NAVER-1993110400099113021",
@@ -5394,7 +5483,8 @@
     "_searchTerm": "",
     "_issued_date": "19931104",
     "_news_position": "13면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "전방과 화승화학의 대주주가 자사주 매수를 확대한다는 소식이다. 1990년대 초 기업 대주주의 주식 매입 동향을 전한 증권·경제 기사로 보인다."
   },
   {
     "content_id": "NAVER-1993110800209127013",
@@ -5419,7 +5509,8 @@
     "_searchTerm": "",
     "_issued_date": "19931108",
     "_news_position": "27면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "열차 특실 명칭이 이용자 편의를 위해 원래대로 환원되었다는 소식이다. 1990년대 초 철도 객실 등급 명칭 변경을 전한 동아일보 생활 기사로 보인다."
   },
   {
     "content_id": "NAVER-1993121400099109006",
@@ -5444,7 +5535,8 @@
     "_searchTerm": "",
     "_issued_date": "19931214",
     "_news_position": "9면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "영원무역이 방글라데시 봉제공장을 대폭 늘린다는 소식이다. 1990년대 초 의류업체의 해외 생산기지 확장 흐름을 보여 주는 경제 기사다."
   },
   {
     "content_id": "NAVER-1993122100329104001",
@@ -5469,7 +5561,8 @@
     "_searchTerm": "",
     "_issued_date": "19931221",
     "_news_position": "4면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "한 해를 결산하며 마누라와 자식만 빼고 다 바꾸라는 말로 상징된 변화의 화두를 돌아본 기사다. 1993년 삼성 신경영 선언이 그해를 대표한 사회 현상이었음을 보여 주는 결산 기획이다."
   },
   {
     "content_id": "NAVER-1993122500099114009",
@@ -5494,7 +5587,8 @@
     "_searchTerm": "",
     "_issued_date": "19931225",
     "_news_position": "14면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "재계가 대대적으로 경영혁신에 나섰다는 내용을 다룬 기사다. 1993년 삼성 신경영을 계기로 확산된 기업들의 혁신 움직임을 짚은 경제 기사다."
   },
   {
     "content_id": "NAVER-1993122700289107001",
@@ -5519,7 +5613,8 @@
     "_searchTerm": "",
     "_issued_date": "19931227",
     "_news_position": "7면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "최종현, 이건희, 정주영, 박태준 등 주요 재벌 총수들의 한 해 흥망을 해와 달에 빗대어 정리한 기사로 보인다. 1993년 재계 인물들의 명암을 결산한 연말 경제면 기사다."
   },
   {
     "content_id": "NAVER-1993122800209110001",
@@ -5544,7 +5639,8 @@
     "_searchTerm": "",
     "_issued_date": "19931228",
     "_news_position": "10면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "1993년 재계를 돌아보며 정경유착 청산과 기업 환경 정상화 흐름을 짚은 기사로 보인다. 문민정부 출범 첫해 재계의 변화를 결산한 연말 경제면 보도다."
   },
   {
     "content_id": "NAVER-1993123000289106004",
@@ -5569,7 +5665,8 @@
     "_searchTerm": "",
     "_issued_date": "19931230",
     "_news_position": "6면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "기업들이 경영혁신을 위해 기울이는 노력을 다룬 기사로 보인다. 1990년대 초 한국 기업들의 경쟁력 강화 움직임을 전한 경제면 보도다."
   },
   {
     "content_id": "NAVER-1994012400239110004",
@@ -5594,7 +5691,8 @@
     "_searchTerm": "",
     "_issued_date": "19940124",
     "_news_position": "10면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "사내 영어 사용을 의무화하는 기업이 늘고 있다는 소식이다. 1990년대 세계화 흐름 속에서 국내 기업들의 국제화 추세를 전한 기사다."
   },
   {
     "content_id": "NAVER-1994022500099110009",
@@ -5619,7 +5717,8 @@
     "_searchTerm": "",
     "_issued_date": "19940225",
     "_news_position": "10면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "영원무역이 봉제 물류 자동화를 위해 무빙 시스템을 가동했다는 기사다. 1990년대 의류 제조업체의 생산 합리화 사례를 전한 경제면 보도다."
   },
   {
     "content_id": "NAVER-1994042200289114012",
@@ -5644,7 +5743,8 @@
     "_searchTerm": "",
     "_issued_date": "19940422",
     "_news_position": "14면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "'신경영'을 내세운 재벌의 대출 비리 문제를 다룬 기사로 보인다. 1990년대 재벌의 금융 관행을 비판적으로 짚은 사회면 보도다."
   },
   {
     "content_id": "NAVER-1994060700239111001",
@@ -5669,7 +5769,8 @@
     "_searchTerm": "",
     "_issued_date": "19940607",
     "_news_position": "11면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "삼성의 '질 경영' 1주년을 맞아 한국 사회에 퍼진 이른바 '이건희 신드롬'을 다룬 기사다. 1990년대 삼성 신경영 선언이 사회 전반에 미친 영향을 짚은 보도다."
   },
   {
     "content_id": "NAVER-1994061400099105004",
@@ -5694,7 +5795,8 @@
     "_searchTerm": "",
     "_issued_date": "19940614",
     "_news_position": "5면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "삼성그룹이 단일 체제 경영 속에서 분권형을 지향한다는 21세기 비전을 제시했다는 기사다. 1990년대 삼성의 미래 경영 구상을 전한 경제면 보도다."
   },
   {
     "content_id": "NAVER-1994062800099119001",
@@ -5719,7 +5821,8 @@
     "_searchTerm": "",
     "_issued_date": "19940628",
     "_news_position": "19면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "한국의 경영학자들을 소개하는 연재의 재무관리 분야 하편으로, 파생상품 등을 다룬 기사로 보인다. 국내 경영학계 인물과 연구를 조명한 기획 보도다."
   },
   {
     "content_id": "NAVER-1994091300329112003",
@@ -5744,7 +5847,8 @@
     "_searchTerm": "",
     "_issued_date": "19940913",
     "_news_position": "12면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "삼성이 중국과 동남아시아에서 7개 개발 사업에 진출한다는 소식이다. 1990년대 국내 대기업의 해외 진출 확대를 전한 경제면 기사다."
   },
   {
     "content_id": "NAVER-1995020900099119004",
@@ -5769,7 +5873,8 @@
     "_searchTerm": "",
     "_issued_date": "19950209",
     "_news_position": "19면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "기업들의 경영권 방어 전략이 다양해졌다는 기사다. 1990년대 적대적 인수합병 환경 속 기업 방어 수단을 다룬 경제면 보도다."
   },
   {
     "content_id": "NAVER-1995042000289105001",
@@ -5794,7 +5899,8 @@
     "_searchTerm": "",
     "_issued_date": "19950420",
     "_news_position": "5면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "'슈퍼파워'로 성장한 삼성을 조명한 기사의 이어지는 부분으로 보인다. 1990년대 삼성그룹의 위상과 영향력을 분석한 보도다."
   },
   {
     "content_id": "NAVER-1995052700099118030",
@@ -5819,7 +5925,8 @@
     "_searchTerm": "",
     "_issued_date": "19950527",
     "_news_position": "18면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "스포츠 의류 전문 수출업체 영원무역이 해외 기업설명회를 연다는 소식이다. 1990년대 수출 기업의 해외 투자 유치 활동을 전한 경제면 기사다."
   },
   {
     "content_id": "NAVER-1995093000329109001",
@@ -5844,7 +5951,8 @@
     "_searchTerm": "",
     "_issued_date": "19950930",
     "_news_position": "9면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "재계가 국정감사에 더 이상 크게 신경 쓰지 않는다는 분위기를 전한 기사로 보인다. 1990년대 정치권과 재계의 관계 변화를 짚은 보도다."
   },
   {
     "content_id": "NAVER-1995100300099111001",
@@ -5869,7 +5977,8 @@
     "_searchTerm": "",
     "_issued_date": "19951003",
     "_news_position": "11면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "영원무역이 방글라데시에 전용 공단을 조성한다는 소식이다. 1990년대 의류 수출업체의 해외 생산기지 확보 사례를 전한 경제면 기사다."
   },
   {
     "content_id": "NAVER-1995110800329109001",
@@ -5894,7 +6003,8 @@
     "_searchTerm": "",
     "_issued_date": "19951108",
     "_news_position": "9면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "이름 첫 글자만 거론돼도 주가가 폭락한다는 내용의 기사로 보인다. 1990년대 증시에서 특정 기업이나 인물 관련 소문이 주가에 미친 영향을 다룬 보도다."
   },
   {
     "content_id": "NAVER-1996031900099105010",
@@ -5919,7 +6029,8 @@
     "_searchTerm": "",
     "_issued_date": "19960319",
     "_news_position": "5면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "1996년 제1차 국제경영학회 학술대회 개최를 알린 기사로 보인다. 국내 경영학계의 학술 행사를 전한 경제면 단신이다."
   },
   {
     "content_id": "NAVER-1997012100289127003",
@@ -5944,7 +6055,8 @@
     "_searchTerm": "",
     "_issued_date": "19970121",
     "_news_position": "27면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "영원무역이 정리해고에 노동자들이 반발하자 폐업 신고를 했다는 기사로 보인다. 1990년대 후반 구조조정을 둘러싼 노사 갈등을 전한 사회면 보도다."
   },
   {
     "content_id": "NAVER-1997012300209127012",
@@ -5969,7 +6081,8 @@
     "_searchTerm": "",
     "_issued_date": "19970123",
     "_news_position": "27면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "강준만이 지은 책 '인물과 사상'을 소개한 기사다. 당대 인물을 비평적으로 다룬 출판물을 전한 책 소개 보도다."
   },
   {
     "content_id": "NAVER-1997012400329114012",
@@ -5994,7 +6107,8 @@
     "_searchTerm": "",
     "_issued_date": "19970124",
     "_news_position": "14면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "저널리즘과 단행본을 결합한 실험적 '저널룩' 형식의 '인물과 사상'을 소개한 기사로 보인다. 1990년대 새로운 출판 형식과 인물 비평 흐름을 다룬 보도다."
   },
   {
     "content_id": "NAVER-1997012900289125019",
@@ -6019,7 +6133,8 @@
     "_searchTerm": "",
     "_issued_date": "19970129",
     "_news_position": "25면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "영원무역의 정리해고 진통에 노동부와 섬유노련이 중재에 나섰다는 소식이다. 1990년대 후반 구조조정 갈등의 노정 개입 과정을 전한 사회면 기사다."
   },
   {
     "content_id": "NAVER-1997030500099111013",
@@ -6044,7 +6159,8 @@
     "_searchTerm": "",
     "_issued_date": "19970305",
     "_news_position": "11면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "영원무역 회장 성기학씨를 소개한 인물 기사로 보인다. 대표이사 등 그의 이력과 경영 활동을 다룬 경제면 인물 보도다."
   },
   {
     "content_id": "NAVER-1997030500099111014",
@@ -6068,7 +6184,8 @@
     "_searchTerm": "",
     "_issued_date": "19970305",
     "_news_position": "11면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "영원무역 회장 성기학씨의 사진을 실은 기사다. 인물 동정을 전하는 경제면 사진 기사다."
   },
   {
     "content_id": "NAVER-1997060600099113007",
@@ -6093,7 +6210,8 @@
     "_searchTerm": "",
     "_issued_date": "19970606",
     "_news_position": "13면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "영원무역이 해외 전환사채(CB)를 발행한다는 소식이다. 1990년대 후반 기업의 해외 자금 조달 사례를 전한 경제면 기사다."
   },
   {
     "content_id": "NAVER-1997062000329118008",
@@ -6118,7 +6236,8 @@
     "_searchTerm": "",
     "_issued_date": "19970620",
     "_news_position": "18면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "김우중 회장을 '일 중독증', 이인화씨를 '영웅 콤플렉스'로 규정하는 등 이 시대 인물들을 공격적으로 재단한 책이 화제라는 기사다. 1990년대 인물 비평 출판물의 파장을 전한 보도다."
   },
   {
     "content_id": "NAVER-1997062000239123035",
@@ -6143,7 +6262,8 @@
     "_searchTerm": "",
     "_issued_date": "19970620",
     "_news_position": "23면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "성기학씨의 사진을 실은 기사로, 조선일보 관련 경제면 보도로 보인다. 인물 동정을 전하는 사진 기사다."
   },
   {
     "content_id": "NAVER-1997062000099111011",
@@ -6168,7 +6288,8 @@
     "_searchTerm": "",
     "_issued_date": "19970620",
     "_news_position": "11면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "무역진흥대상에 태일정밀 등 3개 사가 선정됐다는 소식이다. 정강환 등 수상자를 알린 1990년대 후반 경제면 시상 기사다."
   },
   {
     "content_id": "NAVER-1997062000239123020",
@@ -6193,7 +6314,8 @@
     "_searchTerm": "",
     "_issued_date": "19970620",
     "_news_position": "23면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "무역진흥대상을 정강환, 성기학 등 3명이 수상했다는 기사다. 수출 유공 기업인을 표창한 1990년대 후반 경제면 시상 보도다."
   },
   {
     "content_id": "NAVER-1997090600239111002",
@@ -6218,7 +6340,8 @@
     "_searchTerm": "",
     "_issued_date": "19970906",
     "_news_position": "11면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "인건비 승부로 100% 해외 생산 전략을 펴는 기업을 다룬 '흔들리지 않는 경영' 연재의 한 편으로, 성기학 회장이 거론된 기사로 보인다. 1990년대 후반 수출 기업의 해외 생산 경영을 조명한 기획 보도다."
   },
   {
     "content_id": "NAVER-1997122000099133005",
@@ -6243,7 +6366,8 @@
     "_searchTerm": "",
     "_issued_date": "19971220",
     "_news_position": "33면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "공예 전시 공간 '크래프트 스페이스 목금토'가 실용적 공예작품 위주의 전시를 연다는 소식이다. 1990년대 후반 공예 전시 문화를 전한 문화면 기사다."
   },
   {
     "content_id": "NAVER-1998090500239126006",
@@ -6268,7 +6392,8 @@
     "_searchTerm": "",
     "_issued_date": "19980905",
     "_news_position": "26면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "'날아다니는 배'가 국내에 처음 선보여 시험 운항에 나선다는 소식이다. 새로운 운송 수단의 도입을 전한 1990년대 후반 보도다."
   },
   {
     "content_id": "NAVER-1998091400099110001",
@@ -6293,7 +6418,8 @@
     "_searchTerm": "",
     "_issued_date": "19980914",
     "_news_position": "10면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "성기학 영원무역 회장이 완전 현지 생산을 통한 세계 경영을 실현했다는 기사다. 1990년대 후반 의류 수출업체의 해외 생산 경영 성과를 전한 경제면 보도다."
   },
   {
     "content_id": "NAVER-1998092500209108004",
@@ -6318,7 +6444,8 @@
     "_searchTerm": "",
     "_issued_date": "19980925",
     "_news_position": "8면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "김영삼 정부와 삼성의 관계를 다룬 기사로 보인다. 1990년대 정권과 대기업 사이의 정치적 관계를 짚은 보도다."
   },
   {
     "content_id": "NAVER-1998113000239134002",
@@ -6343,7 +6470,8 @@
     "_searchTerm": "",
     "_issued_date": "19981130",
     "_news_position": "34면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "억불탑 등 수출 관련 시상의 수상자와 기업 명단을 정리한 기사로 보인다. 1990년대 후반 수출 유공 시상 결과를 전한 경제면 보도다."
   },
   {
     "content_id": "NAVER-1998121100099112016",
@@ -6368,7 +6496,8 @@
     "_searchTerm": "",
     "_issued_date": "19981211",
     "_news_position": "12면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "영원무역이 정보시스템을 구축했다는 소식이다. 1990년대 후반 기업의 정보화 추진 사례를 전한 경제면 기사다."
   },
   {
     "content_id": "NAVER-1999051500099101015",
@@ -6393,7 +6522,8 @@
     "_searchTerm": "",
     "_issued_date": "19990515",
     "_news_position": "1면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "'강한 기업 강한 국가'를 주제로 한 토론회가 부산상의 국제회의장에서 열린다는 안내 기사다. 1990년대 말 기업 경쟁력을 논의한 행사 소식을 전한 보도다."
   },
   {
     "content_id": "NAVER-1999052900099111004",
@@ -6418,7 +6548,8 @@
     "_searchTerm": "",
     "_issued_date": "19990529",
     "_news_position": "11면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "성기학 회장의 사진을 실은 기사다. 인물 동정을 전하는 경제면 사진 기사다."
   },
   {
     "content_id": "NAVER-1999052900099111001",
@@ -6443,7 +6574,8 @@
     "_searchTerm": "",
     "_issued_date": "19990529",
     "_news_position": "11면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "부산에서 열린 '강한 기업 강한 국가' 토론회에서 사양산업도 혁신하면 성장이 가능하다는 논의가 오갔다는 기사다. 1990년대 말 기업 혁신 담론을 전한 경제면 보도다."
   },
   {
     "content_id": "NAVER-1999052900099111007",
@@ -6468,7 +6600,8 @@
     "_searchTerm": "",
     "_issued_date": "19990529",
     "_news_position": "11면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "강한 기업 CEO의 경영 마인드로 도덕성을 바탕으로 한 강한 리더십이 필요하다는 주제 발표를 전한 기사다. 1990년대 말 기업 경영 윤리 담론을 다룬 경제면 보도다."
   },
   {
     "content_id": "NAVER-1999110800099121012",
@@ -6493,7 +6626,8 @@
     "_searchTerm": "",
     "_issued_date": "19991108",
     "_news_position": "21면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "영원무역이 올해 순이익 150억 원을 거둘 것으로 전망된다는 소식이다. 1990년대 말 의류 수출업체의 실적을 전한 경제면 기사다."
   },
   {
     "content_id": "NAVER-1999111600289129025",
@@ -6518,6 +6652,7 @@
     "_searchTerm": "",
     "_issued_date": "19991116",
     "_news_position": "29면",
-    "_source": "naver"
+    "_source": "naver",
+    "summary2": "수해를 입은 이재민들에게 3억원어치의 의류를 전달했다는 소식을 다룬 기사로 보인다. 1999년 무렵의 수재민 구호와 기부 활동을 전한 사회면 기사로 추정된다."
   }
 ]
