@@ -209,6 +209,8 @@ function refreshCounts() {
 /* ---------- 백엔드: Firebase(공유) 또는 serve.py(로컬 폴백) ---------- */
 let API_OK = false;        // serve.py 폴백 감지
 let curRec = null;         // 현재 모달에 열린 기사
+let navList = [];          // 모달 열 때 고정된 탐색 목록(분류 변경 후에도 유지)
+let navIdx = -1;           // navList 안에서 현재 기사 위치
 let FIREBASE_ON = false;
 let DB = null, AUTH = null;
 let CURRENT_USER = null;
@@ -861,7 +863,24 @@ function wireLoginDialog() {
         .catch((e) => setLoginMsg(authErrorText(e)));
     });
 }
+// 새로 모달 열기(카드·하위기사 클릭): 탐색 목록을 고정(스냅샷)한다.
 function openModal(r) {
+  const list = visibleList();
+  const i = list.findIndex((x) => x.content_id === r.content_id);
+  if (i < 0) {
+    navList = [r];
+    navIdx = 0;
+  } else {
+    navList = list;
+    navIdx = i;
+  }
+  renderModalContent(r);
+  modalEl.hidden = false;
+  document.body.style.overflow = "hidden";
+}
+
+// 모달 본문만 갱신(탐색 목록은 건드리지 않음 → 분류 변경 후에도 이동 유지)
+function renderModalContent(r) {
   curRec = r;
   $("#m-title").textContent = r.title;
   // 21세기 말씨 2줄 요약 — 썸네일 위
@@ -886,8 +905,6 @@ function openModal(r) {
   renderTags(r);
   renderCurate(r);
   loadComments(r.content_id);
-  modalEl.hidden = false;
-  document.body.style.overflow = "hidden";
   updateModalNav();
   const box = modalEl.querySelector(".modal-box");
   if (box) box.scrollTop = 0; // 기사 이동 시 맨 위로
@@ -899,27 +916,24 @@ function openModal(r) {
   }
 }
 
-// 현재 보이는(필터 적용된) 목록 안에서 이전/다음 기사로 이동
+// 현재 보이는(필터 적용된) 목록
 function visibleList() {
   return activeData().filter(matches);
 }
+// 고정된 탐색 목록 안에서 이전/다음 기사로 이동(분류 변경과 무관)
 function navModal(dir) {
-  if (!curRec) return;
-  const list = visibleList();
-  const i = list.findIndex((r) => r.content_id === curRec.content_id);
-  if (i < 0) return;
-  const j = i + dir;
-  if (j < 0 || j >= list.length) return;
-  openModal(list[j]);
+  if (!navList.length) return;
+  const j = navIdx + dir;
+  if (j < 0 || j >= navList.length) return;
+  navIdx = j;
+  renderModalContent(navList[j]);
 }
 function updateModalNav() {
   const prev = $("#m-prev");
   const next = $("#m-next");
   if (!prev || !next) return;
-  const list = visibleList();
-  const i = curRec ? list.findIndex((r) => r.content_id === curRec.content_id) : -1;
-  prev.disabled = i <= 0;
-  next.disabled = i < 0 || i >= list.length - 1;
+  prev.disabled = navIdx <= 0;
+  next.disabled = navIdx < 0 || navIdx >= navList.length - 1;
 }
 
 async function postJSON(url, body) {
