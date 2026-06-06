@@ -218,6 +218,23 @@ a { color: var(--ink); text-underline-offset: 2px; }
 .modal { position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center; }
 .modal[hidden] { display: none; }
 .modal-backdrop { position: absolute; inset: 0; background: rgba(20,20,20,.5); }
+/* 좌우 기사 이동 화살표 */
+.modal-nav {
+  position: absolute; top: 50%; transform: translateY(-50%); z-index: 110;
+  width: 60px; height: 60px; border: none; border-radius: 50%;
+  background: rgba(20,20,20,.3); color: #fff; cursor: pointer;
+  font-size: 2.4rem; line-height: 1; display: flex; align-items: center; justify-content: center;
+  transition: background .15s, opacity .15s; padding: 0; padding-bottom: 4px;
+}
+.modal-nav:hover { background: rgba(20,20,20,.62); }
+.modal-nav.prev { left: 28px; }
+.modal-nav.next { right: 28px; }
+.modal-nav:disabled { opacity: .2; cursor: default; background: rgba(20,20,20,.3); }
+@media (max-width: 720px) {
+  .modal-nav { width: 44px; height: 44px; font-size: 1.8rem; background: rgba(20,20,20,.5); }
+  .modal-nav.prev { left: 6px; }
+  .modal-nav.next { right: 6px; }
+}
 .modal-box {
   position: relative; background: #fff; max-width: 560px; width: calc(100% - 32px);
   max-height: 90vh; overflow: auto; border-radius: 2px; padding: 30px; z-index: 1;

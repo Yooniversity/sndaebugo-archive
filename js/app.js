@@ -737,8 +737,13 @@ function setupModal() {
     if (ev.target.hasAttribute("data-close")) closeModal();
   });
   document.addEventListener("keydown", (ev) => {
+    if (modalEl.hidden) return;
     if (ev.key === "Escape") closeModal();
+    else if (ev.key === "ArrowLeft") navModal(-1);
+    else if (ev.key === "ArrowRight") navModal(1);
   });
+  $("#m-prev").addEventListener("click", () => navModal(-1));
+  $("#m-next").addEventListener("click", () => navModal(1));
   $("#m-star").addEventListener("click", starCurrent);
   // 위임 + 각 버튼 직접 바인딩(이중 안전)
   $("#m-classify").addEventListener("click", (ev) => {
@@ -883,12 +888,38 @@ function openModal(r) {
   loadComments(r.content_id);
   modalEl.hidden = false;
   document.body.style.overflow = "hidden";
+  updateModalNav();
+  const box = modalEl.querySelector(".modal-box");
+  if (box) box.scrollTop = 0; // 기사 이동 시 맨 위로
   // serve.py 폴백 모드에서만: 로컬 서버 상태 재확인(늦게 떠도 반영)
   if (!FIREBASE_ON) {
     detectCurationApi().then(() => {
       if (curRec === r) refreshModalControls();
     });
   }
+}
+
+// 현재 보이는(필터 적용된) 목록 안에서 이전/다음 기사로 이동
+function visibleList() {
+  return activeData().filter(matches);
+}
+function navModal(dir) {
+  if (!curRec) return;
+  const list = visibleList();
+  const i = list.findIndex((r) => r.content_id === curRec.content_id);
+  if (i < 0) return;
+  const j = i + dir;
+  if (j < 0 || j >= list.length) return;
+  openModal(list[j]);
+}
+function updateModalNav() {
+  const prev = $("#m-prev");
+  const next = $("#m-next");
+  if (!prev || !next) return;
+  const list = visibleList();
+  const i = curRec ? list.findIndex((r) => r.content_id === curRec.content_id) : -1;
+  prev.disabled = i <= 0;
+  next.disabled = i < 0 || i >= list.length - 1;
 }
 
 async function postJSON(url, body) {
