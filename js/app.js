@@ -123,6 +123,8 @@ function hashStr(s) {
 function recordTopics(r) {
   const hay = [r.title, r.title_original, (r.keywords || []).join(" ")].join(" ");
   const out = TOPIC_RULES.filter((t) => t.words.some((w) => hay.includes(w))).map((t) => t.key);
+  // '인물'(사대부고 출신) 태그가 달린 기사는 인물 주제로 분류
+  if ((TAGS[r.content_id] || []).includes("인물")) out.unshift("인물");
   return out.length ? out : ["기타"];
 }
 
@@ -474,7 +476,7 @@ function buildFilters() {
   // topic chips (주제) — 현재 탭 데이터에서 도출, 규칙 순서 유지(+기타)
   const topicCount = {};
   ALL.forEach((r) => recordTopics(r).forEach((t) => (topicCount[t] = (topicCount[t] || 0) + 1)));
-  const topicOrder = [...TOPIC_RULES.map((t) => t.key), "기타"].filter((t) => topicCount[t]);
+  const topicOrder = ["인물", ...TOPIC_RULES.map((t) => t.key), "기타"].filter((t) => topicCount[t]);
   $("#topicFilters").innerHTML = topicOrder
     .map((t) => `<button class="chip" data-topic="${t}">${n(t, topicCount[t])}</button>`)
     .join("");
