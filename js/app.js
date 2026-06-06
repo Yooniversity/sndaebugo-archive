@@ -743,11 +743,6 @@ function setupModal() {
   document.addEventListener("keydown", (ev) => {
     if (ev.key === "Escape") closeModal();
   });
-  $("#c-promote").addEventListener("click", promoteCurrent);
-  $("#c-demote").addEventListener("click", demoteCurrent);
-  $("#c-reject").addEventListener("click", rejectCurrent);
-  $("#c-restore").addEventListener("click", restoreCurrent);
-  $("#c-fav").addEventListener("click", favoriteCurrent);
   $("#m-star").addEventListener("click", starCurrent);
   // 위임 + 각 버튼 직접 바인딩(이중 안전)
   $("#m-classify").addEventListener("click", (ev) => {
@@ -1058,31 +1053,9 @@ function loadGiscus(cid) {
 }
 
 function renderCurate(r) {
+  // 검수 패널은 제거됨(분류 버튼 + 별표로 대체). 호환용 빈 함수.
   const box = $("#m-curate");
-  if (!canEditNow()) {
-    box.hidden = true;
-    return;
-  }
-  box.hidden = false;
-  $("#c-msg").textContent = "";
-  const verified = VERIFIED_IDS.has(r.content_id);
-  const rejected = REJECTED_IDS.has(r.content_id);
-  // 셋 중 한 상태만: 후보(승격/관련없음) · 검수완료(내리기·찜) · 관련없음(되돌리기)
-  $("#c-promote-box").hidden = verified || rejected;
-  $("#c-demote-box").hidden = !verified;
-  $("#c-restore-box").hidden = !rejected;
-  if (verified) {
-    const faved = FAVORITE_IDS.has(r.content_id);
-    const btn = $("#c-fav");
-    btn.textContent = faved ? "⭐ 중요 표시 해제" : "☆ 중요 기사로 찜하기";
-    btn.classList.toggle("on", faved);
-  }
-  if (!verified && !rejected) {
-    // 후보의 자동 태그(era)·기존 값으로 입력란 프리필
-    $("#c-era").value = ERA_ORDER.includes(r.era) ? r.era : "경성사범";
-    $("#c-school").value = r.school_name || "";
-    $("#c-summary").value = r.summary || "";
-  }
+  if (box) box.hidden = true;
 }
 
 async function promoteCurrent() {
@@ -1202,7 +1175,8 @@ function applyRestore(cid) {
 }
 
 function setCurMsg(t) {
-  $("#c-msg").textContent = t;
+  const el = $("#c-msg");
+  if (el) el.textContent = t;
 }
 function closeModal() {
   if (!modalEl) return;

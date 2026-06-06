@@ -7,7 +7,7 @@
   <meta name="description" content="옛 신문 속 서울대학교 사범대학 부설고등학교(서울사대부고)의 역사 — 역사관 전시 아카이브">
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
-  <link rel="stylesheet" href="css/style.css?v=25">
+  <link rel="stylesheet" href="css/style.css?v=26">
 </head>
 <body>
   <header class="site-header">
@@ -123,41 +123,6 @@
         <input id="tag-input" class="tag-input" type="text" placeholder="태그 추가 후 Enter" hidden>
       </div>
 
-      <!-- 검수: 검수완료 승격/강등 (로컬 큐레이션 서버에서만 표시) -->
-      <div id="m-curate" class="curate" hidden>
-        <div id="c-promote-box" class="curate-box">
-          <h3 class="curate-title">검수완료로 승격</h3>
-          <label class="curate-field">시기
-            <select id="c-era">
-              <option value="경성사범">경성사범기</option>
-              <option value="부속중학교">부속중학교</option>
-              <option value="부속고">부속고등학교</option>
-              <option value="부설고">부설고등학교</option>
-            </select>
-          </label>
-          <label class="curate-field">교명
-            <input id="c-school" type="text" placeholder="예: 서울대학교 사범대학 부속고등학교">
-          </label>
-          <label class="curate-field">요약
-            <textarea id="c-summary" rows="3" placeholder="한두 문장 요약 (나중에 보강 가능)"></textarea>
-          </label>
-          <button id="c-promote" class="btn btn-gold" type="button">★ 검수완료로 승격</button>
-          <div class="curate-sep">또는</div>
-          <button id="c-reject" class="btn btn-outline" type="button">✕ 관련없음으로 이동</button>
-        </div>
-        <div id="c-demote-box" class="curate-box" hidden>
-          <p class="curate-note">★ 이미 <strong>검수완료</strong>된 기사입니다.</p>
-          <button id="c-fav" class="btn btn-gold" type="button">☆ 중요 기사로 찜하기</button>
-          <div class="curate-sep">또는</div>
-          <button id="c-demote" class="btn btn-outline" type="button">검수완료에서 내리기</button>
-        </div>
-        <div id="c-restore-box" class="curate-box" hidden>
-          <p class="curate-note">✕ <strong>관련없음</strong>으로 분류된 기사입니다.</p>
-          <button id="c-restore" class="btn btn-outline" type="button">전체 후보로 되돌리기</button>
-        </div>
-        <p id="c-msg" class="curate-msg" role="status"></p>
-      </div>
-
       <!-- 댓글(공개, GitHub Discussions 기반 Giscus) -->
       <div class="m-comments-wrap">
         <h3 class="comments-title">댓글</h3>
@@ -193,7 +158,7 @@
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
-  <script src="js/firebase-config.js?v=25"></script>
-  <script src="js/app.js?v=25"></script>
+  <script src="js/firebase-config.js?v=26"></script>
+  <script src="js/app.js?v=26"></script>
 </body>
 </html>
