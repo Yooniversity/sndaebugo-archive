@@ -298,6 +298,7 @@ a { color: var(--ink); text-underline-offset: 2px; }
 
 /* ---------- 로그인 다이얼로그 ---------- */
 .login-modal { position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center; padding: 20px; }
+.login-modal[hidden] { display: none; }
 .login-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,.45); }
 .login-box {
   position: relative; background: #fff; border: 1px solid var(--line); border-radius: 4px;
