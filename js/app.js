@@ -78,12 +78,6 @@ function rebuildEffective() {
   }
   FEATURED = CANDIDATES.filter((r) => VERIFIED_IDS.has(r.content_id)).sort(byDate);
 }
-const GISCUS = {
-  repo: "Yooniversity/sndaebugo-archive",
-  repoId: "R_kgDOSxpSGg",
-  category: "General",
-  categoryId: "DIC_kwDOSxpSGs4C-k04",
-};
 let ALL = [];               // 현재 탭의 활성 데이터셋
 let tab = "featured";
 const state = { q: "", periods: new Set(), papers: new Set(), topics: new Set(), favOnly: false };
@@ -316,6 +310,7 @@ function refreshModalControls() {
   renderStar(curRec);
   renderTags(curRec);
   renderCurate(curRec);
+  if ($("#cmt-list")) renderCommentList(lastComments);
 }
 
 /* ---------- 편집 쓰기(공유 오버라이드 또는 serve.py) ---------- */
@@ -884,7 +879,7 @@ function openModal(r) {
   renderClassify(r);
   renderTags(r);
   renderCurate(r);
-  loadGiscus(r.content_id);
+  loadComments(r.content_id);
   modalEl.hidden = false;
   document.body.style.overflow = "hidden";
   // serve.py 폴백 모드에서만: 로컬 서버 상태 재확인(늦게 떠도 반영)
@@ -1024,32 +1019,124 @@ async function setTags(r, tags) {
   }
 }
 
-/* ---------- 댓글(Giscus) ---------- */
-function loadGiscus(cid) {
+/* ---------- 댓글(Firebase, 로그인 불필요) ---------- */
+let commentsUnsub = null;
+let lastComments = [];
+
+function commentTimeText(ts) {
+  let d = null;
+  try { d = ts && ts.toDate ? ts.toDate() : null; } catch (e) { d = null; }
+  if (!d) return "방금";
+  const diff = (Date.now() - d.getTime()) / 1000;
+  if (diff < 60) return "방금";
+  if (diff < 3600) return Math.floor(diff / 60) + "분 전";
+  if (diff < 86400) return Math.floor(diff / 3600) + "시간 전";
+  if (diff < 86400 * 7) return Math.floor(diff / 86400) + "일 전";
+  const p = (n) => String(n).padStart(2, "0");
+  return `${d.getFullYear()}.${p(d.getMonth() + 1)}.${p(d.getDate())}`;
+}
+
+function loadComments(cid) {
   const c = $("#m-comments");
   if (!c) return;
-  c.innerHTML = "";
-  const s = document.createElement("script");
-  s.src = "https://giscus.app/client.js";
-  s.async = true;
-  s.crossOrigin = "anonymous";
-  const attrs = {
-    "data-repo": GISCUS.repo,
-    "data-repo-id": GISCUS.repoId,
-    "data-category": GISCUS.category,
-    "data-category-id": GISCUS.categoryId,
-    "data-mapping": "specific",
-    "data-term": cid,
-    "data-strict": "1",
-    "data-reactions-enabled": "1",
-    "data-emit-metadata": "0",
-    "data-input-position": "bottom",
-    "data-theme": "light",
-    "data-lang": "ko",
-    "data-loading": "lazy",
-  };
-  for (const k in attrs) s.setAttribute(k, attrs[k]);
-  c.appendChild(s);
+  if (commentsUnsub) { try { commentsUnsub(); } catch (e) {} commentsUnsub = null; }
+  if (!DB) {
+    c.innerHTML = '<p class="cmt-empty">댓글 기능을 사용할 수 없습니다.</p>';
+    return;
+  }
+  const savedName = localStorage.getItem("cmt-name") || "";
+  c.innerHTML =
+    '<div class="cmt-list" id="cmt-list"><p class="cmt-empty">불러오는 중…</p></div>' +
+    '<form class="cmt-form" id="cmt-form">' +
+    '<input class="cmt-name" id="cmt-name" type="text" placeholder="이름" maxlength="40" autocomplete="name">' +
+    '<textarea class="cmt-text" id="cmt-text" placeholder="댓글을 입력하세요…" maxlength="2000" rows="2"></textarea>' +
+    '<div class="cmt-actions"><span class="cmt-msg" id="cmt-msg"></span>' +
+    '<button class="btn btn-gold cmt-submit" type="submit">등록</button></div>' +
+    "</form>";
+  const nameEl = $("#cmt-name");
+  const textEl = $("#cmt-text");
+  const msgEl = $("#cmt-msg");
+  if (savedName) nameEl.value = savedName;
+
+  $("#cmt-form").addEventListener("submit", (ev) => {
+    ev.preventDefault();
+    const name = (nameEl.value || "").trim() || "익명";
+    const text = (textEl.value || "").trim();
+    if (!text) { msgEl.textContent = "내용을 입력하세요."; return; }
+    msgEl.textContent = "등록 중…";
+    localStorage.setItem("cmt-name", name === "익명" ? "" : name);
+    DB.collection("comments")
+      .add({
+        cid,
+        name: name.slice(0, 40),
+        text: text.slice(0, 2000),
+        at: firebase.firestore.FieldValue.serverTimestamp(),
+      })
+      .then(() => { textEl.value = ""; msgEl.textContent = ""; })
+      .catch((e) => { msgEl.textContent = "등록 실패: " + (e.code || e.message || ""); });
+  });
+
+  commentsUnsub = DB.collection("comments")
+    .where("cid", "==", cid)
+    .onSnapshot(
+      (snap) => {
+        const items = [];
+        snap.forEach((doc) => items.push(Object.assign({ id: doc.id }, doc.data())));
+        items.sort((a, b) => {
+          const ta = a.at && a.at.toMillis ? a.at.toMillis() : Number.MAX_SAFE_INTEGER;
+          const tb = b.at && b.at.toMillis ? b.at.toMillis() : Number.MAX_SAFE_INTEGER;
+          return ta - tb;
+        });
+        lastComments = items;
+        renderCommentList(items);
+      },
+      (err) => {
+        const list = $("#cmt-list");
+        if (list) list.innerHTML = '<p class="cmt-empty">댓글을 불러오지 못했습니다.</p>';
+        console.warn("comments snapshot:", err && err.code);
+      }
+    );
+}
+
+function renderCommentList(items) {
+  const list = $("#cmt-list");
+  if (!list) return;
+  if (!items.length) {
+    list.innerHTML = '<p class="cmt-empty">첫 댓글을 남겨보세요.</p>';
+    return;
+  }
+  const canDelete = canEditNow();
+  list.innerHTML = items
+    .map((it) => {
+      const del = canDelete
+        ? `<button class="cmt-del" data-id="${escapeHtml(it.id)}" title="삭제" aria-label="삭제">×</button>`
+        : "";
+      return (
+        '<div class="cmt-item">' +
+        '<div class="cmt-head"><span class="cmt-author">' +
+        escapeHtml(it.name || "익명") +
+        '</span><span class="cmt-time">' +
+        commentTimeText(it.at) +
+        "</span>" +
+        del +
+        "</div>" +
+        '<div class="cmt-body">' +
+        escapeHtml(it.text || "").replace(/\n/g, "<br>") +
+        "</div></div>"
+      );
+    })
+    .join("");
+  if (canDelete) {
+    list.querySelectorAll(".cmt-del").forEach((b) =>
+      b.addEventListener("click", () => {
+        if (!DB) return;
+        b.disabled = true;
+        DB.collection("comments").doc(b.dataset.id).delete().catch(() => {
+          b.disabled = false;
+        });
+      })
+    );
+  }
 }
 
 function renderCurate(r) {
@@ -1182,6 +1269,7 @@ function closeModal() {
   if (!modalEl) return;
   modalEl.hidden = true;
   document.body.style.overflow = "";
+  if (commentsUnsub) { try { commentsUnsub(); } catch (e) {} commentsUnsub = null; }
 }
 
 function escapeHtml(s) {
