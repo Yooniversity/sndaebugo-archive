@@ -227,13 +227,14 @@ a { color: var(--ink); text-underline-offset: 2px; }
   transition: background .15s, opacity .15s; padding: 0; padding-bottom: 4px;
 }
 .modal-nav:hover { background: rgba(20,20,20,.62); }
-.modal-nav.prev { left: 28px; }
-.modal-nav.next { right: 28px; }
+/* 박스(최대 560px, 중앙 정렬) 바로 바깥에 붙임 */
+.modal-nav.prev { right: calc(50% + 280px + 10px); left: auto; }
+.modal-nav.next { left: calc(50% + 280px + 10px); right: auto; }
 .modal-nav:disabled { opacity: .2; cursor: default; background: rgba(20,20,20,.3); }
 @media (max-width: 720px) {
   .modal-nav { width: 44px; height: 44px; font-size: 1.8rem; background: rgba(20,20,20,.5); }
-  .modal-nav.prev { left: 6px; }
-  .modal-nav.next { right: 6px; }
+  .modal-nav.prev { left: 6px; right: auto; }
+  .modal-nav.next { right: 6px; left: auto; }
 }
 .modal-box {
   position: relative; background: #fff; max-width: 560px; width: calc(100% - 32px);
