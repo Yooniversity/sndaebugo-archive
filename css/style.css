@@ -296,18 +296,18 @@ a { color: var(--ink); text-underline-offset: 2px; }
 .cmt-del:hover { color: #c0392b; }
 .cmt-body { font-size: .92rem; color: #222; line-height: 1.55; white-space: pre-wrap; word-break: break-word; }
 .cmt-form { display: flex; flex-direction: column; gap: 8px; }
-.cmt-name {
-  align-self: flex-start; width: 160px; max-width: 100%; padding: 8px 10px; box-sizing: border-box;
-  border: 1px solid var(--line); border-radius: 2px; font-size: .9rem; font-family: inherit;
-}
+.cmt-asrow { font-size: .82rem; color: var(--muted); }
+.cmt-as { font-weight: 700; color: var(--ink); }
 .cmt-text {
   width: 100%; box-sizing: border-box; padding: 10px 12px; border: 1px solid var(--line);
   border-radius: 2px; font-size: .92rem; font-family: inherit; resize: vertical; min-height: 48px;
 }
-.cmt-name:focus, .cmt-text:focus { outline: none; border-color: var(--ink); }
+.cmt-text:focus { outline: none; border-color: var(--ink); }
 .cmt-actions { display: flex; align-items: center; gap: 10px; }
 .cmt-msg { font-size: .82rem; color: var(--muted); }
 .cmt-submit { margin-left: auto; padding: 9px 20px; }
+.cmt-login-hint { font-size: .88rem; color: var(--muted); margin: 0 0 8px; }
+.cmt-login-btn { padding: 8px 18px; }
 .btn {
   display: inline-block; background: var(--ink); color: #fff; text-decoration: none;
   padding: 12px 18px; border-radius: 2px; font-weight: 600; font-size: .92rem;

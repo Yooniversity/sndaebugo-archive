@@ -311,6 +311,7 @@ function refreshModalControls() {
   renderTags(curRec);
   renderCurate(curRec);
   if ($("#cmt-list")) renderCommentList(lastComments);
+  if ($("#cmt-formwrap")) renderCommentForm();
 }
 
 /* ---------- 편집 쓰기(공유 오버라이드 또는 serve.py) ---------- */
@@ -1019,9 +1020,10 @@ async function setTags(r, tags) {
   }
 }
 
-/* ---------- 댓글(Firebase, 로그인 불필요) ---------- */
+/* ---------- 댓글(Firebase, 로그인 이메일로 작성) ---------- */
 let commentsUnsub = null;
 let lastComments = [];
+let currentCommentCid = null;
 
 function commentTimeText(ts) {
   let d = null;
@@ -1039,42 +1041,16 @@ function commentTimeText(ts) {
 function loadComments(cid) {
   const c = $("#m-comments");
   if (!c) return;
+  currentCommentCid = cid;
   if (commentsUnsub) { try { commentsUnsub(); } catch (e) {} commentsUnsub = null; }
   if (!DB) {
     c.innerHTML = '<p class="cmt-empty">댓글 기능을 사용할 수 없습니다.</p>';
     return;
   }
-  const savedName = localStorage.getItem("cmt-name") || "";
   c.innerHTML =
     '<div class="cmt-list" id="cmt-list"><p class="cmt-empty">불러오는 중…</p></div>' +
-    '<form class="cmt-form" id="cmt-form">' +
-    '<input class="cmt-name" id="cmt-name" type="text" placeholder="이름" maxlength="40" autocomplete="name">' +
-    '<textarea class="cmt-text" id="cmt-text" placeholder="댓글을 입력하세요…" maxlength="2000" rows="2"></textarea>' +
-    '<div class="cmt-actions"><span class="cmt-msg" id="cmt-msg"></span>' +
-    '<button class="btn btn-gold cmt-submit" type="submit">등록</button></div>' +
-    "</form>";
-  const nameEl = $("#cmt-name");
-  const textEl = $("#cmt-text");
-  const msgEl = $("#cmt-msg");
-  if (savedName) nameEl.value = savedName;
-
-  $("#cmt-form").addEventListener("submit", (ev) => {
-    ev.preventDefault();
-    const name = (nameEl.value || "").trim() || "익명";
-    const text = (textEl.value || "").trim();
-    if (!text) { msgEl.textContent = "내용을 입력하세요."; return; }
-    msgEl.textContent = "등록 중…";
-    localStorage.setItem("cmt-name", name === "익명" ? "" : name);
-    DB.collection("comments")
-      .add({
-        cid,
-        name: name.slice(0, 40),
-        text: text.slice(0, 2000),
-        at: firebase.firestore.FieldValue.serverTimestamp(),
-      })
-      .then(() => { textEl.value = ""; msgEl.textContent = ""; })
-      .catch((e) => { msgEl.textContent = "등록 실패: " + (e.code || e.message || ""); });
-  });
+    '<div class="cmt-formwrap" id="cmt-formwrap"></div>';
+  renderCommentForm();
 
   commentsUnsub = DB.collection("comments")
     .where("cid", "==", cid)
@@ -1098,6 +1074,45 @@ function loadComments(cid) {
     );
 }
 
+function renderCommentForm() {
+  const wrap = $("#cmt-formwrap");
+  if (!wrap) return;
+  if (!CURRENT_USER) {
+    wrap.innerHTML =
+      '<p class="cmt-login-hint">댓글을 작성하려면 로그인하세요.</p>' +
+      '<button class="btn btn-outline cmt-login-btn" id="cmt-login" type="button">로그인</button>';
+    const b = $("#cmt-login");
+    if (b) b.addEventListener("click", openLoginDialog);
+    return;
+  }
+  const email = CURRENT_USER.email || "";
+  wrap.innerHTML =
+    '<form class="cmt-form" id="cmt-form">' +
+    '<div class="cmt-asrow">작성자 <span class="cmt-as">' + escapeHtml(email) + "</span></div>" +
+    '<textarea class="cmt-text" id="cmt-text" placeholder="댓글을 입력하세요…" maxlength="2000" rows="2"></textarea>' +
+    '<div class="cmt-actions"><span class="cmt-msg" id="cmt-msg"></span>' +
+    '<button class="btn btn-gold cmt-submit" type="submit">등록</button></div>' +
+    "</form>";
+  const textEl = $("#cmt-text");
+  const msgEl = $("#cmt-msg");
+  $("#cmt-form").addEventListener("submit", (ev) => {
+    ev.preventDefault();
+    const text = (textEl.value || "").trim();
+    if (!text) { msgEl.textContent = "내용을 입력하세요."; return; }
+    if (!CURRENT_USER) { msgEl.textContent = "로그인이 필요합니다."; return; }
+    msgEl.textContent = "등록 중…";
+    DB.collection("comments")
+      .add({
+        cid: currentCommentCid,
+        email: CURRENT_USER.email || "",
+        text: text.slice(0, 2000),
+        at: firebase.firestore.FieldValue.serverTimestamp(),
+      })
+      .then(() => { textEl.value = ""; msgEl.textContent = ""; })
+      .catch((e) => { msgEl.textContent = "등록 실패: " + (e.code || e.message || ""); });
+  });
+}
+
 function renderCommentList(items) {
   const list = $("#cmt-list");
   if (!list) return;
@@ -1114,7 +1129,7 @@ function renderCommentList(items) {
       return (
         '<div class="cmt-item">' +
         '<div class="cmt-head"><span class="cmt-author">' +
-        escapeHtml(it.name || "익명") +
+        escapeHtml(it.email || it.name || "익명") +
         '</span><span class="cmt-time">' +
         commentTimeText(it.at) +
         "</span>" +
