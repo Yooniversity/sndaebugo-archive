@@ -32,6 +32,7 @@ import curate  # noqa: E402  (curation.json 읽기/쓰기 + articles.json 재생
 # '관련없음'으로 분류한 후보 · '찜(중요)'한 검수완료 기사의 content_id 목록.
 # 정적 사이트가 직접 읽도록 data/ 에 둔다.
 REJECTED_FILE = os.path.join(ROOT, "data", "rejected.json")
+DELETED_FILE = os.path.join(ROOT, "data", "deleted.json")  # 영구삭제 content_id
 FAVORITES_FILE = os.path.join(ROOT, "data", "favorites.json")
 TAGS_FILE = os.path.join(ROOT, "data", "tags.json")  # {content_id: [tag, ...]}
 
@@ -54,6 +55,14 @@ def load_rejected():
 
 def save_rejected(ids):
     _save_ids(REJECTED_FILE, ids)
+
+
+def load_deleted():
+    return _load_ids(DELETED_FILE)
+
+
+def save_deleted(ids):
+    _save_ids(DELETED_FILE, ids)
 
 
 def load_favorites():
@@ -118,6 +127,10 @@ class Handler(SimpleHTTPRequestHandler):
                 return self._reject()
             if route == "/api/unreject":
                 return self._unreject()
+            if route == "/api/delete":
+                return self._delete()
+            if route == "/api/undelete":
+                return self._undelete()
             if route == "/api/favorite":
                 return self._favorite()
             if route == "/api/tags":
@@ -237,6 +250,35 @@ class Handler(SimpleHTTPRequestHandler):
         rejected = [x for x in rejected if x != cid]
         save_rejected(rejected)
         self._json(200, {"ok": True, "rejected_count": len(rejected)})
+
+    def _delete(self):
+        data = self._read_json()
+        cid = (data.get("content_id") or "").strip()
+        if not cid:
+            return self._json(400, {"ok": False, "error": "content_id 누락"})
+        # 검수완료/관련없음이었다면 함께 정리(상태 상호 배타)
+        curation = curate.load_curation()
+        if cid in curation:
+            curation.pop(cid, None)
+            curate.save_curation(curation)
+            curate.build_articles(curation)
+        rejected = load_rejected()
+        if cid in rejected:
+            save_rejected([x for x in rejected if x != cid])
+        deleted = load_deleted()
+        if cid not in deleted:
+            deleted.append(cid)
+            save_deleted(deleted)
+        self._json(200, {"ok": True, "deleted_count": len(deleted)})
+
+    def _undelete(self):
+        data = self._read_json()
+        cid = (data.get("content_id") or "").strip()
+        deleted = load_deleted()
+        if cid not in deleted:
+            return self._json(404, {"ok": False, "error": "삭제 목록에 없습니다"})
+        save_deleted([x for x in deleted if x != cid])
+        self._json(200, {"ok": True, "deleted_count": len(deleted) - 1})
 
     def log_message(self, fmt, *args):
         # /api/* 만 간단히 로깅, 정적 파일 요청은 조용히

@@ -30,6 +30,7 @@ let FEATURED = [];          // 검수완료(유효) 레코드 — rebuildEffecti
 let CANDIDATES = [];        // candidates.json (전체 기사 메타)
 let VERIFIED_IDS = new Set();
 let REJECTED_IDS = new Set(); // 유효 관련없음
+let DELETED_IDS = new Set();  // 영구삭제(웹에서 로딩·표시 안 함)
 let FAVORITE_IDS = new Set(); // 유효 중요(공유)
 let LOCAL_FAV = new Set();    // (Firebase 미설정 시) 브라우저 중요 표시
 let TAGS = {}; // 유효 태그 (content_id → [tag, ...])
@@ -42,6 +43,7 @@ function isFav(cid) {
 let baselineVerified = new Set();   // articles.json 의 content_id
 let baselineCuration = {};          // cid → {era, school_name, summary}
 let baselineRejected = new Set();
+let baselineDeleted = new Set();
 let baselineFav = new Set();
 let baselineTags = {};
 
@@ -52,6 +54,7 @@ let OVERRIDES = {};                 // cid → {state?, era?, school?, summary?,
 function rebuildEffective() {
   VERIFIED_IDS = new Set();
   REJECTED_IDS = new Set();
+  DELETED_IDS = new Set();
   FAVORITE_IDS = new Set();
   TAGS = {};
   for (const r of CANDIDATES) {
@@ -60,11 +63,17 @@ function rebuildEffective() {
     const base = baselineCuration[cid];
     let state = ov.state;
     if (!state)
-      state = baselineVerified.has(cid)
+      state = baselineDeleted.has(cid)
+        ? "deleted"
+        : baselineVerified.has(cid)
         ? "featured"
         : baselineRejected.has(cid)
         ? "rejected"
         : "all";
+    if (state === "deleted") {
+      DELETED_IDS.add(cid);
+      continue; // 영구삭제: 어떤 목록·집계에도 넣지 않음
+    }
     if (state === "featured") VERIFIED_IDS.add(cid);
     else if (state === "rejected") REJECTED_IDS.add(cid);
     // 검수 메타 오버레이(표시는 기존 필드 그대로 사용)
@@ -155,6 +164,11 @@ async function load() {
     baselineRejected = new Set();
   }
   try {
+    baselineDeleted = new Set(await (await fetch("data/deleted.json", { cache: "no-store" })).json());
+  } catch (e) {
+    baselineDeleted = new Set();
+  }
+  try {
     baselineFav = new Set(await (await fetch("data/favorites.json", { cache: "no-store" })).json());
   } catch (e) {
     baselineFav = new Set();
@@ -187,7 +201,10 @@ const byDate = (a, b) => (a.date || "").localeCompare(b.date || "");
 //  - 관련없음: 관련없음으로 분류된 후보만
 function pendingCandidates() {
   return CANDIDATES.filter(
-    (r) => !VERIFIED_IDS.has(r.content_id) && !REJECTED_IDS.has(r.content_id)
+    (r) =>
+      !VERIFIED_IDS.has(r.content_id) &&
+      !REJECTED_IDS.has(r.content_id) &&
+      !DELETED_IDS.has(r.content_id)
   );
 }
 
@@ -346,7 +363,10 @@ async function setClassification(cid, state, extra) {
     return;
   }
   // serve.py 폴백
-  if (state === "featured") {
+  if (state === "deleted") {
+    await postJSON("/api/delete", { content_id: cid });
+    applyDelete(cid);
+  } else if (state === "featured") {
     const j = await postJSON("/api/promote", {
       content_id: cid,
       era: (extra && extra.era) || "부속고",
@@ -586,11 +606,19 @@ function matches(r) {
   return true;
 }
 
+// 점진적 렌더링 상태(한 번에 모든 기사를 그리지 않고 스크롤에 맞춰 청크 단위로)
+let renderQueue = [];        // {r, yearLabel, subs} 순서대로
+let renderCursor = 0;        // 다음에 그릴 위치
+let renderObserver = null;   // 하단 센티넬 감시
+const RENDER_CHUNK = 30;     // 한 번에 그리는 항목 수
+
 function render() {
   ALL = activeData(); // 승격/강등 후에도 최신 목록 반영
   const list = ALL.filter(matches);
   const tl = $("#timeline");
   tl.innerHTML = "";
+  renderQueue = [];
+  renderCursor = 0;
 
   // 명칭변천 띠 활성 표시(매핑된 시기 중 하나라도 선택되면)
   document.querySelectorAll(".era-track li").forEach((li) =>
@@ -629,6 +657,7 @@ function render() {
     repId[cid] = best.content_id;
   }
 
+  // 그릴 항목 목록만 먼저 구성(DOM 생성 X — 가볍다)
   let curYear = null;
   for (const r of list) {
     const cid = r._cluster;
@@ -642,8 +671,74 @@ function render() {
           .filter((m) => m.content_id !== r.content_id)
           .sort((a, b) => (b.viewCount || 0) - (a.viewCount || 0))
       : null;
-    tl.appendChild(itemEl(r, yearLabel, subs));
+    renderQueue.push({ r, yearLabel, subs });
   }
+
+  renderMore(); // 첫 청크만 그리고, 스크롤 시 이어서 그림
+  bindScrollFallback();
+}
+
+// 화면 하단(또는 그 근처)에 닿으면 다음 청크를 이어 그린다.
+function renderMore() {
+  const tl = $("#timeline");
+  if (!tl) return;
+  const old = tl.querySelector(".render-sentinel");
+  if (old) old.remove();
+  const frag = document.createDocumentFragment();
+  const end = Math.min(renderCursor + RENDER_CHUNK, renderQueue.length);
+  for (let i = renderCursor; i < end; i++) {
+    const q = renderQueue[i];
+    frag.appendChild(itemEl(q.r, q.yearLabel, q.subs));
+  }
+  renderCursor = end;
+  tl.appendChild(frag);
+  if (renderCursor < renderQueue.length) {
+    const sentinel = document.createElement("div");
+    sentinel.className = "render-sentinel";
+    sentinel.setAttribute("aria-hidden", "true");
+    tl.appendChild(sentinel);
+    ensureRenderObserver().observe(sentinel);
+  }
+}
+
+function ensureRenderObserver() {
+  if (!renderObserver) {
+    renderObserver = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) {
+            renderObserver.unobserve(e.target);
+            renderMore();
+          }
+        }
+      },
+      { rootMargin: "800px 0px" } // 뷰포트 위·아래 800px 앞당겨 미리 로딩
+    );
+  }
+  return renderObserver;
+}
+
+// IntersectionObserver 보조: 스크롤 시 센티넬이 뷰포트 근처면 더 그린다(견고성).
+let scrollFallbackBound = false;
+let scrollTicking = false;
+function bindScrollFallback() {
+  if (scrollFallbackBound) return;
+  scrollFallbackBound = true;
+  const check = () => {
+    scrollTicking = false;
+    if (renderCursor >= renderQueue.length) return;
+    const s = document.querySelector("#timeline .render-sentinel");
+    if (!s) return;
+    if (s.getBoundingClientRect().top <= window.innerHeight + 800) renderMore();
+  };
+  const onScroll = () => {
+    if (!scrollTicking) {
+      scrollTicking = true;
+      requestAnimationFrame(check);
+    }
+  };
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", onScroll, { passive: true });
 }
 
 function itemEl(r, yearLabel, subs) {
@@ -1009,6 +1104,7 @@ async function classifyCurrent(target) {
   const cid = curRec.content_id;
   const isV = VERIFIED_IDS.has(cid);
   const isR = REJECTED_IDS.has(cid);
+  if (target === "deleted") return deleteCurrent();
   if (target === "featured" && isV) return setClassifyMsg("이미 검수완료입니다.");
   if (target === "rejected" && isR) return setClassifyMsg("이미 관련없음입니다.");
   if (target === "all" && !isV && !isR) return setClassifyMsg("이미 전체 후보입니다.");
@@ -1032,6 +1128,33 @@ async function classifyCurrent(target) {
     }
   } catch (e) {
     setClassifyMsg("분류 실패: " + (e.message || e.code || ""));
+  }
+}
+
+// 영구삭제: 웹에서 완전히 내림(백엔드에만 기록). 확인 후 다음 기사로 이동.
+async function deleteCurrent() {
+  if (!curRec || !canEditNow()) return;
+  const cid = curRec.content_id;
+  if (DELETED_IDS.has(cid)) return setClassifyMsg("이미 삭제된 기사입니다.");
+  if (!window.confirm("이 기사를 영구삭제할까요?\n웹 목록에서 완전히 사라집니다(백엔드에만 기록).")) return;
+  setClassifyMsg("삭제 중…");
+  try {
+    await setClassification(cid, "deleted");
+    // 탐색 목록에서도 제거하고 다음(없으면 이전) 기사로 이동
+    const pos = navList.findIndex((x) => x.content_id === cid);
+    if (pos >= 0) {
+      navList.splice(pos, 1);
+      if (navIdx > pos) navIdx--;
+      else if (navIdx === pos) navIdx = Math.min(navIdx, navList.length - 1);
+    }
+    if (navList.length && navIdx >= 0) {
+      renderModalContent(navList[navIdx]);
+      setClassifyMsg("✓ 삭제했습니다.");
+    } else {
+      closeModal();
+    }
+  } catch (e) {
+    setClassifyMsg("삭제 실패: " + (e.message || e.code || ""));
   }
 }
 
@@ -1319,6 +1442,16 @@ function applyRestore(cid) {
   refreshCounts();
   render();
   renderCurate(curRec);
+}
+
+function applyDelete(cid) {
+  DELETED_IDS.add(cid);
+  REJECTED_IDS.delete(cid);
+  VERIFIED_IDS.delete(cid);
+  const i = FEATURED.findIndex((r) => r.content_id === cid);
+  if (i >= 0) FEATURED.splice(i, 1);
+  refreshCounts();
+  render();
 }
 
 function setCurMsg(t) {
