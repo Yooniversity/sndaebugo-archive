@@ -1279,7 +1279,12 @@ function renderCommentForm() {
         at: firebase.firestore.FieldValue.serverTimestamp(),
       })
       .then(() => { textEl.value = ""; msgEl.textContent = ""; })
-      .catch((e) => { msgEl.textContent = "등록 실패: " + (e.code || e.message || ""); });
+      .catch((e) => {
+        msgEl.textContent =
+          e && e.code === "permission-denied"
+            ? "등록 권한이 없습니다. (Firestore 댓글 보안 규칙 확인 필요)"
+            : "등록 실패: " + ((e && (e.code || e.message)) || "");
+      });
   });
 }
 
