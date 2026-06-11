@@ -997,12 +997,6 @@ function renderModalContent(r) {
   s2.hidden = !r.summary2;
   $("#m-img").src = r.thumbnail || "";
   $("#m-img").style.display = r.thumbnail ? "" : "none";
-  // 기사 풀이(현대어 해설) — 있으면 표시
-  const det = $("#m-detail");
-  if (det) {
-    $("#m-detail-body").textContent = r.detail || "";
-    det.hidden = !r.detail;
-  }
   $(".m-sub").textContent =
     `${r.date} · ${r.newspaper || ""} · ${r.school_name || ERA_LABEL[r.era] || ""}` +
     (r._source === "naver" && r.viewCount ? ` · 조회 ${r.viewCount}` : "");
