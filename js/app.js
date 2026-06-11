@@ -289,6 +289,7 @@ function initFirebase() {
       rebuildEffective();
       refreshCounts();
       render();
+      buildFilters(); // 분류 변경 → 필터 칩 건수 동기화
       if (curRec && !modalEl.hidden) refreshModalControls();
     },
     (err) => console.warn("overrides snapshot:", err && err.code)
@@ -341,6 +342,7 @@ async function writeOverride(cid, delta) {
   rebuildEffective();
   refreshCounts();
   render();
+  buildFilters(); // 분류 변경 → 필터 칩 건수 동기화
   if (curRec && !modalEl.hidden) refreshModalControls();
   try {
     await DB.collection("overrides")
@@ -459,12 +461,13 @@ function selectTab(name) {
 let filtersBound = false;
 
 function buildFilters() {
-  // 칩 건수: 현재 탭 데이터(ALL) 기준 (다른 선택과 무관한 정적 값)
+  // 칩 건수: 현재 탭 데이터 기준(분류 변경 즉시 반영되도록 activeData() 로 재계산)
+  const data = activeData();
   const n = (label, count) => `${label} <span class="chip-n">${count}</span>`;
 
   // 시기 chips (7단계, 고정 순서) — 발행 연도로 분류
   const periodCount = {};
-  ALL.forEach((r) => {
+  data.forEach((r) => {
     const p = periodOf(r.date);
     if (p) periodCount[p] = (periodCount[p] || 0) + 1;
   });
@@ -475,7 +478,7 @@ function buildFilters() {
 
   // topic chips (주제) — 현재 탭 데이터에서 도출, 규칙 순서 유지(+기타)
   const topicCount = {};
-  ALL.forEach((r) => recordTopics(r).forEach((t) => (topicCount[t] = (topicCount[t] || 0) + 1)));
+  data.forEach((r) => recordTopics(r).forEach((t) => (topicCount[t] = (topicCount[t] || 0) + 1)));
   const topicOrder = ["인물", ...TOPIC_RULES.map((t) => t.key), "기타"].filter((t) => topicCount[t]);
   $("#topicFilters").innerHTML = topicOrder
     .map((t) => `<button class="chip" data-topic="${t}">${n(t, topicCount[t])}</button>`)
@@ -483,13 +486,21 @@ function buildFilters() {
 
   // newspaper chips
   const paperCount = {};
-  ALL.forEach((r) => {
+  data.forEach((r) => {
     if (r.newspaper) paperCount[r.newspaper] = (paperCount[r.newspaper] || 0) + 1;
   });
   const papers = Object.keys(paperCount).sort((a, b) => a.localeCompare(b, "ko"));
   $("#paperFilters").innerHTML = papers
     .map((p) => `<button class="chip" data-paper="${p}">${n(escapeHtml(p), paperCount[p])}</button>`)
     .join("");
+
+  // 재구성 시 선택 상태(하이라이트) 복원
+  $("#eraFilters").querySelectorAll("[data-period]").forEach((b) =>
+    b.classList.toggle("on", state.periods.has(b.dataset.period)));
+  $("#topicFilters").querySelectorAll("[data-topic]").forEach((b) =>
+    b.classList.toggle("on", state.topics.has(b.dataset.topic)));
+  $("#paperFilters").querySelectorAll("[data-paper]").forEach((b) =>
+    b.classList.toggle("on", state.papers.has(b.dataset.paper)));
 
   if (filtersBound) return;
   filtersBound = true;
@@ -1410,6 +1421,7 @@ function applyPromotion(record) {
   curRec = c || record;
   refreshCounts();
   render();
+  buildFilters();
   renderCurate(curRec);
 }
 
@@ -1426,6 +1438,7 @@ function applyDemotion(cid) {
   curRec = c || curRec;
   refreshCounts();
   render();
+  buildFilters();
   renderCurate(curRec);
 }
 
@@ -1440,6 +1453,7 @@ function applyReject(cid) {
   curRec = CANDIDATES.find((r) => r.content_id === cid) || curRec;
   refreshCounts();
   render();
+  buildFilters();
   renderCurate(curRec);
 }
 
@@ -1448,6 +1462,7 @@ function applyRestore(cid) {
   curRec = CANDIDATES.find((r) => r.content_id === cid) || curRec;
   refreshCounts();
   render();
+  buildFilters();
   renderCurate(curRec);
 }
 
@@ -1459,6 +1474,7 @@ function applyDelete(cid) {
   if (i >= 0) FEATURED.splice(i, 1);
   refreshCounts();
   render();
+  buildFilters();
 }
 
 function setCurMsg(t) {
