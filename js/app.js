@@ -8,27 +8,30 @@ const ERA_LABEL = {
   "부설고": "부설고등학교",
 };
 
-// 시기(7단계) — 기사 발행 연도로 분류
+// 시기(8단계) — 기사 발행 연도로 분류
 const PERIODS = [
   { key: "1시기", label: "1시기 (1895–1945)", max: 1945 },
-  { key: "2시기", label: "2시기 (1946–1950)", max: 1950 },
-  { key: "3시기", label: "3시기 (1950년대)", max: 1959 },
-  { key: "4시기", label: "4시기 (1960–1972)", max: 1972 },
-  { key: "5시기", label: "5시기 (1973–1980)", max: 1980 },
-  { key: "6시기", label: "6시기 (1980년대)", max: 1989 },
-  { key: "7시기", label: "7시기 (1990년대–현재)", max: 9999 },
+  { key: "2시기", label: "2시기 (1946–1950)", max: 1949 },
+  { key: "3시기", label: "3시기 (1950–1953)", max: 1953 },
+  { key: "4시기", label: "4시기 (1953–1960)", max: 1960 },
+  { key: "5시기", label: "5시기 (1961–1971)", max: 1971 },
+  { key: "6시기", label: "6시기 (1971–1979)", max: 1979 },
+  { key: "7시기", label: "7시기 (1980–1989)", max: 1989 },
+  { key: "8시기", label: "8시기 (1990–2026)", max: 9999 },
 ];
 const PERIOD_LABEL = Object.fromEntries(PERIODS.map((p) => [p.key, p.label]));
 function periodOf(date) {
   const y = parseInt((date || "").slice(0, 4), 10);
   if (!y) return "";
   for (const p of PERIODS) if (y <= p.max) return p.key;
-  return "7시기";
+  return "8시기";
 }
 
 let FEATURED = [];          // 검수완료(유효) 레코드 — rebuildEffective 에서 파생
+let PROUD = [];             // 자랑스러운 부고인(유효) 레코드 — rebuildEffective 에서 파생
 let CANDIDATES = [];        // candidates.json (전체 기사 메타)
 let VERIFIED_IDS = new Set();
+let PROUD_IDS = new Set();   // 유효 자랑스러운 부고인(수상 동문 관련 기사)
 let REJECTED_IDS = new Set(); // 유효 관련없음
 let DELETED_IDS = new Set();  // 영구삭제(웹에서 로딩·표시 안 함)
 let FAVORITE_IDS = new Set(); // 유효 중요(공유)
@@ -41,6 +44,7 @@ function isFav(cid) {
 
 // ── 베이스라인(커밋된 JSON) ──────────────────────────────────────────────
 let baselineVerified = new Set();   // articles.json 의 content_id
+let baselineProud = new Set();      // proud.json 의 content_id (자랑스러운 부고인)
 let baselineCuration = {};          // cid → {era, school_name, summary}
 let baselineRejected = new Set();
 let baselineDeleted = new Set();
@@ -53,6 +57,7 @@ let OVERRIDES = {};                 // cid → {state?, era?, school?, summary?,
 // baseline + overrides → 유효 상태 재계산
 function rebuildEffective() {
   VERIFIED_IDS = new Set();
+  PROUD_IDS = new Set();
   REJECTED_IDS = new Set();
   DELETED_IDS = new Set();
   FAVORITE_IDS = new Set();
@@ -67,6 +72,8 @@ function rebuildEffective() {
         ? "deleted"
         : baselineVerified.has(cid)
         ? "featured"
+        : baselineProud.has(cid)
+        ? "proud"
         : baselineRejected.has(cid)
         ? "rejected"
         : "all";
@@ -75,6 +82,7 @@ function rebuildEffective() {
       continue; // 영구삭제: 어떤 목록·집계에도 넣지 않음
     }
     if (state === "featured") VERIFIED_IDS.add(cid);
+    else if (state === "proud") PROUD_IDS.add(cid);
     else if (state === "rejected") REJECTED_IDS.add(cid);
     // 검수 메타 오버레이(표시는 기존 필드 그대로 사용)
     r.era = ov.era || (base && base.era) || r._baseEra;
@@ -86,10 +94,19 @@ function rebuildEffective() {
     if (t && t.length) TAGS[cid] = t;
   }
   FEATURED = CANDIDATES.filter((r) => VERIFIED_IDS.has(r.content_id)).sort(byDate);
+  PROUD = CANDIDATES.filter((r) => PROUD_IDS.has(r.content_id)).sort(byDate);
 }
 let ALL = [];               // 현재 탭의 활성 데이터셋
 let tab = "featured";
-const state = { q: "", periods: new Set(), papers: new Set(), topics: new Set(), favOnly: false };
+const state = { q: "", periods: new Set(), papers: new Set(), topics: new Set(), persons: new Set(), favOnly: false };
+
+// 자랑스러운 부고인: content_id → 수상인(성명), 성명 → 수상회차(정렬용), 전체 수상자 명단(49명)
+let PROUD_PERSON = {};
+let PERSON_WIN = {};
+let PROUD_ROSTER = []; // [{name, win}] — 기사 유무와 무관하게 전원 표시용
+function personOf(r) {
+  return PROUD_PERSON[r.content_id] || (r.keywords && r.keywords[0]) || "";
+}
 
 // 기사 내용(제목·키워드)으로 '주제'를 분류하는 규칙. 한 기사가 여러 주제에 속할 수 있다.
 const TOPIC_RULES = [
@@ -109,6 +126,11 @@ const SOURCES = {
   nl: { full: "국립중앙도서관 대한민국 신문 아카이브", short: "대한민국 신문 아카이브" },
 };
 function sourceOf(r) {
+  // 메이저 신문사 온라인 기사(현대) — content_id 가 NEWS- 로 시작
+  if (r._source === "press" || (r.content_id || "").startsWith("NEWS-")) {
+    const nm = r.newspaper || "신문";
+    return { full: nm + " (온라인)", short: nm };
+  }
   const isNaver = r._source === "naver" || (r.content_id || "").startsWith("NAVER-");
   return isNaver ? SOURCES.naver : SOURCES.nl;
 }
@@ -130,6 +152,7 @@ function recordTopics(r) {
 
 const TAB_HINT = {
   featured: "큐레이터가 검수한 본교(서울) 기사입니다. 시기·신문·키워드로 좁혀 보세요.",
+  proud: "‘자랑스러운 부고인’ 수상 동문을 다룬 옛 신문 기사입니다. 네이버 뉴스 라이브러리(1920–1999)에서 수상자 본인으로 확인된 기사를 모았습니다.",
   all: "아직 검수하지 않은 후보입니다. 동명의 다른 학교나 무관한 기사가 섞여 있을 수 있으며, 검수완료·관련없음으로 분류한 기사는 이 목록에서 빠집니다.",
   rejected: "전체 후보에서 본교와 무관하다고 판단해 제외한 기사입니다. 잘못 옮겼으면 기사에서 전체 후보로 되돌릴 수 있습니다.",
 };
@@ -160,6 +183,37 @@ async function load() {
       summary: r.summary,
     };
   });
+  // 자랑스러운 부고인(수상 동문 관련 기사) 베이스라인 — articles.json 과 같은 레코드 형식
+  try {
+    const proudBaseline = await (await fetch("data/proud.json", { cache: "no-store" })).json();
+    baselineProud = new Set(proudBaseline.map((r) => r.content_id));
+    PROUD_PERSON = {};
+    PERSON_WIN = {};
+    proudBaseline.forEach((r) => {
+      baselineCuration[r.content_id] = {
+        era: r.era,
+        school_name: r.school_name,
+        summary: r.summary,
+      };
+      if (r._name) {
+        PROUD_PERSON[r.content_id] = r._name;
+        const w = parseInt(r._win, 10);
+        if (!isNaN(w) && !(r._name in PERSON_WIN)) PERSON_WIN[r._name] = w;
+      }
+    });
+  } catch (e) {
+    baselineProud = new Set();
+  }
+  // 전체 수상자 명단(49명) — 기사 0건이어도 인물 필터에 이름 노출
+  try {
+    PROUD_ROSTER = await (await fetch("data/proud_people.json", { cache: "no-store" })).json();
+    PROUD_ROSTER.forEach((p) => {
+      const w = parseInt(p.win, 10);
+      if (!isNaN(w) && !(p.name in PERSON_WIN)) PERSON_WIN[p.name] = w;
+    });
+  } catch (e) {
+    PROUD_ROSTER = [];
+  }
   try {
     baselineRejected = new Set(await (await fetch("data/rejected.json", { cache: "no-store" })).json());
   } catch (e) {
@@ -205,6 +259,7 @@ function pendingCandidates() {
   return CANDIDATES.filter(
     (r) =>
       !VERIFIED_IDS.has(r.content_id) &&
+      !PROUD_IDS.has(r.content_id) &&
       !REJECTED_IDS.has(r.content_id) &&
       !DELETED_IDS.has(r.content_id)
   );
@@ -214,11 +269,13 @@ function activeData() {
   if (tab === "all") return pendingCandidates();
   if (tab === "rejected")
     return CANDIDATES.filter((r) => REJECTED_IDS.has(r.content_id));
+  if (tab === "proud") return PROUD;
   return FEATURED;
 }
 
 function refreshCounts() {
   $("#tab-featured-n").textContent = FEATURED.length;
+  $("#tab-proud-n").textContent = PROUD.length;
   $("#tab-all-n").textContent = pendingCandidates().length;
   $("#tab-rejected-n").textContent = CANDIDATES.filter((r) =>
     REJECTED_IDS.has(r.content_id)
@@ -436,6 +493,7 @@ function selectTab(name) {
   state.periods.clear();
   state.papers.clear();
   state.topics.clear();
+  state.persons.clear();
   state.favOnly = false;
   const qEl = $("#q");
   if (qEl) qEl.value = "";
@@ -444,10 +502,10 @@ function selectTab(name) {
     b.classList.toggle("on", on);
     b.setAttribute("aria-selected", on ? "true" : "false");
   });
-  // '찜만 보기' 필터는 검수완료 탭에서만 노출
+  // '중요 기사만' 필터는 검수완료·자랑스러운 부고인 탭에서 노출
   const fav = $("#favFilter");
   if (fav) {
-    fav.hidden = name !== "featured";
+    fav.hidden = !(name === "featured" || name === "proud");
     fav.classList.remove("on");
   }
   // 선택해제는 태그 패널 열림 상태에 맞춤
@@ -494,6 +552,32 @@ function buildFilters() {
     .map((p) => `<button class="chip" data-paper="${p}">${n(escapeHtml(p), paperCount[p])}</button>`)
     .join("");
 
+  // 인물 chips (수상인별) — '자랑스러운 부고인' 탭에서만 노출. 수상회차 순 정렬
+  const personCat = $("#personFilterCat");
+  if (tab === "proud") {
+    const personCount = {};
+    data.forEach((r) => {
+      const nm = personOf(r);
+      if (nm) personCount[nm] = (personCount[nm] || 0) + 1;
+    });
+    // 전체 수상자 명단(49명)을 수상회차 순으로 모두 표시 — 기사 0건은 비활성(흐리게)
+    const roster = (PROUD_ROSTER.length ? PROUD_ROSTER.map((p) => p.name) : Object.keys(personCount));
+    // 명단에 없는데 기사가 있는 이름이 있으면 뒤에 덧붙임(안전장치)
+    Object.keys(personCount).forEach((nm) => { if (!roster.includes(nm)) roster.push(nm); });
+    $("#personFilters").innerHTML = roster
+      .map((nm) => {
+        const c = personCount[nm] || 0;
+        const empty = c === 0 ? " is-empty" : "";
+        const label = (PERSON_WIN[nm] ? PERSON_WIN[nm] + "회 " : "") + nm; // '#회 이름'
+        return `<button class="chip${empty}" data-person="${escapeHtml(nm)}"${c === 0 ? ' aria-disabled="true" tabindex="-1"' : ""}>${n(escapeHtml(label), c)}</button>`;
+      })
+      .join("");
+    if (personCat) personCat.hidden = false;
+  } else {
+    $("#personFilters").innerHTML = "";
+    if (personCat) personCat.hidden = true;
+  }
+
   // 재구성 시 선택 상태(하이라이트) 복원
   $("#eraFilters").querySelectorAll("[data-period]").forEach((b) =>
     b.classList.toggle("on", state.periods.has(b.dataset.period)));
@@ -501,6 +585,8 @@ function buildFilters() {
     b.classList.toggle("on", state.topics.has(b.dataset.topic)));
   $("#paperFilters").querySelectorAll("[data-paper]").forEach((b) =>
     b.classList.toggle("on", state.papers.has(b.dataset.paper)));
+  $("#personFilters").querySelectorAll("[data-person]").forEach((b) =>
+    b.classList.toggle("on", state.persons.has(b.dataset.person)));
 
   if (filtersBound) return;
   filtersBound = true;
@@ -521,6 +607,12 @@ function buildFilters() {
     const b = ev.target.closest("[data-topic]");
     if (!b) return;
     toggle(state.topics, b.dataset.topic, b);
+    render();
+  });
+  $("#personFilters").addEventListener("click", (ev) => {
+    const b = ev.target.closest("[data-person]");
+    if (!b || b.classList.contains("is-empty")) return; // 기사 0건은 선택 불가
+    toggle(state.persons, b.dataset.person, b);
     render();
   });
   $("#filterToggle").addEventListener("click", (ev) => {
@@ -569,9 +661,9 @@ function buildFilters() {
 // 명칭(era) → 시기(period) 매핑(띠 클릭용)
 const ERA_PERIODS = {
   "경성사범": ["1시기"],
-  "부속중학교": ["2시기"],
-  "부속고": ["3시기", "4시기", "5시기", "6시기", "7시기"],
-  "부설고": ["7시기"],
+  "부속중학교": ["2시기", "3시기"],
+  "부속고": ["3시기", "4시기", "5시기", "6시기", "7시기", "8시기"],
+  "부설고": ["8시기"],
 };
 
 function clearFilters() {
@@ -579,6 +671,7 @@ function clearFilters() {
   state.periods.clear();
   state.topics.clear();
   state.papers.clear();
+  state.persons.clear();
   document
     .querySelectorAll("#filterPanel .chip.on")
     .forEach((c) => c.classList.remove("on"));
@@ -598,6 +691,7 @@ function toggle(set, val, btn) {
 function matches(r) {
   if (state.favOnly && !isFav(r.content_id)) return false;
   if (state.periods.size && !state.periods.has(periodOf(r.date))) return false;
+  if (state.persons.size && !state.persons.has(personOf(r))) return false;
   if (state.papers.size && !state.papers.has(r.newspaper)) return false;
   if (state.topics.size) {
     const ts = recordTopics(r);
@@ -782,21 +876,28 @@ function itemEl(r, yearLabel, subs) {
   const yearTag = yearLabel ? `<div class="year-label">${yearLabel}년</div>` : "";
 
   const hasSubs = subs && subs.length;
-  const subLabel = (open) =>
-    `${open ? "▾" : "▸"} 비슷한 시기 같은 주제 ${subs.length}건 ${open ? "접기" : "더보기"}`;
-  const subMeta = (m) =>
-    m._source === "naver" && m.viewCount ? `조회 ${m.viewCount}` : (m.date || "");
+  // 중복(접힌) 기사 — 대표 밑에 들여쓰기, 대표 1/4 크기 미니카드. 3개 노출 + '…'로 나머지 펼침
+  const miniCard = (m) =>
+    `<button type="button" class="subcard" data-cid="${m.content_id}">` +
+      (m.thumbnail
+        ? `<img class="subthumb" src="${m.thumbnail}" alt="" loading="lazy" onerror="this.style.visibility='hidden'">`
+        : `<span class="subthumb"></span>`) +
+      `<span class="subcard-body">` +
+        `<span class="subcard-meta">${escapeHtml(m.newspaper || "")}${m.date ? " · " + m.date : ""}</span>` +
+        `<span class="subcard-title">${escapeHtml(m.title || "")}</span>` +
+      `</span>` +
+    `</button>`;
+  const firstSubs = hasSubs ? subs.slice(0, 3) : [];
+  const restSubs = hasSubs ? subs.slice(3) : [];
+  const moreLabel = `··· 중복 기사 ${restSubs.length}건 더보기`;
   const subHtml = hasSubs
-    ? `<button type="button" class="cluster-toggle" aria-expanded="false">${subLabel(false)}</button>` +
-      `<div class="sub-articles" hidden>${subs
-        .map(
-          (m) =>
-            `<button type="button" class="subitem" data-cid="${m.content_id}">` +
-            `<span class="sub-paper">${escapeHtml(m.newspaper || "")}</span>` +
-            `<span class="sub-title">${escapeHtml(m.title || "")}</span>` +
-            `<span class="sub-vc">${escapeHtml(subMeta(m))}</span></button>`
-        )
-        .join("")}</div>`
+    ? `<div class="sub-articles">` +
+        firstSubs.map(miniCard).join("") +
+        (restSubs.length
+          ? `<div class="sub-more" hidden>${restSubs.map(miniCard).join("")}</div>` +
+            `<button type="button" class="sub-expand" aria-expanded="false">${moreLabel}</button>`
+          : "") +
+      `</div>`
     : "";
 
   wrap.innerHTML = `
@@ -819,22 +920,24 @@ function itemEl(r, yearLabel, subs) {
     ${subHtml}`;
   wrap.querySelector(".card").addEventListener("click", () => openModal(r));
   if (hasSubs) {
-    const toggle = wrap.querySelector(".cluster-toggle");
-    const subsEl = wrap.querySelector(".sub-articles");
-    toggle.addEventListener("click", (e) => {
-      e.stopPropagation();
-      const open = subsEl.hidden;
-      subsEl.hidden = !open;
-      toggle.setAttribute("aria-expanded", String(open));
-      toggle.textContent = subLabel(open);
-    });
-    wrap.querySelectorAll(".subitem").forEach((btn) => {
+    wrap.querySelectorAll(".subcard").forEach((btn) => {
       btn.addEventListener("click", (e) => {
         e.stopPropagation();
         const m = subs.find((x) => x.content_id === btn.dataset.cid);
         if (m) openModal(m);
       });
     });
+    const exp = wrap.querySelector(".sub-expand");
+    if (exp) {
+      const more = wrap.querySelector(".sub-more");
+      exp.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const open = more.hidden;
+        more.hidden = !open;
+        exp.setAttribute("aria-expanded", String(open));
+        exp.textContent = open ? "접기 ▴" : moreLabel;
+      });
+    }
   }
   return wrap;
 }
@@ -1091,6 +1194,8 @@ function renderClassify(r) {
   const cid = r.content_id;
   const cur = VERIFIED_IDS.has(cid)
     ? "featured"
+    : PROUD_IDS.has(cid)
+    ? "proud"
     : REJECTED_IDS.has(cid)
     ? "rejected"
     : "all";
@@ -1116,21 +1221,25 @@ async function classifyCurrent(target) {
   }
   const cid = curRec.content_id;
   const isV = VERIFIED_IDS.has(cid);
+  const isP = PROUD_IDS.has(cid);
   const isR = REJECTED_IDS.has(cid);
   if (target === "deleted") return deleteCurrent();
   if (target === "featured" && isV) return setClassifyMsg("이미 검수완료입니다.");
+  if (target === "proud" && isP) return setClassifyMsg("이미 자랑스러운 부고인입니다.");
   if (target === "rejected" && isR) return setClassifyMsg("이미 관련없음입니다.");
-  if (target === "all" && !isV && !isR) return setClassifyMsg("이미 전체 후보입니다.");
+  if (target === "all" && !isV && !isP && !isR) return setClassifyMsg("이미 전체 후보입니다.");
   setClassifyMsg("이동 중…");
   try {
     const extra =
-      target === "featured"
+      target === "featured" || target === "proud"
         ? { era: ERA_ORDER.includes(curRec.era) ? curRec.era : "부속고", school: curRec.school_name || "", summary: curRec.summary || "" }
         : null;
     await setClassification(cid, target, extra);
     setClassifyMsg(
       target === "featured"
         ? "✓ 검수완료로 이동했습니다."
+        : target === "proud"
+        ? "✓ 자랑스러운 부고인으로 이동했습니다."
         : target === "rejected"
         ? "✓ 관련없음으로 이동했습니다."
         : "✓ 전체 후보로 이동했습니다."

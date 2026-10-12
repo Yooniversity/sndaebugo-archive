@@ -7,7 +7,7 @@
   <meta name="description" content="옛 신문 속 서울대학교 사범대학 부설고등학교(서울사대부고)의 역사 — 역사관 전시 아카이브">
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
-  <link rel="stylesheet" href="css/style.css?v=38">
+  <link rel="stylesheet" href="css/style.css?v=44">
 </head>
 <body>
   <header class="site-header">
@@ -32,10 +32,13 @@
     </div>
   </header>
 
-  <!-- 탭: 검수완료 / 전체 후보 -->
+  <!-- 탭: 검수완료 / 자랑스러운 부고인 / 전체 후보 / 관련없음 -->
   <section class="tabs" aria-label="자료 묶음">
     <div class="wrap">
       <div class="tab-bar" role="tablist">
+        <button class="tab tab-proud" data-tab="proud" role="tab" aria-selected="false">
+          자랑스러운 부고인 <span class="tab-count" id="tab-proud-n"></span>
+        </button>
         <button class="tab on" data-tab="featured" role="tab" aria-selected="true">
           검수완료 <span class="tab-count" id="tab-featured-n"></span>
         </button>
@@ -71,6 +74,10 @@
         <div class="filter-cat">
           <span class="filter-cat-label">신문사</span>
           <div class="filter-group" id="paperFilters" role="group" aria-label="신문사 필터"></div>
+        </div>
+        <div class="filter-cat" id="personFilterCat" hidden>
+          <span class="filter-cat-label">인물</span>
+          <div class="filter-group" id="personFilters" role="group" aria-label="인물(수상인) 필터"></div>
         </div>
       </div>
       <div class="meta-line"><span id="count"></span><span id="range"></span></div>
@@ -112,6 +119,7 @@
       <!-- 분류 이동: 검수완료 / 전체 후보 / 관련없음 (로컬 서버에서만) -->
       <div id="m-classify" class="m-classify" hidden>
         <span class="classify-label">분류</span>
+        <button class="cls-btn" data-cls="proud" type="button">자랑스러운 부고인</button>
         <button class="cls-btn" data-cls="featured" type="button">검수완료</button>
         <button class="cls-btn" data-cls="all" type="button">전체 후보</button>
         <button class="cls-btn" data-cls="rejected" type="button">관련없음</button>
@@ -161,7 +169,7 @@
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
-  <script src="js/firebase-config.js?v=38"></script>
-  <script src="js/app.js?v=38"></script>
+  <script src="js/firebase-config.js?v=44"></script>
+  <script src="js/app.js?v=44"></script>
 </body>
 </html>
