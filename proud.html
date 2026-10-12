@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>자랑스러운 부고인</title>
+  <meta name="description" content="서울사대부고 '자랑스러운 부고인' 역대 수상자와 천하부고 동창회">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <link rel="stylesheet" href="css/style.css?v=95">
+</head>
+<body class="alumni-page">
+  <header class="site-header">
+    <div class="wrap authbar">
+      <a class="home-link" href="index.html"><img class="home-logo" src="img/logo.png" alt="서울사대부고 교표"></a>
+      <p class="eyebrow">서울대학교 사범대학 부설고등학교 역사관</p>
+    </div>
+    <div class="wrap header-inner">
+      <div class="header-left">
+        <h1>자랑스러운 부고인</h1>
+      </div>
+    </div>
+  </header>
+
+  <section class="tabs" aria-label="보기">
+    <div class="wrap">
+      <div class="tab-bar" role="tablist">
+        <button class="tab on" data-view="recipients" role="tab" aria-selected="true">자랑스러운 부고인</button>
+        <button class="tab" data-view="alumni" role="tab" aria-selected="false">천하부고 동창회</button>
+        <button class="tab" data-view="memory" role="tab" aria-selected="false">우리의 기억</button>
+        <button class="tab" data-view="mailbox" role="tab" aria-selected="false">동문 편지함</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 자랑스러운 부고인: 역대 수상자 / 관련 매체 -->
+  <main class="wrap view" id="view-recipients">
+    <nav class="subnav" id="recipientSubnav">
+      <button class="subtab on" data-rsub="gallery">역대 수상자</button>
+      <button class="subtab" data-rsub="media">관련 매체</button>
+    </nav>
+
+    <section class="subview" id="rsub-gallery">
+      <p class="section-intro">총동창회가 1999년부터 선정해 온 ‘자랑스러운 부고인’ 역대 수상자입니다. 카드를 누르면 신문 기사·창작·미디어를 볼 수 있습니다.</p>
+      <div class="gallery-grid" id="galleryGrid"></div>
+    </section>
+
+    <section class="subview" id="rsub-media" hidden>
+      <p class="section-intro">수상자를 다룬 다큐·방송, 저서·평전·회고록, 창작물, 전시를 유형별로 모았습니다.</p>
+      <div class="media-controls">
+        <button class="mfilter on" data-mtype="all" type="button">전체</button>
+        <button class="mfilter" data-mtype="book" type="button">책</button>
+        <button class="mfilter" data-mtype="documentary" type="button">다큐·방송</button>
+        <button class="mfilter" data-mtype="work" type="button">창작물</button>
+        <button class="mfilter" data-mtype="exhibition" type="button">전시·프로필</button>
+      </div>
+      <div id="mediaList"></div>
+    </section>
+  </main>
+
+  <!-- 천하부고 동창회 -->
+  <main class="wrap view" id="view-alumni" hidden>
+    <nav class="subnav" id="alumniSubnav">
+      <button class="subtab on" data-sub="chairs">역대 동창회</button>
+      <button class="subtab" data-sub="activity">동창회 활동</button>
+      <button class="subtab" data-sub="newsletter">동창회보</button>
+      <button class="subtab" data-sub="materials">자료</button>
+    </nav>
+
+    <section class="subview" id="sub-chairs">
+      <h2 class="sub-h">역대 동창회</h2>
+      <p class="section-intro">동창회장 사진에 마우스를 올리면 해당 대(代)의 임원 명단(부회장·감사)이 표시됩니다.</p>
+      <div class="chairs-grid" id="chairsGrid"></div>
+    </section>
+
+    <section class="subview" id="sub-activity" hidden>
+      <h2 class="sub-h">동창회 활동</h2>
+      <input type="search" id="actSearch" class="act-search" placeholder="활동 내용 검색…" aria-label="활동 검색">
+      <div class="activity-list" id="activityList"></div>
+    </section>
+
+    <section class="subview" id="sub-newsletter" hidden>
+      <h2 class="sub-h">동창회보</h2>
+      <p class="req-note">📌 학교측에 자료요청 중</p>
+      <p class="section-intro">1982년 창간호부터 발간해 온 동창회보 아카이브입니다. 원문 자료가 확보되는 대로 올립니다.</p>
+      <div class="materials-empty">자료 준비 중입니다.</div>
+    </section>
+
+    <section class="subview" id="sub-materials" hidden>
+      <h2 class="sub-h">자료</h2>
+      <p class="req-note">📌 학교측에 자료요청 중</p>
+      <p class="section-intro">『80년사』 등에서 모은 동창회 사진 자료입니다. 사진을 누르면 전체화면으로 크게 볼 수 있습니다. (스크롤·화살표·좌우 클릭으로 넘기기)</p>
+      <div class="materials-grid" id="materialsGrid"></div>
+    </section>
+
+  </main>
+
+  <!-- 우리의 기억 -->
+  <main class="wrap view" id="view-memory" hidden>
+    <nav class="subnav" id="memorySubnav">
+      <button class="subtab on" data-msub="people">인물소개</button>
+      <button class="subtab" data-msub="videos">주제별 영상</button>
+      <button class="subtab" data-msub="timeline">기억의 재구성</button>
+    </nav>
+
+    <section class="subview" id="msub-people">
+      <h2 class="sub-h">인물소개</h2>
+      <p class="section-intro">동문 인터뷰에 함께해 주신 선배 동문들입니다. 가운데 인물을 누르면 소개가 나오고, 양옆 사진을 누르면 다른 인물로 넘어갑니다.</p>
+      <div class="showcase" id="showcase">
+        <div class="sc-gallery" id="scGallery"></div>
+        <div class="sc-detail" id="scDetail" hidden></div>
+      </div>
+    </section>
+
+    <section class="subview" id="msub-videos" hidden>
+      <h2 class="sub-h">주제별 영상</h2>
+      <p class="section-intro">주제를 선택하면 해당 주제의 인터뷰 영상이 나옵니다. 썸네일을 누르면 이 페이지에서 바로 재생됩니다.</p>
+      <div class="interview-vids" id="interviewVids"></div>
+    </section>
+
+    <section class="subview" id="msub-timeline" hidden>
+      <h2 class="sub-h">기억의 재구성</h2>
+      <p class="section-intro">동문 인터뷰에서 길어 올린 증언을 한국 현대사의 흐름 위에 재구성하는 콘텐츠입니다.</p>
+      <div class="materials-empty">준비 중입니다.</div>
+    </section>
+  </main>
+
+  <!-- 동문 편지함 -->
+  <main class="wrap view" id="view-mailbox" hidden>
+    <nav class="subnav" id="mailboxSubnav">
+      <button class="subtab on" data-xsub="juniors">후배들에게 전하는 말</button>
+      <button class="subtab" data-xsub="seniors">선배님들께 전하는 말</button>
+    </nav>
+
+    <section class="subview" id="xsub-juniors">
+      <h2 class="sub-h">후배들에게 전하는 말</h2>
+      <p class="section-intro">인터뷰에 함께해 주신 선배 동문들이 후배들에게 남긴 말입니다.</p>
+      <div id="juniorsList"></div>
+    </section>
+
+    <section class="subview" id="xsub-seniors" hidden>
+      <h2 class="sub-h">선배님들께 전하는 말</h2>
+      <p class="req-note">📌 준비 중</p>
+      <p class="section-intro">후배들이 선배 동문들께 전하는 감사와 다짐을 담을 공간입니다.</p>
+      <div class="materials-empty">준비 중입니다.</div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p class="fine">자료: 서울사대부고 총동창회 ‘자랑스러운 부고인 명단’·‘역대 동창회 활동’. 본 사이트는 학교 역사관 전시·교육 목적입니다.</p>
+    </div>
+  </footer>
+
+  <!-- 수상자 상세 모달 -->
+  <div id="personModal" class="modal" hidden>
+    <div class="modal-backdrop" data-pclose></div>
+    <div class="modal-box person-box" role="dialog" aria-modal="true">
+      <button class="modal-close" data-pclose aria-label="닫기">×</button>
+      <div class="pm-head">
+        <div class="pm-avatar" id="pmAvatar"></div>
+        <div>
+          <p class="pm-win" id="pmWin"></p>
+          <h2 id="pmName"></h2>
+          <p class="pm-grad" id="pmGrad"></p>
+        </div>
+      </div>
+      <p class="pm-profile" id="pmProfile"></p>
+      <a class="pm-articles" id="pmArticles" href="#">신문 기사 보기 →</a>
+      <div class="pm-media" id="pmMedia"></div>
+    </div>
+  </div>
+
+  <!-- 자료 라이트박스 -->
+  <div id="matLightbox" class="mat-lightbox" hidden>
+    <button class="ml-close" type="button" aria-label="닫기">×</button>
+    <div class="ml-stage">
+      <img class="ml-img ml-prev" alt="">
+      <img class="ml-img ml-main" alt="">
+      <img class="ml-img ml-next" alt="">
+    </div>
+    <div class="ml-caption"></div>
+    <span class="ml-count"></span>
+  </div>
+
+  <!-- 인터뷰 영상 라이트박스 -->
+  <div id="vidLightbox" class="mat-lightbox vid-lightbox" hidden>
+    <button class="ml-close" type="button" aria-label="닫기">×</button>
+    <div class="vl-frame"></div>
+  </div>
+
+  <script src="js/alumni.js?v=95"></script>
+</body>
+</html>

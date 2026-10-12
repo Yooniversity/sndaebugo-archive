@@ -245,8 +245,20 @@ async function load() {
   rebuildEffective(); // baseline(+빈 overrides) → 유효 상태
   refreshCounts();
   setupTabs();
-  selectTab("featured");
+  // 기본 탭: HTML에서 .on 표시된 탭(없으면 첫 탭). 아카이브=검수완료, 기사 페이지=proud
+  const defTab = document.querySelector(".tab.on[data-tab]") || document.querySelector(".tab[data-tab]");
+  selectTab(defTab ? defTab.dataset.tab : "featured");
+  // 갤러리에서 넘어온 ?person= : 해당 수상인으로 필터
+  const pp = new URLSearchParams(location.search).get("person");
+  if (pp && tab === "proud") {
+    state.persons.add(pp);
+    buildFilters();
+    const panel = $("#filterPanel");
+    if (panel) { panel.hidden = false; const ft = $("#filterToggle"); if (ft) ft.classList.add("on"); }
+    render();
+  }
   setupModal();
+  if (document.querySelector("#mediaList")) initMedia(); // 자랑스러운 부고인 페이지: 창작·미디어
   initBackend(); // Firebase 또는 serve.py 폴백
 }
 
@@ -274,12 +286,11 @@ function activeData() {
 }
 
 function refreshCounts() {
-  $("#tab-featured-n").textContent = FEATURED.length;
-  $("#tab-proud-n").textContent = PROUD.length;
-  $("#tab-all-n").textContent = pendingCandidates().length;
-  $("#tab-rejected-n").textContent = CANDIDATES.filter((r) =>
-    REJECTED_IDS.has(r.content_id)
-  ).length;
+  const setN = (id, v) => { const e = $(id); if (e) e.textContent = v; };
+  setN("#tab-featured-n", FEATURED.length);
+  setN("#tab-proud-n", PROUD.length);
+  setN("#tab-all-n", pendingCandidates().length);
+  setN("#tab-rejected-n", CANDIDATES.filter((r) => REJECTED_IDS.has(r.content_id)).length);
 }
 
 /* ---------- 백엔드: Firebase(공유) 또는 serve.py(로컬 폴백) ---------- */
@@ -783,6 +794,104 @@ function render() {
 
   renderMore(); // 첫 청크만 그리고, 스크롤 시 이어서 그림
   bindScrollFallback();
+  if (MEDIA.length) renderMedia(); // 인물·검색 필터를 창작·미디어에도 동기화
+}
+
+/* ---------- 창작·미디어(자랑스러운 부고인 페이지 전용) ---------- */
+let MEDIA = [];
+let mediaType = "";
+const MEDIA_TYPE_LABEL = { documentary: "다큐·방송", book: "책", work: "창작물", exhibition: "전시·프로필" };
+
+async function initMedia() {
+  try {
+    MEDIA = await (await fetch("data/media.json", { cache: "no-store" })).json();
+  } catch (e) {
+    MEDIA = [];
+  }
+  const mn = $("#media-n");
+  if (mn) mn.textContent = MEDIA.length;
+  buildMediaTypeChips();
+  const vb = $("#viewMediaBtn");
+  if (vb) vb.addEventListener("click", () => showMediaView(true));
+  const pt = document.querySelector('.tab[data-tab="proud"]');
+  if (pt) pt.addEventListener("click", () => showMediaView(false));
+  renderMedia();
+}
+
+function showMediaView(on) {
+  const av = $("#articlesView"), mv = $("#mediaView");
+  if (!mv) return;
+  av.hidden = on;
+  mv.hidden = !on;
+  const vb = $("#viewMediaBtn");
+  if (vb) { vb.classList.toggle("on", on); vb.setAttribute("aria-selected", on ? "true" : "false"); }
+  const pt = document.querySelector('.tab[data-tab="proud"]');
+  if (pt) { pt.classList.toggle("on", !on); pt.setAttribute("aria-selected", !on ? "true" : "false"); }
+  if (on) renderMedia();
+}
+
+function buildMediaTypeChips() {
+  const bar = $("#mediaTypeFilters");
+  if (!bar) return;
+  const counts = {};
+  MEDIA.forEach((m) => (counts[m.type] = (counts[m.type] || 0) + 1));
+  const types = [["", "전체"], ...Object.keys(MEDIA_TYPE_LABEL).filter((t) => counts[t]).map((t) => [t, MEDIA_TYPE_LABEL[t]])];
+  bar.innerHTML = types
+    .map(([t, label]) => {
+      const n = t ? counts[t] : MEDIA.length;
+      return `<button class="chip${t === mediaType ? " on" : ""}" data-mtype="${t}">${label} <span class="chip-n">${n}</span></button>`;
+    })
+    .join("");
+  if (!bar._bound) {
+    bar._bound = true;
+    bar.addEventListener("click", (ev) => {
+      const b = ev.target.closest("[data-mtype]");
+      if (!b) return;
+      mediaType = b.dataset.mtype;
+      bar.querySelectorAll("[data-mtype]").forEach((x) => x.classList.toggle("on", x.dataset.mtype === mediaType));
+      renderMedia();
+    });
+  }
+}
+
+function renderMedia() {
+  const list = $("#mediaList");
+  if (!list) return;
+  let items = MEDIA.slice();
+  if (state.persons && state.persons.size) items = items.filter((m) => state.persons.has(m.name));
+  if (mediaType) items = items.filter((m) => m.type === mediaType);
+  if (state.q) {
+    const q = state.q;
+    items = items.filter((m) => [m.title, m.name, m.note].join(" ").toLowerCase().includes(q));
+  }
+  const groups = [], idx = {};
+  for (const m of items) {
+    if (!(m.name in idx)) { idx[m.name] = groups.length; groups.push({ name: m.name, win: m.win, items: [] }); }
+    groups[idx[m.name]].items.push(m);
+  }
+  const empty = $("#mediaEmpty");
+  if (empty) empty.hidden = items.length !== 0;
+  list.innerHTML = groups
+    .map(
+      (g) =>
+        `<div class="media-group"><h3 class="media-person">${escapeHtml(g.win)} ${escapeHtml(g.name)}</h3>` +
+        `<div class="media-items">` +
+        g.items.map(mediaItemHtml).join("") +
+        `</div></div>`
+    )
+    .join("");
+}
+
+function mediaItemHtml(m) {
+  let dom = "";
+  try { dom = new URL(m.url).hostname.replace(/^www\./, "").replace(/^m\./, ""); } catch (e) {}
+  return (
+    `<a class="media-card" href="${escapeHtml(m.url)}" target="_blank" rel="noopener">` +
+    `<span class="media-badge mt-${m.type}">${MEDIA_TYPE_LABEL[m.type] || m.type}</span>` +
+    `<span class="media-ctitle">${escapeHtml(m.title)}${m.year ? ` <span class="media-year">(${escapeHtml(m.year)})</span>` : ""}</span>` +
+    `<span class="media-note">${escapeHtml(m.note || "")}</span>` +
+    `<span class="media-dom">${escapeHtml(dom)} ↗</span></a>`
+  );
 }
 
 // 화면 하단(또는 그 근처)에 닿으면 다음 청크를 이어 그린다.

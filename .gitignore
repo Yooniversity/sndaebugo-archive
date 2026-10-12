@@ -11,3 +11,9 @@ tools/_class_out/
 Thumbs.db
 tools/_class_input_all.jsonl
 tools/_class_out2/
+
+# 인물 사진 후보(선별용 임시 — 저장소/배포 제외)
+data/_people_cand/
+
+# 작업용 엑셀(비공개)
+*.xlsx
