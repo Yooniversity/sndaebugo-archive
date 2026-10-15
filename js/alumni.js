@@ -96,6 +96,7 @@ async function init() {
   renderUserLetters("juniors");
   renderUserLetters("seniors");
   bindLetters();
+  renderSpace();
   window.addEventListener("resize", () => {
     clearTimeout(window._scCapT);
     window._scCapT = setTimeout(() => {
@@ -120,6 +121,8 @@ function bindNav() {
       if (vm) vm.hidden = b.dataset.view !== "memory";
       const mb = $("#view-mailbox");
       if (mb) mb.hidden = b.dataset.view !== "mailbox";
+      const vs = $("#view-space");
+      if (vs) vs.hidden = b.dataset.view !== "space";
       if (b.dataset.view === "memory") requestAnimationFrame(positionScCaption);
       window.scrollTo({ top: 0, behavior: "smooth" });
     })
@@ -289,23 +292,40 @@ function renderChairs() {
   const g = $("#chairsGrid");
   const offByTerm = {};
   OFFICERS.forEach((o) => (offByTerm[o.term] = o));
-  g.innerHTML = CHAIRS.map((c) => {
-    const img = c.photo
-      ? `<img class="chair-photo" src="${esc(c.photo)}" alt="${esc(c.name)}" loading="lazy" onerror="this.style.visibility='hidden'">`
-      : `<span class="chair-photo placeholder">${esc(c.name.slice(0, 1))}</span>`;
-    const o = offByTerm[c.term] || {};
-    const tipRow = (label, val) => (val ? `<div class="tip-row"><b>${label}</b> ${esc(val)}</div>` : "");
+  // 원본 PDF처럼 인물 단위로 묶는다(조춘상 1·5대, 박붕배 3·6대 등 재임자는 한 칸).
+  const groups = [];
+  const byKey = {};
+  CHAIRS.forEach((c) => {
+    const key = c.name + "|" + c.grad + "|" + (c.photo || "");
+    if (!byKey[key]) { byKey[key] = { name: c.name, grad: c.grad, photo: c.photo, items: [] }; groups.push(byKey[key]); }
+    byKey[key].items.push(c);
+  });
+  const tipRow = (label, val) => (val ? `<div class="tip-row"><b>${label}</b> ${esc(val)}</div>` : "");
+  g.innerHTML = groups.map((p) => {
+    const items = p.items.slice().sort((a, b) => a.term - b.term);
+    const termLabel = items.map((c) => c.term).join(",") + "대";
+    const img = p.photo
+      ? `<img class="chair-photo" src="${esc(p.photo)}?v=2" alt="${esc(p.name)}" loading="lazy" onerror="this.style.visibility='hidden'">`
+      : `<span class="chair-photo placeholder">${esc(p.name.slice(0, 1))}</span>`;
+    let tipBody = "";
+    items.forEach((c) => {
+      const o = offByTerm[c.term] || {};
+      tipBody +=
+        `<div class="tip-sub">제${c.term}대 · ${esc(c.period)}</div>` +
+        tipRow("회장", o.chairman || c.name + "(" + c.grad + ")") +
+        tipRow("부회장", (o.vice || []).join(", ")) +
+        tipRow("감사", (o.aud || []).join(", "));
+    });
     const tip =
-      `<div class="chair-tip"><div class="tip-head">제${c.term}대 · ${esc(c.period)}</div>` +
-      tipRow("회장", o.chairman || c.name + "(" + c.grad + ")") +
-      tipRow("부회장", (o.vice || []).join(", ")) +
-      tipRow("감사", (o.aud || []).join(", ")) +
+      `<div class="chair-tip"><div class="tip-head">제${termLabel} · ${esc(p.name)}(${esc(p.grad)})</div>` +
+      tipBody +
       `</div>`;
+    const periodLine = items.map((c) => c.period).join(" / ");
     return (
       `<div class="chair-card" tabindex="0">${img}` +
-      `<span class="chair-term">제${c.term}대 · ${esc(c.grad)} 졸업</span>` +
-      `<span class="chair-name">${esc(c.name)}</span>` +
-      `<span class="chair-period">${esc(c.period)}</span>` +
+      `<span class="chair-term">제${termLabel} · ${esc(p.grad)} 졸업</span>` +
+      `<span class="chair-name">${esc(p.name)}</span>` +
+      `<span class="chair-period">${esc(periodLine)}</span>` +
       tip +
       `</div>`
     );
@@ -1340,6 +1360,51 @@ function renderActivities(q) {
               `</div>`
           )
           .join("");
+}
+
+/* 공간구상 — 실물전시 형식(벽별 그룹: 제목 + 스케치업 구성안 + 레퍼런스 그리드, 클릭=라이트박스) */
+function renderSpace() {
+  const root = $("#spaceGrid"); if (!root) return;
+  const P = "img/space/";
+  const walls = [
+    { title: "벽1 · 우리의 기억", rep: [1], refs: [2, 3, 4] },
+    { title: "벽2 · 동문 편지함", rep: [5, 6], refs: [7, 8, 9] },
+    { title: "벽3 · 자랑스러운 부고인 · 천하부고 동창회", rep: [10, 11], refs: [12, 13, 14, 15] },
+    { title: "벽4 · 도너스 월", rep: [16], refs: [] }
+  ];
+  const lbItems = [];
+  const add = (src) => { lbItems.push(src); return lbItems.length - 1; };
+  const sketchHTML = (g) => g.rep.map((p) => { const i = add(P + p + ".jpg"); return '<button class="ex-rep-img" type="button" data-i="' + i + '"><img src="' + P + p + '.jpg" alt="' + esc(g.title) + ' 구성안" loading="lazy"></button>'; }).join("");
+  const refsHTML = (g) => g.refs.map((p) => { const i = add(P + p + ".jpg"); return '<button class="ex-ref-img" type="button" data-i="' + i + '"><img src="' + P + p + '.jpg" alt="레퍼런스" loading="lazy"></button>'; }).join("");
+  let html = "";
+  walls.forEach((g, gi) => {
+    html += '<section class="ex-group">';
+    html += '<h2 class="ex-gtitle"><span class="ex-gno">' + (gi + 1) + '</span>' + esc(g.title) + '</h2>';
+    if (g.refs.length) {
+      html += '<div class="space-cols">';
+      html += '<div class="space-col"><p class="ex-reflabel" style="margin-top:0">스케치업 구성안</p><div class="sp-sketch">' + sketchHTML(g) + '</div></div>';
+      html += '<div class="space-col"><p class="ex-reflabel" style="margin-top:0">레퍼런스</p><div class="ex-refs sp-refs">' + refsHTML(g) + '</div></div>';
+      html += '</div>';
+    } else {
+      html += '<p class="ex-reflabel" style="margin-top:0">스케치업 구성안</p><div class="ex-rep">' + sketchHTML(g) + '</div>';
+    }
+    html += '</section>';
+  });
+  root.innerHTML = html;
+  // 라이트박스
+  const lb = $("#spaceLightbox"), lbImg = lb ? lb.querySelector(".lg-lb-img") : null;
+  let cur = 0;
+  const show = () => { cur = (cur % lbItems.length + lbItems.length) % lbItems.length; if (lbImg) lbImg.src = lbItems[cur]; };
+  const openLB = (i) => { cur = i; show(); if (lb) { lb.hidden = false; document.body.style.overflow = "hidden"; } };
+  const closeLB = () => { if (lb) lb.hidden = true; if (!$("#vidLightbox") || $("#vidLightbox").hidden) document.body.style.overflow = ""; };
+  root.addEventListener("click", (e) => { const b = e.target.closest("[data-i]"); if (b) openLB(+b.dataset.i); });
+  if (lb) {
+    lb.querySelector(".lg-lb-close").addEventListener("click", closeLB);
+    lb.querySelector(".lg-lb-prev").addEventListener("click", (e) => { e.stopPropagation(); cur--; show(); });
+    lb.querySelector(".lg-lb-next").addEventListener("click", (e) => { e.stopPropagation(); cur++; show(); });
+    lb.addEventListener("click", (e) => { if (e.target === lb) closeLB(); });
+    document.addEventListener("keydown", (e) => { if (lb.hidden) return; if (e.key === "Escape") closeLB(); else if (e.key === "ArrowRight") { cur++; show(); } else if (e.key === "ArrowLeft") { cur--; show(); } });
+  }
 }
 
 document.addEventListener("DOMContentLoaded", init);

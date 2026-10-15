@@ -7,7 +7,7 @@
   <meta name="description" content="서울사대부고 '자랑스러운 부고인' 역대 수상자와 천하부고 동창회">
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
-  <link rel="stylesheet" href="css/style.css?v=176">
+  <link rel="stylesheet" href="css/style.css?v=189">
 </head>
 <body class="alumni-page">
   <header class="site-header">
@@ -17,7 +17,7 @@
     </div>
     <div class="wrap header-inner">
       <div class="header-left">
-        <h1>자랑스러운 부고인</h1>
+        <h1>인물사</h1>
       </div>
     </div>
   </header>
@@ -29,6 +29,7 @@
         <button class="tab" data-view="alumni" role="tab" aria-selected="false">천하부고 동창회</button>
         <button class="tab" data-view="memory" role="tab" aria-selected="false">우리의 기억</button>
         <button class="tab" data-view="mailbox" role="tab" aria-selected="false">동문 편지함</button>
+        <button class="tab" data-view="space" role="tab" aria-selected="false">공간구상</button>
       </div>
     </div>
   </section>
@@ -169,6 +170,13 @@
     </section>
   </main>
 
+  <!-- 공간구상 -->
+  <main class="wrap view" id="view-space" hidden>
+    <h2 class="sub-h">공간구상</h2>
+    <p class="section-intro">인물사 전시 공간의 구성안과 참고 레퍼런스입니다. 사진을 누르면 크게 볼 수 있습니다.</p>
+    <div id="spaceGrid"></div>
+  </main>
+
   <div class="wrap">
     <section class="up-sec" data-upkey="proud" aria-label="자료 추가">
       <div class="up-head">
@@ -217,6 +225,14 @@
     <span class="ml-count"></span>
   </div>
 
+  <!-- 공간구상 라이트박스 -->
+  <div class="lg-lb" id="spaceLightbox" hidden>
+    <button class="lg-lb-close" type="button" aria-label="닫기">×</button>
+    <button class="lg-lb-nav lg-lb-prev" type="button" aria-label="이전">‹</button>
+    <div class="lg-lb-stage"><img class="lg-lb-img" alt=""></div>
+    <button class="lg-lb-nav lg-lb-next" type="button" aria-label="다음">›</button>
+  </div>
+
   <!-- 편지쓰기 -->
   <div id="letterModal" class="modal" hidden>
     <div class="modal-backdrop" data-lclose></div>
@@ -243,7 +259,7 @@
     <div class="vl-frame"></div>
   </div>
 
-  <script src="js/alumni.js?v=182"></script>
+  <script src="js/alumni.js?v=189"></script>
   <script src="js/uploader.js?v=176"></script>
 </body>
 </html>

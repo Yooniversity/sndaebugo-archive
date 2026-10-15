@@ -486,6 +486,14 @@ body.landing { background: var(--paper); }
   .lg-lb-nav { width: 38px; height: 54px; font-size: 1.5rem; }
 }
 
+/* 공간구상(인물사) — 벽별 그룹: 좌측 스케치업 / 우측 레퍼런스 */
+.space-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: start; margin-top: 6px; }
+.space-col { min-width: 0; }
+.sp-sketch { display: flex; flex-direction: column; gap: 12px; }
+.sp-sketch .ex-rep-img img { width: 100%; height: auto; display: block; }
+.sp-refs { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
+@media (max-width: 620px) { .space-cols { grid-template-columns: 1fr; gap: 20px; } }
+
 /* 실물전시 */
 .ex-overview { margin: 0 0 48px; }
 .ex-gtitle-ov { display: block; }
@@ -1078,5 +1086,7 @@ body.landing { background: var(--paper); }
 }
 .chair-card:hover .chair-tip, .chair-card:focus .chair-tip, .chair-card.tip-open .chair-tip { display: block; }
 .tip-head { font-weight: 800; margin-bottom: 7px; padding-bottom: 5px; border-bottom: 1px solid var(--line); font-size: .82rem; }
+.tip-sub { font-weight: 700; color: var(--ink); font-size: .74rem; margin: 7px 0 3px; }
+.tip-sub:first-of-type { margin-top: 0; }
 .tip-row { line-height: 1.55; margin-bottom: 3px; color: #333; }
 .tip-row b { color: var(--muted); font-weight: 700; margin-right: 5px; font-size: .72rem; }
