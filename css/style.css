@@ -1167,7 +1167,9 @@ html { scroll-behavior: smooth; }
 .hvt tbody tr:hover { background: #fbfbfb; }
 .hvt .hvt-sub td, .hvt tr.hvt-sub { background: #eef2f9; }
 .hvt .hvt-sub .hvt-name, .hvt .hvt-sub td { font-weight: 800; }
-.hvt-photo { width: 190px; }
+.hvt-photo { width: 300px; }
+/* 표1: 위 여백 추가 */
+.hv-tcap:has(+ .hv-tscroll .hvt1) { margin-top: 48px; }
 .hvt-photo img { display: block; width: 100%; height: auto; cursor: zoom-in; }
 .hvt-cellimg img { display: block; width: 100%; height: auto; cursor: zoom-in; }
 .hvt-cellimg.stack img + img { margin-top: 6px; }
