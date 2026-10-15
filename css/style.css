@@ -1090,3 +1090,117 @@ body.landing { background: var(--paper); }
 .tip-sub:first-of-type { margin-top: 0; }
 .tip-row { line-height: 1.55; margin-bottom: 3px; color: #333; }
 .tip-row b { color: var(--muted); font-weight: 700; margin-right: 5px; font-size: .72rem; }
+
+/* ===== 별관의 역사적 가치 (heritage.html) ===== */
+.hv-doc { max-width: none; }
+.hv-abstract {
+  font-size: 1.02rem; line-height: 1.95; color: var(--ink);
+  padding: 20px 24px; border: 1px solid var(--line); border-left: 3px solid var(--ink);
+  background: #fafafa; margin: 8px 0 44px; text-align: justify; word-break: keep-all;
+}
+.hv-sec { margin: 0 0 52px; }
+.hv-h2 {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 10px 12px;
+  font-size: 1.3rem; font-weight: 800; margin: 0 0 18px; padding-bottom: 12px;
+  border-bottom: 2px solid var(--ink);
+}
+.hv-no {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 30px; height: 30px; background: var(--ink); color: #fff; border-radius: 50%;
+  font-size: .95rem; flex: 0 0 auto;
+}
+.hv-sub { flex-basis: 100%; font-size: .92rem; font-weight: 500; color: var(--muted); padding-left: 42px; }
+.hv-sec p { line-height: 1.95; margin: 0 0 15px; font-size: .97rem; color: #222; text-align: justify; word-break: keep-all; }
+.hv-tcap { font-size: .85rem; font-weight: 700; color: var(--muted); margin: 30px 0 10px; }
+.hv-table { border: 1px solid var(--line); background: #fff; margin-bottom: 8px; overflow: hidden; }
+.hv-table img { display: block; width: 100%; height: auto; cursor: zoom-in; }
+.hv-stack img { margin: 0; }
+.hv-stack img + img { margin-top: -1px; }
+.hv-fig { margin: 6px 0 18px; }
+.hv-fig img { display: block; width: 100%; height: auto; border: 1px solid var(--line); cursor: zoom-in; }
+.hv-fig figcaption { font-size: .78rem; color: var(--muted); text-align: center; margin-top: 7px; line-height: 1.5; word-break: keep-all; }
+.hv-fig-side { float: right; width: 230px; margin: 4px 0 14px 26px; }
+.hv-source { font-size: .78rem; color: var(--muted); line-height: 1.6; border-top: 1px solid var(--line); padding-top: 18px; margin-top: 10px; word-break: keep-all; }
+@media (max-width: 620px) {
+  .hv-fig-side { float: none; width: 100%; margin: 6px 0 16px; }
+  .hv-abstract { padding: 16px 16px; font-size: .98rem; }
+  .hv-h2 { font-size: 1.14rem; }
+  .hv-sub { padding-left: 0; }
+}
+
+/* 홈 진입 섹션 (home.html) */
+.hv-home {
+  display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 34px;
+  align-items: center; margin: 56px 0 10px; padding-top: 40px; border-top: 1px solid var(--line);
+}
+.hv-home-media img { display: block; width: 100%; height: auto; border: 1px solid var(--line); }
+.hv-home-eyebrow { font-size: .76rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
+.hv-home h2 { font-size: 1.5rem; font-weight: 800; margin: 0 0 14px; line-height: 1.3; }
+.hv-home p { font-size: .95rem; line-height: 1.85; color: #333; margin: 0 0 18px; text-align: justify; word-break: keep-all; }
+.hv-home-go { display: inline-flex; align-items: center; gap: 8px; font-size: .9rem; font-weight: 700; padding: 11px 20px; border: 1px solid var(--ink); background: var(--ink); color: #fff; text-decoration: none; }
+.hv-home-go:hover { background: #fff; color: var(--ink); }
+@media (max-width: 720px) {
+  .hv-home { grid-template-columns: 1fr; gap: 20px; margin-top: 44px; padding-top: 30px; }
+  .hv-home-media { order: -1; }
+  .hv-home h2 { font-size: 1.3rem; }
+}
+
+/* ===== heritage: 좌측 목차 레이아웃 + 자체표 ===== */
+html { scroll-behavior: smooth; }
+.hv-layout { display: grid; grid-template-columns: 190px minmax(0, 1fr); gap: 46px; align-items: start; }
+.hv-toc { position: sticky; top: 18px; }
+.hv-toc-title { font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 0 0 12px; padding-bottom: 10px; border-bottom: 1px solid var(--line); }
+.hv-toc a { display: flex; gap: 10px; align-items: baseline; padding: 9px 0; font-size: .9rem; color: #555; text-decoration: none; border-bottom: 1px solid #f1f1f1; line-height: 1.4; }
+.hv-toc a span { flex: 0 0 auto; width: 20px; height: 20px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; border: 1px solid var(--line); font-size: .72rem; color: var(--muted); }
+.hv-toc a:hover { color: var(--ink); }
+.hv-toc a.on { color: var(--ink); font-weight: 700; }
+.hv-toc a.on span { background: var(--ink); color: #fff; border-color: var(--ink); }
+.hv-sec { scroll-margin-top: 16px; }
+
+.hv-tscroll { overflow-x: auto; scrollbar-width: thin; margin-bottom: 8px; }
+.hvt { border-collapse: collapse; width: 100%; font-size: .82rem; border-top: 2px solid var(--ink); border-bottom: 2px solid var(--ink); }
+.hvt th, .hvt td { border: 1px solid var(--line); padding: 9px 10px; vertical-align: middle; text-align: center; word-break: keep-all; line-height: 1.5; }
+.hvt thead th { font-weight: 800; border-bottom: 2px solid var(--ink); background: #faf9f7; white-space: nowrap; }
+.hvt thead th.hvt-wrap { white-space: normal; font-weight: 700; font-size: .78rem; line-height: 1.45; }
+.hvt .hvt-left { text-align: left; }
+.hvt .hvt-name { font-weight: 700; text-align: left; }
+.hvt tbody tr:hover { background: #fbfbfb; }
+.hvt .hvt-sub td, .hvt tr.hvt-sub { background: #eef2f9; }
+.hvt .hvt-sub .hvt-name, .hvt .hvt-sub td { font-weight: 800; }
+.hvt-photo { width: 190px; }
+.hvt-photo img { display: block; width: 100%; height: auto; cursor: zoom-in; }
+.hvt-cellimg img { display: block; width: 100%; height: auto; cursor: zoom-in; }
+.hvt-cellimg.stack img + img { margin-top: 6px; }
+.hvt-mark { font-size: .95rem; }
+.hvt-memoir { text-align: left; font-size: .76rem; line-height: 1.75; color: #333; vertical-align: top; max-width: 420px; }
+.hvt1 { min-width: 0; }
+.hvt2 { min-width: 0; }
+@media (max-width: 860px) {
+  .hv-layout { grid-template-columns: 1fr; gap: 16px; }
+  .hv-toc { position: sticky; top: 0; z-index: 20; background: var(--paper); margin: 0 -16px 8px; padding: 10px 16px; border-bottom: 1px solid var(--line); }
+  .hv-toc-title { display: none; }
+  .hv-toc nav { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; }
+  .hv-toc nav::-webkit-scrollbar { display: none; }
+  .hv-toc a { border: 1px solid var(--line); border-radius: 16px; padding: 6px 12px; white-space: nowrap; font-size: .82rem; }
+  .hv-toc a span { display: none; }
+  .hv-toc a.on { background: var(--ink); color: #fff; }
+}
+
+/* heritage: 표 내 노트 + 전체화면(흰색 반투명) */
+.hvt-note { font-size: .72rem; color: var(--muted); font-weight: 500; }
+.hv-lb { background: rgba(255,255,255,.90); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); }
+
+/* heritage: 제목과 목차·표를 한 폭으로 — 우측 여백 최소화, 좌측정렬 일치 */
+.heritage-page .wrap { max-width: min(1460px, 96vw); }
+.heritage-page .hv-tscroll { overflow-x: auto; }
+.heritage-page .hvt { font-size: .8rem; }
+.heritage-page .hvt th, .heritage-page .hvt td { padding: 8px 8px; }
+/* 본문 가독성: 표는 넓게, 글은 적정 폭 */
+.hv-body > p, .hv-abstract, .hv-source { max-width: 900px; }
+@media (max-width: 860px) {
+  .heritage-page .wrap { max-width: 100%; }
+  .hv-body > p, .hv-abstract, .hv-source { max-width: none; }
+}
+
+/* home: 검토 의견 전문 보기 아래 여백 + 실선 */
+.hv-home { margin-bottom: 0; padding-bottom: 56px; border-bottom: 1px solid var(--line); }
