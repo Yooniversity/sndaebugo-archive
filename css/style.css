@@ -446,7 +446,7 @@ body.landing { background: var(--paper); }
 .landing-concept { max-width: 760px; margin: 0 auto 46px; text-align: center; }
 .lc-eyebrow { font-size: .78rem; font-weight: 800; letter-spacing: .16em; color: var(--muted); margin: 0 0 14px; }
 .lc-lead { font-size: 1.05rem; line-height: 1.85; color: #3a3a3a; margin: 0 0 30px; }
-.lc-points { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; text-align: left; }
+.lc-points { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px 30px; text-align: left; }
 .lc-point { border-top: 2px solid var(--ink); padding-top: 13px; }
 .lc-num { display: block; font-size: .78rem; font-weight: 800; color: var(--muted); margin-bottom: 7px; letter-spacing: .04em; }
 .lc-ptitle { font-size: 1.0rem; font-weight: 800; margin: 0 0 7px; }
