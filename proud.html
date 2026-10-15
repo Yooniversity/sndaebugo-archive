@@ -7,7 +7,7 @@
   <meta name="description" content="서울사대부고 '자랑스러운 부고인' 역대 수상자와 천하부고 동창회">
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
-  <link rel="stylesheet" href="css/style.css?v=95">
+  <link rel="stylesheet" href="css/style.css?v=176">
 </head>
 <body class="alumni-page">
   <header class="site-header">
@@ -106,6 +106,7 @@
     <section class="subview" id="msub-people">
       <h2 class="sub-h">인물소개</h2>
       <p class="section-intro">동문 인터뷰에 함께해 주신 선배 동문들입니다. 가운데 인물을 누르면 소개가 나오고, 양옆 사진을 누르면 다른 인물로 넘어갑니다.</p>
+      <p class="section-note">총 <strong id="scCount">0</strong>개의 상세 페이지로 구성했습니다. 부부이신 <strong>박병준·홍정희</strong> 선배님과 <strong>김여순·노순주</strong> 선배님은 각각 한 페이지로 합쳤습니다. <strong>김정자</strong> 선배님은 ‘4회 동문’ 영상과 ‘초기 선배 3인’ 영상 두 곳에 등장하시는데, 개인의 이야기가 담긴 후자(‘초기 선배 3인’) 영상을 바탕으로 소개글을 작성했습니다.</p>
       <div class="showcase" id="showcase">
         <div class="sc-gallery" id="scGallery"></div>
         <div class="sc-detail" id="scDetail" hidden></div>
@@ -114,14 +115,29 @@
 
     <section class="subview" id="msub-videos" hidden>
       <h2 class="sub-h">주제별 영상</h2>
-      <p class="section-intro">주제를 선택하면 해당 주제의 인터뷰 영상이 나옵니다. 썸네일을 누르면 이 페이지에서 바로 재생됩니다.</p>
+      <p class="section-intro">주제를 선택하면 해당 주제의 인터뷰 영상이 나옵니다. 썸네일을 누르면 그 영상에서 주제와 관련된 구간만 재생됩니다.</p>
       <div class="interview-vids" id="interviewVids"></div>
     </section>
 
     <section class="subview" id="msub-timeline" hidden>
-      <h2 class="sub-h">기억의 재구성</h2>
-      <p class="section-intro">동문 인터뷰에서 길어 올린 증언을 한국 현대사의 흐름 위에 재구성하는 콘텐츠입니다.</p>
-      <div class="materials-empty">준비 중입니다.</div>
+      <h2 class="sub-h">부고인의 기억으로 다시 그린 한국사와 사대부고사</h2>
+      <p class="section-intro">동문 인터뷰 증언을 한국사·사대부고사의 흐름 위에 재구성한 타임라인입니다. <strong>위(검정)</strong>는 한국사적 사건, <strong>아래(노랑)</strong>는 사대부고사이며, 원의 크기는 그 사건을 언급한 동문 수입니다. 사건을 누르면 동문들의 증언이 펼쳐집니다.</p>
+      <div class="mtl-legend"><span class="mtl-leg-h">● 한국사적 사건</span><span class="mtl-leg-s">● 부고인의 추억</span></div>
+      <div class="memory-timeline-frame">
+        <div class="memory-timeline-scroll">
+          <div id="memoryTimeline"></div>
+        </div>
+        <button class="mtl-arrow mtl-arrow-l" type="button" aria-label="왼쪽으로" style="display:none">‹</button>
+        <button class="mtl-arrow mtl-arrow-r" type="button" aria-label="오른쪽으로">›</button>
+      </div>
+      <div id="memoryDetail" class="memory-detail" hidden></div>
+
+      <h3 class="sub-h" style="margin-top:38px">부고인의 Influence</h3>
+      <p class="section-intro">동문들이 활동한 지역을 한국·세계 지도에 표시했습니다. 핀을 누르면 인물과 활동이 지도 옆에 펼쳐집니다.</p>
+      <div id="memoryMaps"></div>
+
+      <p class="section-intro" style="margin-top:38px">📌 사건별 기록영상·관련자료 — 썸네일을 누르면 원문(아카이브·영상)으로 이동합니다.</p>
+      <div id="memoryEvidence"></div>
     </section>
   </main>
 
@@ -133,18 +149,36 @@
     </nav>
 
     <section class="subview" id="xsub-juniors">
-      <h2 class="sub-h">후배들에게 전하는 말</h2>
+      <div class="sub-head-row">
+        <h2 class="sub-h">후배들에게 전하는 말</h2>
+        <button class="letter-btn" type="button" data-board="juniors">✎ 편지쓰기</button>
+      </div>
       <p class="section-intro">인터뷰에 함께해 주신 선배 동문들이 후배들에게 남긴 말입니다.</p>
+      <div class="letter-userlist" id="userLettersJuniors"></div>
       <div id="juniorsList"></div>
     </section>
 
     <section class="subview" id="xsub-seniors" hidden>
-      <h2 class="sub-h">선배님들께 전하는 말</h2>
-      <p class="req-note">📌 준비 중</p>
-      <p class="section-intro">후배들이 선배 동문들께 전하는 감사와 다짐을 담을 공간입니다.</p>
-      <div class="materials-empty">준비 중입니다.</div>
+      <div class="sub-head-row">
+        <h2 class="sub-h">선배님들께 전하는 말</h2>
+        <button class="letter-btn" type="button" data-board="seniors">✎ 편지쓰기</button>
+      </div>
+      <p class="section-intro">후배들이 선배 동문들께 전하는 감사와 다짐을 담는 공간입니다.</p>
+      <div class="letter-userlist" id="userLettersSeniors"></div>
+      <p class="materials-empty" id="seniorsEmpty">아직 등록된 편지가 없습니다. 첫 편지를 남겨 주세요.</p>
     </section>
   </main>
+
+  <div class="wrap">
+    <section class="up-sec" data-upkey="proud" aria-label="자료 추가">
+      <div class="up-head">
+        <h3 class="up-title">사진·자료 추가</h3>
+        <label class="up-btn">＋ 자료 올리기<input type="file" accept="image/*" multiple hidden></label>
+      </div>
+      <p class="up-note">동문 사진·자료를 올려 함께 채워 주세요. ※ 올린 자료는 현재 사용하는 브라우저에만 저장됩니다(시범 기능).</p>
+      <div class="up-grid"></div>
+    </section>
+  </div>
 
   <footer class="site-footer">
     <div class="wrap">
@@ -183,12 +217,33 @@
     <span class="ml-count"></span>
   </div>
 
+  <!-- 편지쓰기 -->
+  <div id="letterModal" class="modal" hidden>
+    <div class="modal-backdrop" data-lclose></div>
+    <div class="modal-box letter-box" role="dialog" aria-modal="true">
+      <button class="modal-close" data-lclose aria-label="닫기">×</button>
+      <h3 class="letter-title" id="letterTitle">편지쓰기</h3>
+      <label class="letter-field">보내는 이
+        <input type="text" id="letterName" maxlength="20" placeholder="예) 25회 홍길동">
+      </label>
+      <label class="letter-field">내용
+        <textarea id="letterBody" maxlength="100" rows="4" placeholder="100자 이내로 전하고 싶은 말을 적어주세요."></textarea>
+      </label>
+      <div class="letter-foot">
+        <span class="letter-count"><span id="letterCount">0</span> / 100</span>
+        <button class="cmt-submit" id="letterSubmit" type="button">등록</button>
+      </div>
+      <p class="letter-note">※ 등록한 편지는 현재 사용하는 브라우저에만 저장됩니다.</p>
+    </div>
+  </div>
+
   <!-- 인터뷰 영상 라이트박스 -->
   <div id="vidLightbox" class="mat-lightbox vid-lightbox" hidden>
     <button class="ml-close" type="button" aria-label="닫기">×</button>
     <div class="vl-frame"></div>
   </div>
 
-  <script src="js/alumni.js?v=95"></script>
+  <script src="js/alumni.js?v=176"></script>
+  <script src="js/uploader.js?v=176"></script>
 </body>
 </html>

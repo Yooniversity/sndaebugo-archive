@@ -3,39 +3,138 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>서울사대부고 역사관</title>
-  <meta name="description" content="서울대학교 사범대학 부설고등학교(서울사대부고) 역사관 — 자랑스러운 부고인 · 사대부고사(신문 아카이브)">
+  <title>서울사대부고 라운지</title>
+  <meta name="description" content="서울대학교 사범대학 부설고등학교(서울사대부고) 라운지 — 인물사 · 학교사 · 물건사 · 신문 아카이브">
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
-  <link rel="stylesheet" href="css/style.css?v=72">
+  <link rel="stylesheet" href="css/style.css?v=175">
 </head>
 <body class="landing">
   <main class="landing-wrap">
     <header class="landing-head">
       <p class="eyebrow">서울대학교 사범대학 부설고등학교</p>
-      <h1>역사관</h1>
-      <p class="landing-lead">옛 신문과 기록 속에 남은 우리 학교와 동문의 발자취.</p>
+      <h1>사대부고 라운지</h1>
     </header>
 
-    <nav class="landing-cards" aria-label="역사관 메뉴">
+    <section class="landing-concept" aria-label="라운지 소개">
+      <p class="lc-eyebrow">라키비움 · LARCHIVEUM</p>
+      <p class="lc-lead">도서실·아카이브·전시가 동창회 라운지와 하나로 어우러진 공간. 정해진 순서를 따라 한 번 보고 끝나는 전시가 아니라, 학교사·인물사·물건사를 저마다의 관심을 따라 느슨하고 편안하게 거닐며 함께 채워 가는 열린 기록 공간을 지향합니다.</p>
+      <div class="lc-points">
+        <div class="lc-point">
+          <span class="lc-num">01</span>
+          <h3 class="lc-ptitle">역사관 <span class="lc-arrow">→</span> 라키비움</h3>
+          <p class="lc-pdesc">아카이브·도서실·전시실을 동창회 라운지와 결합해, 집중 관람이 아닌 편안한 머무름의 공간으로.</p>
+        </div>
+        <div class="lc-point">
+          <span class="lc-num">02</span>
+          <h3 class="lc-ptitle">나만의 서사</h3>
+          <p class="lc-pdesc">일방향 동선 대신, 보는 이의 관심에 따라 콘텐츠를 자유롭게 고르고 이어 보는 선택 체계.</p>
+        </div>
+        <div class="lc-point">
+          <span class="lc-num">03</span>
+          <h3 class="lc-ptitle">함께 갱신</h3>
+          <p class="lc-pdesc">선배와 후배, 지역 주민이 서로 이야기를 더하며 콘텐츠를 계속 채우고 갱신하는 기록.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="larch-gallery-sec" aria-label="라운지 레퍼런스 갤러리">
+      <div class="larch-gallery" id="larchGallery"></div>
+      <p class="larch-cap" id="larchCap"></p>
+    </section>
+
+    <nav class="landing-cards" aria-label="사대부고 라운지 메뉴">
       <a class="lcard" href="proud.html">
         <span class="lcard-kicker">자랑스러운 동문</span>
         <span class="lcard-title">인물사</span>
-        <span class="lcard-desc">총동창회가 선정한 수상 동문의 옛 신문 기사와 저서·다큐·작품·전시</span>
+        <span class="lcard-desc">총동창회가 선정한 수상 동문의 기사·저서·다큐와 동문 인터뷰</span>
+        <span class="lcard-go">바로가기 →</span>
+      </a>
+      <a class="lcard" href="school.html">
+        <span class="lcard-kicker">학교의 역사</span>
+        <span class="lcard-title">학교사</span>
+        <span class="lcard-desc">경성사범부터 오늘까지, 8개 시기로 보는 사대부고 발전사</span>
+        <span class="lcard-go">바로가기 →</span>
+      </a>
+      <a class="lcard" href="exhibit.html">
+        <span class="lcard-kicker">수집가의 방</span>
+        <span class="lcard-title">실물전시</span>
+        <span class="lcard-desc">교표·교복·상패 등 학교의 물건과 기념물을 전시하는 공간 구성 레퍼런스</span>
         <span class="lcard-go">바로가기 →</span>
       </a>
       <a class="lcard" href="archive.html">
-        <span class="lcard-kicker">학교의 역사</span>
-        <span class="lcard-title">사대부고사</span>
-        <span class="lcard-desc">경성사범부터 오늘까지, 옛 신문 속 학교 기사 아카이브</span>
+        <span class="lcard-kicker">옛 신문 속 학교</span>
+        <span class="lcard-title">신문 아카이브</span>
+        <span class="lcard-desc">국립중앙도서관·네이버 뉴스 라이브러리 속 학교 기사 아카이브</span>
         <span class="lcard-go">바로가기 →</span>
       </a>
     </nav>
 
+    <section class="up-sec" data-upkey="home" aria-label="자료 추가">
+      <div class="up-head">
+        <h3 class="up-title">사진·자료 추가</h3>
+        <label class="up-btn">＋ 자료 올리기<input type="file" accept="image/*" multiple hidden></label>
+      </div>
+      <p class="up-note">라운지·전시 참고자료를 올려 함께 채워 주세요. ※ 올린 자료는 현재 사용하는 브라우저에만 저장됩니다(시범 기능).</p>
+      <div class="up-grid"></div>
+    </section>
+
     <footer class="landing-foot">
       <p>자료 출처: 국립중앙도서관 대한민국 신문 아카이브 · 네이버 뉴스 라이브러리 외.<br>
         학교 역사관 전시·교육 목적의 인용이며, 각 자료의 저작권은 해당 출처에 있습니다.</p>
+      <p class="lc-credit">전시 컨텐츠 제안 — 홍익대학교 건축공학부 역사도시건축연구실 (2026.10)</p>
     </footer>
   </main>
+
+  <div class="lg-lb" id="larchLightbox" hidden>
+    <button class="lg-lb-close" type="button" aria-label="닫기">×</button>
+    <button class="lg-lb-nav lg-lb-prev" type="button" aria-label="이전">‹</button>
+    <div class="lg-lb-stage">
+      <img class="lg-lb-img" alt="">
+      <p class="lg-lb-cap"></p>
+    </div>
+    <button class="lg-lb-nav lg-lb-next" type="button" aria-label="다음">›</button>
+  </div>
+
+  <script>
+  (function () {
+    var slides = [
+      { img: "img/larch/1.jpg?v=2", cap: "Hoover Institution Lounge" },
+      { img: "img/larch/2.jpg?v=2", cap: "Hoover Institution Lounge" },
+      { img: "img/larch/3.jpg?v=2", cap: "국립대한민국 임시정부기념관 라키비움" },
+      { img: "img/larch/4.jpg?v=2", cap: "여의도 브라이튼 도서관" }
+    ];
+    var n = slides.length, idx = 0;
+    var gal = document.getElementById("larchGallery"), cap = document.getElementById("larchCap");
+    var lb = document.getElementById("larchLightbox"), lbImg = lb.querySelector(".lg-lb-img"), lbCap = lb.querySelector(".lg-lb-cap");
+    function at(k) { return slides[((idx + k) % n + n) % n]; }
+    function esc(s) { return String(s).replace(/"/g, "&quot;"); }
+    function render() {
+      function slot(k, cls) { var s = at(k); return '<button class="lg-img ' + cls + '" type="button" data-k="' + k + '"><img src="' + s.img + '" alt="' + esc(s.cap) + '" loading="lazy"></button>'; }
+      gal.innerHTML = '<div class="lg-strip">' + slot(-1, "lg-side lg-l") + slot(0, "lg-main") + slot(1, "lg-side lg-r") + '</div>';
+      cap.textContent = at(0).cap;
+      [].forEach.call(gal.querySelectorAll(".lg-img"), function (b) {
+        var k = +b.dataset.k;
+        b.addEventListener("click", function () { if (k === 0) openLB(); else { idx = ((idx + k) % n + n) % n; render(); } });
+      });
+    }
+    function showLB() { lbImg.src = slides[idx].img; lbImg.alt = slides[idx].cap; lbCap.textContent = slides[idx].cap; }
+    function openLB() { showLB(); lb.hidden = false; document.body.style.overflow = "hidden"; }
+    function closeLB() { lb.hidden = true; document.body.style.overflow = ""; }
+    function stepLB(d) { idx = ((idx + d) % n + n) % n; showLB(); render(); }
+    lb.querySelector(".lg-lb-close").addEventListener("click", closeLB);
+    lb.querySelector(".lg-lb-prev").addEventListener("click", function (e) { e.stopPropagation(); stepLB(-1); });
+    lb.querySelector(".lg-lb-next").addEventListener("click", function (e) { e.stopPropagation(); stepLB(1); });
+    lb.addEventListener("click", function (e) { if (e.target === lb) closeLB(); });
+    document.addEventListener("keydown", function (e) {
+      if (lb.hidden) return;
+      if (e.key === "Escape") closeLB();
+      else if (e.key === "ArrowRight") stepLB(1);
+      else if (e.key === "ArrowLeft") stepLB(-1);
+    });
+    render();
+  })();
+  </script>
+  <script src="js/uploader.js?v=175"></script>
 </body>
 </html>

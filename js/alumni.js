@@ -5,8 +5,28 @@ const esc = (s) =>
   String(s == null ? "" : s).replace(/[&<>"']/g, (c) =>
     ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])
   );
+/* 상세페이지 맨 끝 공통 '＋ 자료 추가'(작게) — 상세별 키로 저장 */
+function miniUploaderHTML(key) {
+  return `<div class="up-sec up-mini" data-upkey="${esc(key)}">` +
+    `<label class="up-mini-btn">＋ 자료 추가<input type="file" accept="image/*" multiple hidden></label>` +
+    `<div class="up-grid"></div></div>`;
+}
+function initMiniUploaders(root) {
+  if (window.SNDUploader && root) window.SNDUploader.initAll(root);
+}
 let RECIPIENTS = [], CHAIRS = [], ACTS = [], MEDIA = [], PROUD = [], OFFICERS = [], INTERVIEWS = [], PHOTOS = [], MATERIALS = [], BIOS = [], PNAMES = [], JUNIORS = [], TITLES = [];
 let PORTRAIT_PEOPLE = new Set();
+// 주제 관련 구간(초 단위): { "<유튜브ID>": { start, end, label } } — 자막 기반으로 추출, 없으면 전체 재생
+let SEGMENTS = {};
+// 인물별 영상 챕터: { "<유튜브ID>": { person, no, sections:[{title,start,end}] } }
+let CHAPTERS = {};
+// 기억의 재구성 사건별 자료: [{ gubun, events:[{section, items:[{no,archival,material,link,alumni,vid}]}] }]
+let EVIDENCE = [];
+// 기억의 재구성 타임라인: { nodes:[{side,year,label,yearLabel,people}], quotes:{event:{person:[{ts,sum,txt}]}} }
+let MEMORY = { nodes: [], quotes: {} };
+// 지역별 활동 지도: 지오메트리 + 핀
+let MAPS = null;
+let MAPPINS = []; // [{map:'korea'|'world', lng, lat, person, grad, activity, photo, vid, ts}]
 // 인물소개 상세 타이틀(질문) — 인물소개 폴더/시트에서 받은 대표 질문
 const SC_QUESTIONS = {
   "이인호": "서양사람들이 우리보다 더 잘살게 된 원인이 무엇인가?",
@@ -44,12 +64,27 @@ async function init() {
   ]);
   PHOTOSET = new Set(Array.isArray(PHOTOS) ? PHOTOS : []);
   PORTRAIT_PEOPLE = new Set(Array.isArray(PNAMES) ? PNAMES : []);
+  const seg = await getj("data/segments.json");
+  SEGMENTS = (seg && !Array.isArray(seg)) ? seg : {};
+  const chp = await getj("data/chapters.json");
+  CHAPTERS = (chp && !Array.isArray(chp)) ? chp : {};
+  const ev = await getj("data/evidence.json");
+  EVIDENCE = Array.isArray(ev) ? ev : [];
+  const mem = await getj("data/memory.json");
+  if (mem && mem.nodes) MEMORY = mem;
+  const mp = await getj("data/maps/maps.json");
+  if (mp && mp.world) MAPS = mp;
+  const pins = await getj("data/mappins.json");
+  MAPPINS = Array.isArray(pins) ? pins : [];
   renderGallery();
   renderMedia("all");
   renderChairs();
   renderActivities("");
   renderInterviews();
   renderPeople();
+  renderMemoryTimeline();
+  renderMemoryMaps();
+  renderMemoryEvidence();
   renderJuniors();
   renderMaterials();
   bindNav();
@@ -58,6 +93,10 @@ async function init() {
   bindLightbox();
   bindVidLightbox();
   bindScKeys();
+  renderUserLetters("juniors");
+  renderUserLetters("seniors");
+  bindLetters();
+  window.addEventListener("resize", () => { clearTimeout(window._scCapT); window._scCapT = setTimeout(() => { positionScCaption(); fitMapArticleFrame(); }, 120); });
 }
 
 /* ---------- 상단 뷰 전환 ---------- */
@@ -75,6 +114,7 @@ function bindNav() {
       if (vm) vm.hidden = b.dataset.view !== "memory";
       const mb = $("#view-mailbox");
       if (mb) mb.hidden = b.dataset.view !== "mailbox";
+      if (b.dataset.view === "memory") requestAnimationFrame(positionScCaption);
       window.scrollTo({ top: 0, behavior: "smooth" });
     })
   );
@@ -107,6 +147,7 @@ function bindNav() {
     b.addEventListener("click", () => {
       document.querySelectorAll(".subnav [data-msub]").forEach((x) => x.classList.toggle("on", x === b));
       ["people", "videos", "timeline"].forEach((s) => { const el = $("#msub-" + s); if (el) el.hidden = s !== b.dataset.msub; });
+      if (b.dataset.msub === "people") requestAnimationFrame(positionScCaption);
     })
   );
   // 동문 편지함 하위탭: 후배들에게 / 선배들에게
@@ -305,9 +346,7 @@ const IV_THEMES = [
 // 표시용 주제 재배치(원본 데이터는 유지) — 03 과중 완화
 const IV_THEME_OVERRIDE = {
   "이인호": "여성&페미니즘",
-  "석은옥": "여성&페미니즘",
-  "신승일": "기업경영&경제개발",
-  "김태련": "문화&사회&스포츠",
+  "석은옥": "문화&사회&스포츠",
 };
 function ivThemeKey(t1) {
   const t = t1 || "";
@@ -326,12 +365,15 @@ function ivCard(g) {
   const watch = first.url || (vid ? "https://www.youtube.com/watch?v=" + vid : "#");
   const thumb = vid ? "https://i.ytimg.com/vi/" + vid + "/hqdefault.jpg" : "";
   const people = [...new Set(g.rows.map((r) => r.person).filter(Boolean))];
+  const seg = segOf(vid);
+  const segAttr = seg ? ` data-start="${seg.start != null ? seg.start : ""}" data-end="${seg.end != null ? seg.end : ""}"` : "";
   const thumbInner =
     (thumb ? `<img src="${esc(thumb)}" alt="${esc(dispTitle)}" loading="lazy" onerror="this.closest('.iv-thumb').classList.add('noimg')">` : "") +
     `<span class="iv-play" aria-hidden="true">▶</span>` +
-    (first.dur ? `<span class="iv-dur">${esc(first.dur)}</span>` : "");
+    (seg ? `<span class="iv-clip">주제 구간 ${fmtTime(seg.start)}–${fmtTime(seg.end)}</span>`
+         : (first.dur ? `<span class="iv-dur">${esc(first.dur)}</span>` : ""));
   const thumbEl = vid
-    ? `<div class="iv-thumb${thumb ? "" : " noimg"}" data-vid="${esc(vid)}" role="button" tabindex="0" aria-label="${esc(dispTitle)} 재생">${thumbInner}</div>`
+    ? `<div class="iv-thumb${thumb ? "" : " noimg"}" data-vid="${esc(vid)}"${segAttr} role="button" tabindex="0" aria-label="${esc(dispTitle)} 재생">${thumbInner}</div>`
     : `<a class="iv-thumb noimg" href="${esc(watch)}" target="_blank" rel="noopener">${thumbInner}</a>`;
   return (
     `<article class="iv-card">` +
@@ -339,10 +381,17 @@ function ivCard(g) {
     `<div class="iv-body">` +
     `<h3 class="iv-title">${esc(dispTitle)}</h3>` +
     (first.sub ? `<p class="iv-sub">${esc(first.sub)}</p>` : "") +
+    (seg && seg.label ? `<p class="iv-cliplabel">${esc(seg.label)}</p>` : "") +
     (people.length > 1 ? `<p class="iv-people">${people.map((p) => `<span class="iv-chip">${esc(p)}</span>`).join("")}</p>` : "") +
     `</div>` +
     `</article>`
   );
+}
+function fmtTime(s) {
+  if (s == null || s === "") return "";
+  s = Math.max(0, Math.floor(+s));
+  const m = Math.floor(s / 60), ss = s % 60;
+  return m + ":" + (ss < 10 ? "0" : "") + ss;
 }
 let IV_BUCKETS = null, ivPlaying = null;
 function ivBuckets() {
@@ -374,9 +423,419 @@ function ivPlay(el) {
 }
 function bindInlinePlay(wrap) {
   wrap.querySelectorAll(".iv-thumb[data-vid]").forEach((el) => {
-    el.addEventListener("click", () => ivPlay(el));
-    el.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); ivPlay(el); } });
+    const open = () => openVidLightbox(el.dataset.vid, el.dataset.start, el.dataset.end);
+    el.addEventListener("click", open);
+    el.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); } });
   });
+}
+/* 인물별 주제: 한 영상을 자막 챕터(주제) 단위로 나눠 각 구간 재생 */
+function renderPersonTopics() {
+  const wrap = $("#personTopics");
+  if (!wrap) return;
+  const gradOf = (person) => { const r = INTERVIEWS.find((x) => x.person === person); return r ? r.grad : ""; };
+  const items = Object.keys(CHAPTERS)
+    .map((v) => ({ v, c: CHAPTERS[v], grad: gradOf(CHAPTERS[v].person) }))
+    .sort((a, b) => (winNum(a.grad) - winNum(b.grad)) || (a.c.no > b.c.no ? 1 : -1));
+  if (!items.length) { wrap.innerHTML = `<div class="materials-empty">준비 중입니다.</div>`; return; }
+  wrap.innerHTML = items.map(({ v, c, grad }) => {
+    const secs = c.sections.filter((s) => s.start != null);
+    const rows = secs.map((s) =>
+      `<button class="pt-chap" type="button" data-vid="${esc(v)}" data-start="${s.start}" data-end="${s.end != null ? s.end : ""}">` +
+      `<span class="pt-time">${fmtTime(s.start)}</span><span class="pt-ctitle">${esc(s.title)}</span><span class="pt-go">▶</span></button>`
+    ).join("");
+    return `<div class="pt-person"><button class="pt-head" type="button" aria-expanded="false">` +
+      `<span class="pt-name">${grad ? esc(grad) + " " : ""}${esc(c.person)}</span>` +
+      `<span class="pt-count">주제 ${secs.length}개</span><span class="pt-caret" aria-hidden="true">▾</span></button>` +
+      `<div class="pt-list" hidden>${rows}</div></div>`;
+  }).join("");
+  wrap.querySelectorAll(".pt-head").forEach((h) => h.addEventListener("click", () => {
+    const list = h.nextElementSibling, open = !list.hidden;
+    list.hidden = open; h.setAttribute("aria-expanded", String(!open)); h.classList.toggle("on", !open);
+  }));
+  wrap.querySelectorAll(".pt-chap").forEach((b) => b.addEventListener("click", () => openVidLightbox(b.dataset.vid, b.dataset.start, b.dataset.end)));
+}
+/* 기억의 재구성: 타임라인 네이티브 재구성 */
+const MEM_NOMINAL = { "입학": 1947, "학교 체제": 1956, "특별활동": 1962 };
+function memYear(n) { const y = parseInt(n.year, 10); return isNaN(y) ? (MEM_NOMINAL[n.label] || 1950) : y; }
+function pageGutter() { // .wrap(max 1080, padding 28/20) 기준 좌우 여백
+  const vw = document.documentElement.clientWidth || window.innerWidth || 1080;
+  const pad = vw <= 760 ? 20 : 28;
+  return Math.max(pad, Math.round((vw - 1080) / 2) + pad);
+}
+function renderMemoryTimeline() {
+  const host = $("#memoryTimeline");
+  if (!host || !MEMORY.nodes || !MEMORY.nodes.length) return;
+  const nodes = MEMORY.nodes.map((n) => ({ ...n, yr: memYear(n), count: (n.people || []).length }));
+  const years = [...new Set(nodes.map((n) => n.yr))].sort((a, b) => a - b);
+  const xOf = {}; years.forEach((y, i) => (xOf[y] = i));
+  const slot = 132, laneGap = 30, H = 480, cy = Math.round(H / 2), labelHalf = 62;
+  const gutter = pageGutter();            // 페이지 좌우 여백
+  const mx = gutter + labelHalf;          // 첫 라벨 왼쪽 끝이 여백에 맞도록
+  const W = (gutter + labelHalf) * 2 + (years.length - 1) * slot;
+  const rOf = (n) => 9 + Math.sqrt(n.count) * 4.3;
+  let h = `<div class="mtl-inner" style="width:${W}px;height:${H}px">`;
+  h += `<div class="mtl-axis" style="top:${cy}px"></div>`;
+  years.forEach((y) => { const x = mx + xOf[y] * slot; h += `<div class="mtl-tick" style="left:${x}px;top:${cy - 4}px"></div>`; });
+  nodes.forEach((n) => {
+    const x = mx + xOf[n.yr] * slot, r = rOf(n), up = n.side === "h";
+    const ccy = up ? cy - laneGap - r : cy + laneGap + r;
+    const cTop = up ? ccy + r : cy, cBot = up ? cy : ccy - r;
+    h += `<div class="mtl-conn" style="left:${x - 0.5}px;top:${Math.min(cTop, cBot)}px;height:${Math.abs(cBot - cTop)}px"></div>`;
+    h += `<button class="mtl-node ${up ? "mtl-h" : "mtl-s"}" data-ev="${esc(n.label)}" title="${esc(n.label)}" style="left:${x - r}px;top:${ccy - r}px;width:${2 * r}px;height:${2 * r}px"><span>${n.count}</span></button>`;
+    const yl = (n.yearLabel && n.yearLabel !== "None") ? n.yearLabel : (parseInt(n.year, 10) ? n.year : "");
+    const lab = `<div class="mtl-lyear">${esc(yl)}</div><div class="mtl-lname">${esc(n.label)}</div><div class="mtl-lppl">${(n.people || []).map(esc).join(" · ")}</div>`;
+    if (up) h += `<div class="mtl-label mtl-up" data-ev="${esc(n.label)}" style="left:${x - 62}px;bottom:${H - (ccy - r) + 8}px">${lab}</div>`;
+    else h += `<div class="mtl-label mtl-dn" data-ev="${esc(n.label)}" style="left:${x - 62}px;top:${ccy + r + 8}px">${lab}</div>`;
+  });
+  h += `</div>`;
+  host.innerHTML = h;
+  host.querySelectorAll(".mtl-node, .mtl-label").forEach((b) => b.addEventListener("click", () => openMemoryEvent(b.dataset.ev)));
+  bindMemoryScroll();
+}
+function bindMemoryScroll() {
+  const sc = $(".memory-timeline-scroll"), fr = $(".memory-timeline-frame");
+  if (!sc || !fr || sc._bound) return;
+  sc._bound = true;
+  sc.addEventListener("wheel", (e) => {
+    if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) { sc.scrollLeft += e.deltaY; e.preventDefault(); }
+  }, { passive: false });
+  const aL = fr.querySelector(".mtl-arrow-l"), aR = fr.querySelector(".mtl-arrow-r");
+  const upd = () => {
+    const max = sc.scrollWidth - sc.clientWidth;
+    if (aL) aL.style.display = sc.scrollLeft > 8 ? "flex" : "none";
+    if (aR) aR.style.display = sc.scrollLeft < max - 8 ? "flex" : "none";
+  };
+  const glide = (dx) => {
+    const target = Math.max(0, Math.min(sc.scrollWidth - sc.clientWidth, sc.scrollLeft + dx));
+    const start = sc.scrollLeft, dur = 300; let t0 = null;
+    const step = (ts) => { if (t0 == null) t0 = ts; const p = Math.min(1, (ts - t0) / dur); sc.scrollLeft = start + (target - start) * (0.5 - 0.5 * Math.cos(Math.PI * p)); if (p < 1) requestAnimationFrame(step); };
+    requestAnimationFrame(step);
+    setTimeout(() => { sc.scrollLeft = target; }, 340); // 보정(rAF 미동작 환경 대비)
+  };
+  if (aL) aL.addEventListener("click", () => glide(-460));
+  if (aR) aR.addEventListener("click", () => glide(460));
+  sc.addEventListener("scroll", upd);
+  window.addEventListener("resize", upd);
+  if (window.ResizeObserver) { try { new ResizeObserver(upd).observe(sc); } catch (e) {} }
+  setTimeout(upd, 50);
+  document.addEventListener("keydown", (e) => {
+    if (e.key !== "Escape") return;
+    const p = $("#memoryDetail"), vl = $("#vidLightbox");
+    if (p && !p.hidden && (!vl || vl.hidden)) closeMemoryDetail();
+  });
+  let rt; window.addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(renderMemoryTimeline, 220); });
+}
+function tsToSec(ts) {
+  const p = String(ts || "").split(":").map((x) => parseInt(x, 10));
+  if (p.some(isNaN) || !p.length) return 0;
+  return p.length === 3 ? p[0] * 3600 + p[1] * 60 + p[2] : p[0] * 60 + (p[1] || 0);
+}
+function personVid(name) { const r = INTERVIEWS.find((x) => x.person === name); return r ? (r.vid || ivVid(r.url)) : ""; }
+// 증언 '자극성' 점수 — 극적 키워드가 많을수록 위로
+const IV_DRAMA_KW = ["총살", "총격", "폭격", "참사", "시신", "학살", "처형", "테러", "고문", "납치", "전투", "포로", "폭발", "의용군", "최루탄", "몽둥이", "깡패", "하야", "희생", "세뇌", "강제", "피난", "전쟁", "혁명", "쿠데타", "데모", "시위", "투쟁", "위기", "부상", "사망", "목숨", "죽", "도망", "체포", "구속", "충격", "배신", "굶", "빚", "부도", "서러움", "비참", "피"];
+function ivScore(it) {
+  const s = (it.sum || "") + " " + (it.txt || "");
+  let sc = 0; for (const k of IV_DRAMA_KW) if (s.indexOf(k) > -1) sc++;
+  return sc * 10 + Math.min(s.length, 400) / 200;
+}
+function evidenceForEvent(label) {
+  for (const cat of EVIDENCE) {
+    const e = cat.events.find((x) => String(x.section).replace(/\s*\(.*$/, "").trim() === label || String(x.section).startsWith(label));
+    if (e) return e.items;
+  }
+  return [];
+}
+function openMemoryEvent(ev) {
+  const panel = $("#memoryDetail");
+  if (!panel) return;
+  const q = MEMORY.quotes[ev] || {};
+  // 좌: 사건 영상·기록 — 페이지 내 재생 가능한 유튜브 자료를 앞에 배치
+  const items = evidenceForEvent(ev).slice().sort((a, b) => ((b.vid || b.file) ? 1 : 0) - ((a.vid || a.file) ? 1 : 0));
+  const evCards = items.map((it) => {
+    const thumb = it.file
+      ? `<span class="evc-img" style="background-image:url('${esc(it.poster || "")}')"></span>`
+      : it.vid
+      ? `<span class="evc-img" style="background-image:url('https://i.ytimg.com/vi/${esc(it.vid)}/hqdefault.jpg')"></span>`
+      : `<span class="evc-img evc-ph"><span class="evc-src">${esc(evSource(it.material))}</span></span>`;
+    const play = (it.vid || it.file || it.archival) ? `<span class="evc-play" aria-hidden="true">▶</span>` : "";
+    const badge = it.archival ? `<span class="evc-badge">당시 기록영상</span>` : "";
+    const inner = `<span class="evc-thumb">${thumb}${play}${badge}</span><span class="evc-cap" title="${esc(it.material)}">${esc(evTitle(it.material))}</span>`;
+    if (it.file) return `<button class="evc evc-pl" type="button" data-file="${esc(it.file)}">${inner}</button>`;
+    if (it.vid) return `<button class="evc evc-pl" type="button" data-vid="${esc(it.vid)}" data-start="${it.start != null ? it.start : ""}" data-end="${it.end != null ? it.end : ""}">${inner}</button>`;
+    return it.link ? `<a class="evc evc-ext" href="${esc(it.link)}" target="_blank" rel="noopener">${inner}</a>` : `<span class="evc evc-nolink">${inner}</span>`;
+  }).join("");
+  // 우: 동문 인터뷰 영상(증언)
+  const ivFlat = [];
+  Object.keys(q).forEach((person) => (q[person] || []).forEach((it) => ivFlat.push({ person, it, score: ivScore(it) })));
+  ivFlat.sort((a, b) => b.score - a.score);           // 자극적인 증언이 위로
+  const ivCards = ivFlat.map(({ person, it }) => {
+    const vid = personVid(person), st = tsToSec(it.ts);
+    const thumb = vid
+      ? `<span class="evc-img" style="background-image:url('https://i.ytimg.com/vi/${esc(vid)}/hqdefault.jpg')"></span>`
+      : `<span class="evc-img evc-ph"><span class="evc-src">${esc(person)}</span></span>`;
+    const body = `<span class="miv-body"><span class="miv-head"><b class="miv-name">${esc(person)}</b>${it.ts ? `<span class="miv-ts">${esc(it.ts)}</span>` : ""}</span>` +
+      (it.sum ? `<span class="miv-sum">${esc(it.sum)}</span>` : "") +
+      (it.txt ? `<span class="miv-txt">“${esc(it.txt)}”</span>` : "") + `</span>`;
+    return `<button class="miv" type="button" data-vid="${esc(vid)}" data-start="${st}">` +
+      `<span class="evc-thumb miv-thumb">${thumb}<span class="evc-play" aria-hidden="true">▶</span></span>${body}</button>`;
+  }).join("");
+  const h =
+    `<div class="mm-box">` +
+    `<button class="md-close" type="button" aria-label="닫기">×</button>` +
+    `<h3 class="md-title">${esc(ev)}</h3>` +
+    `<div class="md-cols">` +
+    `<div class="md-col md-col-ev"><h4 class="md-colh">사건 영상·기록</h4>` +
+    (evCards ? `<div class="md-evgrid">${evCards}</div>` : `<p class="md-empty">연결된 기록영상이 없습니다.</p>`) + `</div>` +
+    `<div class="md-col md-col-iv"><h4 class="md-colh">인터뷰 속 증언</h4>` +
+    (ivCards ? `<div class="md-ivlist">${ivCards}</div>` : `<p class="md-empty">연결된 인터뷰가 없습니다.</p>`) + `</div>` +
+    `</div>` + miniUploaderHTML("ev_" + ev) + `</div>`;
+  panel.innerHTML = h; panel.hidden = false;
+  document.body.style.overflow = "hidden";
+  panel.querySelector(".md-close").addEventListener("click", closeMemoryDetail);
+  panel.addEventListener("click", (e) => { if (e.target === panel) closeMemoryDetail(); });
+  panel.querySelectorAll(".evc-pl").forEach((b) => b.addEventListener("click", () => mdPlay(b)));
+  panel.querySelectorAll(".miv[data-vid]").forEach((b) => b.addEventListener("click", () => mdPlay(b)));
+  initMiniUploaders(panel);
+  const box = panel.querySelector(".mm-box"); if (box) box.scrollTop = 0;
+}
+function mdThumbOf(card) { return card.querySelector(".miv-thumb") || card.querySelector(".evc-thumb"); }
+function mdCollapse(card) {
+  const thumb = mdThumbOf(card);
+  if (thumb && thumb._origHTML != null) thumb.innerHTML = thumb._origHTML;
+  card.classList.remove("evc-playing", "miv-playing");
+}
+function mdPlay(card) {
+  const d = card.dataset;
+  if (!d.vid && !d.file) return;
+  // 같은 열 안에서는 한 번에 하나만 — 다른 재생 중 카드는 썸네일로 축소
+  const col = card.closest(".md-col");
+  if (col) col.querySelectorAll(".evc-playing, .miv-playing").forEach((c) => { if (c !== card) mdCollapse(c); });
+  const isMiv = card.classList.contains("miv");
+  const thumb = mdThumbOf(card);
+  if (thumb && thumb._origHTML == null) thumb._origHTML = thumb.innerHTML;
+  card.classList.add(isMiv ? "miv-playing" : "evc-playing");
+  mdInlinePlay(thumb, { vid: d.vid, file: d.file, start: +d.start || 0, end: +d.end || 0 });
+}
+function mdInlinePlay(thumb, o) {
+  if (!thumb || thumb.querySelector("iframe, video")) return;
+  if (o.file) {
+    thumb.innerHTML = `<video class="md-iframe" src="${esc(o.file)}" controls autoplay playsinline></video>`;
+    return;
+  }
+  if (!o.vid) return;
+  const s = o.start ? `&start=${Math.floor(o.start)}` : "";
+  const e = o.end ? `&end=${Math.floor(o.end)}` : "";
+  thumb.innerHTML = `<iframe class="md-iframe" src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(o.vid)}?autoplay=1&rel=0&playsinline=1${s}${e}" title="영상" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`;
+}
+function closeMemoryDetail() {
+  const panel = $("#memoryDetail");
+  if (!panel || panel.hidden) return;
+  panel.hidden = true;
+  if (!$("#vidLightbox") || $("#vidLightbox").hidden) document.body.style.overflow = "";
+}
+/* 기억의 재구성: 지역별 활동 지도(한국/세계) + 핀 */
+function mapXY(name, lng, lat) {
+  if (name === "world") { const m = MAPS.world; return [(lng + 180) / 360 * m.w, (90 - lat) / 180 * m.h]; }
+  const p = MAPS.korea.proj; return [(lng - p.minLng) * p.cosMid * p.K, (p.maxLat - lat) * p.K];
+}
+const MMAP_VIEW = {};   // name -> {scale, cx, cy}
+function mmSvg(name) {
+  const m = MAPS[name];
+  const regs = (m.regions || []).map((r) =>
+    `<path class="mmap-region" data-region="${esc(r.name)}" d="${r.d}"/>`).join("");
+  const munis = (m.munis || []).map((r) =>
+    `<path class="mmap-muni" data-region="${esc(r.name)}" d="${r.d}"/>`).join("");
+  const labels = (m.regions || []).map((r) =>
+    `<text class="mmap-label" x="${r.cx}" y="${r.cy}">${esc(r.label)}</text>`).join("");
+  // 원형 핀 — 지도 배율과 함께 확대되도록 고정 크기(user 단위 반지름)
+  const pr = name === "world" ? 5 : 4.5;
+  const pins = MAPPINS.filter((p) => p.map === name).map((p, i) => {
+    const xy = mapXY(name, p.lng, p.lat);
+    return `<g class="mpin" data-map="${name}" data-i="${i}" transform="translate(${xy[0].toFixed(1)},${xy[1].toFixed(1)})">` +
+      `<circle class="mpf-hit" cx="0" cy="0" r="10"></circle>` +
+      `<circle class="mpf-p mpin-dot" cx="0" cy="0" r="${pr}"></circle></g>`;
+  }).join("");
+  return `<svg class="mmap-svg" viewBox="0 0 ${m.w} ${m.h}" preserveAspectRatio="xMinYMid meet">` +
+    `<g class="mmap-regions">${regs}</g><g class="mmap-munis">${munis}</g><g class="mmap-labels">${labels}</g><g class="mmap-pins">${pins}</g></svg>`;
+}
+function renderMemoryMaps() {
+  const host = $("#memoryMaps");
+  if (!host || !MAPS) { if (host) host.innerHTML = ""; return; }
+  const build = (name, title) => {
+    const m = MAPS[name], cnt = MAPPINS.filter((p) => p.map === name).length;
+    return `<div class="mmap"><div class="mmap-h">${esc(title)} <span class="mmap-cnt">${cnt}</span>` +
+      `<span class="mmap-hint">스크롤로 확대 · 드래그로 이동</span></div>` +
+      `<div class="mmap-row" data-map="${name}">` +
+      `<div class="mmap-stage" data-map="${name}" style="aspect-ratio:${m.w} / ${m.h}">${mmSvg(name)}</div>` +
+      `<aside class="mmap-side" hidden></aside></div></div>`;
+  };
+  host.innerHTML = build("korea", "한국") + build("world", "세계");
+  ["korea", "world"].forEach((name) => {
+    MMAP_VIEW[name] = { scale: 1, cx: MAPS[name].w / 2, cy: MAPS[name].h / 2 };
+    const stage = host.querySelector(`.mmap-stage[data-map="${name}"]`);
+    if (stage) { mmApplyView(name); mmBindZoom(stage, name); }
+  });
+  host.querySelectorAll(".mpin").forEach((g) => g.addEventListener("click", (e) => { e.stopPropagation(); openMapPin(g); }));
+  host.querySelectorAll(".mmap-stage").forEach((st) => st.addEventListener("click", () => {
+    if (st._moved) { st._moved = false; return; }   // 드래그면 무시
+    closeMapSide(st.closest(".mmap-row"));
+  }));
+}
+function mmApplyView(name) {
+  const m = MAPS[name], v = MMAP_VIEW[name];
+  const stage = $(`#memoryMaps .mmap-stage[data-map="${name}"]`); if (!stage) return;
+  const svg = stage.querySelector(".mmap-svg"); if (!svg) return;
+  const vw = m.w / v.scale, vh = m.h / v.scale;
+  let x = v.cx - vw / 2, y = v.cy - vh / 2;
+  x = Math.max(0, Math.min(m.w - vw, x)); y = Math.max(0, Math.min(m.h - vh, y));
+  v.cx = x + vw / 2; v.cy = y + vh / 2;
+  svg.setAttribute("viewBox", `${x.toFixed(2)} ${y.toFixed(2)} ${vw.toFixed(2)} ${vh.toFixed(2)}`);
+  const sw = stage.clientWidth || 800, sh = stage.clientHeight || 600;
+  const scr = Math.min(sw / vw, sh / vh) || (sw / vw);   // 실제 표시 배율(px/user)
+  svg.querySelector(".mmap-labels").style.fontSize = (17 / scr).toFixed(2) + "px";
+  svg.querySelector(".mmap-labels").classList.toggle("show", v.scale >= 1.8);
+  // 발자국은 지도 배율과 함께 확대됨(고정 user 크기이므로 여기서 크기를 조정하지 않음)
+}
+function mmBindZoom(stage, name) {
+  const m = MAPS[name];
+  stage.addEventListener("wheel", (e) => {
+    e.preventDefault();
+    const v = MMAP_VIEW[name], rect = stage.getBoundingClientRect();
+    const vw = m.w / v.scale, vh = m.h / v.scale, x0 = v.cx - vw / 2, y0 = v.cy - vh / 2;
+    const fx = (e.clientX - rect.left) / rect.width, fy = (e.clientY - rect.top) / rect.height;
+    const ux = x0 + fx * vw, uy = y0 + fy * vh;
+    const ns = Math.max(1, Math.min(7, v.scale * (e.deltaY < 0 ? 1.18 : 1 / 1.18)));
+    const nvw = m.w / ns, nvh = m.h / ns;
+    v.cx = ux - (fx - 0.5) * nvw; v.cy = uy - (fy - 0.5) * nvh; v.scale = ns;
+    mmApplyView(name);
+  }, { passive: false });
+  let drag = false, sx = 0, sy = 0, scx = 0, scy = 0;
+  stage.addEventListener("pointerdown", (e) => {
+    if (e.target.closest(".mpin")) return;
+    drag = true; stage._moved = false; sx = e.clientX; sy = e.clientY;
+    const v = MMAP_VIEW[name]; scx = v.cx; scy = v.cy;
+    stage.setPointerCapture(e.pointerId); stage.style.cursor = "grabbing";
+  });
+  stage.addEventListener("pointermove", (e) => {
+    if (!drag) return;
+    const v = MMAP_VIEW[name], rect = stage.getBoundingClientRect(), vw = m.w / v.scale, vh = m.h / v.scale;
+    if (Math.abs(e.clientX - sx) + Math.abs(e.clientY - sy) > 3) stage._moved = true;
+    v.cx = scx - (e.clientX - sx) / rect.width * vw;
+    v.cy = scy - (e.clientY - sy) / rect.height * vh;
+    mmApplyView(name);
+  });
+  const end = () => { drag = false; stage.style.cursor = "grab"; };
+  stage.addEventListener("pointerup", end);
+  stage.addEventListener("pointercancel", end);
+  stage.style.cursor = "grab";
+}
+function closeMapSide(row) {
+  if (!row) return;
+  row.classList.remove("has-sel", "has-article");
+  const side = row.querySelector(".mmap-side"); if (side) side.hidden = true;
+  row.querySelectorAll(".mpin.on").forEach((p) => p.classList.remove("on"));
+  row.querySelectorAll(".mmap-region.on, .mmap-muni.on").forEach((p) => p.classList.remove("on"));
+}
+function openMapPin(g) {
+  const name = g.dataset.map, pins = MAPPINS.filter((p) => p.map === name), p = pins[+g.dataset.i];
+  if (!p) return;
+  const row = g.closest(".mmap-row"), svg = row.querySelector(".mmap-svg");
+  // 지도 핀/지역 하이라이트(모든 지도 초기화 후 현재 선택)
+  document.querySelectorAll("#memoryMaps .mmap-row").forEach((r) => closeMapSide(r));
+  g.classList.add("on");
+  if (p.region) { const rp = [...svg.querySelectorAll(".mmap-region, .mmap-muni")].find((x) => x.dataset.region === p.region); if (rp) rp.classList.add("on"); }
+  // 상세: 부고인의 기억과 동일한 전체화면 모달(좌 관련자료 / 우 인터뷰영상)
+  // 관련 기사 원문을 페이지 내에서 스크롤로 열람(임베드). 없으면 '준비 중'.
+  const articleBlock = p.article
+    ? `<div class="mside-article">` +
+      `<div class="mside-article-bar"><span class="mside-article-src">${esc(p.articleSrc || "관련 기사")}</span>` +
+      `<a class="mside-article-ext" href="${esc(p.article)}" target="_blank" rel="noopener">원문 새 창 ↗</a></div>` +
+      (p.articleTitle ? `<p class="mside-article-ttl">${esc(p.articleTitle)}</p>` : "") +
+      `<div class="mside-article-scaler"><iframe class="mside-article-frame" src="${esc(p.article)}" title="관련 기사" loading="lazy" referrerpolicy="no-referrer"></iframe></div></div>`
+    : "";
+  const evCol = p.article
+    ? (p.activity ? `<p class="mside-actline">${esc(p.activity)}</p>` : "") + articleBlock
+    : `<p class="md-empty">준비 중입니다.</p>`;
+  const vid = p.vid || personVid(p.person), st = p.ts ? tsToSec(p.ts) : 0;
+  const ivThumb = vid
+    ? `<span class="evc-img" style="background-image:url('https://i.ytimg.com/vi/${esc(vid)}/hqdefault.jpg')"></span>`
+    : `<span class="evc-img evc-ph"><span class="evc-src">${esc(p.person)}</span></span>`;
+  const ivCard = vid
+    ? `<button class="miv" type="button" data-vid="${esc(vid)}" data-start="${st}">` +
+      `<span class="evc-thumb miv-thumb">${ivThumb}<span class="evc-play" aria-hidden="true">▶</span></span>` +
+      `<span class="miv-body"><span class="miv-head"><b class="miv-name">${esc(p.person)}</b>` +
+      (p.ts ? `<span class="miv-ts">${esc(p.ts)}</span>` : "") + `</span>` +
+      (p.activity ? `<span class="miv-sum">${esc(p.activity)}</span>` : "") + `</span></button>`
+    : `<p class="md-empty">연결된 인터뷰가 없습니다.</p>`;
+  const panel = $("#memoryDetail"); if (!panel) return;
+  panel.innerHTML =
+    `<div class="mm-box">` +
+    `<button class="md-close" type="button" aria-label="닫기">×</button>` +
+    `<h3 class="md-title">${p.grad ? esc(p.grad) + " " : ""}${esc(p.person)}` +
+    (p.place ? ` <span class="md-title-sub">${esc(p.place)}</span>` : "") + `</h3>` +
+    `<div class="md-cols">` +
+    `<div class="md-col md-col-ev"><h4 class="md-colh">관련자료</h4>${evCol}</div>` +
+    `<div class="md-col md-col-iv"><h4 class="md-colh">인터뷰 영상</h4><div class="md-ivlist">${ivCard}</div></div>` +
+    `</div>` + miniUploaderHTML("map_" + p.person + "_" + (p.place || "")) + `</div>`;
+  panel.hidden = false; document.body.style.overflow = "hidden";
+  panel.querySelector(".md-close").addEventListener("click", closeMemoryDetail);
+  panel.onclick = (e) => { if (e.target === panel) closeMemoryDetail(); };
+  panel.querySelectorAll(".miv[data-vid]").forEach((b) => b.addEventListener("click", () => mdPlay(b)));
+  initMiniUploaders(panel);
+  const box = panel.querySelector(".mm-box"); if (box) box.scrollTop = 0;
+  requestAnimationFrame(fitMapArticleFrame);
+}
+/* 관련자료 기사 iframe을 칼럼 폭에 맞게 축소(가로 스크롤 제거) */
+function fitMapArticleFrame() {
+  const panel = $("#memoryDetail");
+  if (!panel || panel.hidden) return;
+  const scaler = panel.querySelector(".mside-article-scaler"), frame = panel.querySelector(".mside-article-frame");
+  if (!scaler || !frame) return;
+  const w = scaler.clientWidth; if (!w) return;
+  const BASE = 1024, DISP = 580;
+  const k = w / BASE;
+  frame.style.width = BASE + "px";
+  frame.style.height = Math.round(DISP / k) + "px";
+  frame.style.transform = "scale(" + k + ")";
+  scaler.style.height = DISP + "px";
+}
+/* 기억의 재구성: 사건별 기록영상·관련자료 썸네일 갤러리 */
+function evSource(mat) {
+  const s = String(mat || "");
+  const m = s.match(/^\s*([^「」:]+?)\s*(?:[:「]|$)/);
+  return (m ? m[1] : s).trim().slice(0, 28);
+}
+function evTitle(mat) {
+  const s = String(mat || "");
+  const q = s.match(/「([^」]+)」/);
+  if (q) return q[1];
+  const c = s.split(":"); return (c.length > 1 ? c.slice(1).join(":") : s).trim();
+}
+function renderMemoryEvidence() {
+  const wrap = $("#memoryEvidence");
+  if (!wrap || !EVIDENCE.length) return;
+  wrap.innerHTML = EVIDENCE.map((cat) => {
+    const events = cat.events.map((ev) => {
+      const cards = ev.items.map((it) => {
+        const thumb = it.vid
+          ? `<span class="evc-img" style="background-image:url('https://i.ytimg.com/vi/${esc(it.vid)}/hqdefault.jpg')"></span>`
+          : `<span class="evc-img evc-ph"><span class="evc-src">${esc(evSource(it.material))}</span></span>`;
+        const play = (it.vid || it.archival) ? `<span class="evc-play" aria-hidden="true">▶</span>` : "";
+        const badge = it.archival ? `<span class="evc-badge">당시 기록영상</span>` : "";
+        const inner =
+          `<span class="evc-thumb">${thumb}${play}${badge}</span>` +
+          `<span class="evc-cap" title="${esc(it.material)}">${esc(evTitle(it.material))}</span>`;
+        return it.link
+          ? `<a class="evc" href="${esc(it.link)}" target="_blank" rel="noopener">${inner}</a>`
+          : `<span class="evc evc-nolink">${inner}</span>`;
+      }).join("");
+      const alumni = (ev.items.find((x) => x.alumni) || {}).alumni || "";
+      return `<div class="ev-event"><div class="ev-ehead"><h4 class="ev-etitle">${esc(ev.section)}</h4>` +
+        (alumni ? `<p class="ev-alumni">언급 동문 · ${esc(alumni)}</p>` : "") + `</div>` +
+        `<div class="ev-grid">${cards}</div></div>`;
+    }).join("");
+    return `<section class="ev-cat"><h3 class="ev-cat-h">${esc(cat.gubun)}</h3>${events}</section>`;
+  }).join("");
 }
 /* 주제별 영상: 1단계 주제 그리드(3×2) → 클릭 시 해당 주제 영상 목록 */
 function renderInterviews() { renderThemeGrid(); }
@@ -403,7 +862,8 @@ function renderThemeGrid() {
 function renderJuniors() {
   const wrap = $("#juniorsList");
   if (!wrap) return;
-  const items = INTERVIEWS.map((d, i) => {
+  const items = scRepIdxs().map((i) => {
+    const d = INTERVIEWS[i];
     let msg = (JUNIORS[i] && JUNIORS[i].msg) ? JUNIORS[i].msg : "";
     if (!msg) { const b = BIOS[i]; msg = (b && Array.isArray(b.paras) && b.paras.length) ? b.paras[b.paras.length - 1] : ""; }
     if (!msg) { const ps = scBioParas(d); msg = ps[ps.length - 1] || ""; }
@@ -416,6 +876,53 @@ function renderJuniors() {
       `<p class="jm-text">“${esc(x.msg)}”</p></li>`
     ).join("") +
     `</ul>`;
+}
+/* 동문 편지함 — 편지쓰기(브라우저 로컬 저장, 100자 제한) */
+function letterKey(b) { return "sndaebugo_letters_" + b; }
+function loadLetters(b) { try { return JSON.parse(localStorage.getItem(letterKey(b)) || "[]"); } catch (e) { return []; } }
+function saveLetters(b, a) { try { localStorage.setItem(letterKey(b), JSON.stringify(a)); } catch (e) {} }
+function renderUserLetters(board) {
+  const wrap = $("#userLetters" + (board === "juniors" ? "Juniors" : "Seniors"));
+  if (!wrap) return;
+  const arr = loadLetters(board);
+  wrap.innerHTML = arr.length
+    ? `<ul class="jm-list">` + arr.map((x, i) =>
+        `<li class="jm-item jm-user"><button class="letter-del" type="button" data-i="${i}" aria-label="삭제">×</button>` +
+        `<span class="jm-name">${esc(x.name)}</span><p class="jm-text">“${esc(x.body)}”</p></li>`
+      ).join("") + `</ul>`
+    : "";
+  const se = $("#seniorsEmpty"); if (board === "seniors" && se) se.hidden = arr.length > 0;
+  wrap.querySelectorAll(".letter-del").forEach((b) => b.addEventListener("click", () => {
+    const a = loadLetters(board); a.splice(+b.dataset.i, 1); saveLetters(board, a); renderUserLetters(board);
+  }));
+}
+let letterBoard = "juniors";
+function openLetterModal(board) {
+  letterBoard = board;
+  $("#letterTitle").textContent = board === "juniors" ? "후배들에게 편지쓰기" : "선배님들께 편지쓰기";
+  $("#letterName").value = ""; $("#letterBody").value = ""; $("#letterCount").textContent = "0";
+  $("#letterModal").hidden = false; document.body.style.overflow = "hidden";
+  setTimeout(() => $("#letterName").focus(), 30);
+}
+function closeLetterModal() {
+  $("#letterModal").hidden = true;
+  if (!$("#vidLightbox") || $("#vidLightbox").hidden) document.body.style.overflow = "";
+}
+function bindLetters() {
+  document.querySelectorAll(".letter-btn").forEach((b) => b.addEventListener("click", () => openLetterModal(b.dataset.board)));
+  const modal = $("#letterModal"); if (!modal) return;
+  modal.querySelectorAll("[data-lclose]").forEach((el) => el.addEventListener("click", closeLetterModal));
+  const body = $("#letterBody"), cnt = $("#letterCount");
+  if (body && cnt) body.addEventListener("input", () => { cnt.textContent = body.value.length; });
+  const sub = $("#letterSubmit");
+  if (sub) sub.addEventListener("click", () => {
+    const name = $("#letterName").value.trim(), txt = $("#letterBody").value.trim();
+    if (!name) { alert("보내는 이를 입력해 주세요."); return; }
+    if (!txt) { alert("내용을 입력해 주세요."); return; }
+    const a = loadLetters(letterBoard); a.unshift({ name: name, body: txt.slice(0, 100), ts: Date.now() });
+    saveLetters(letterBoard, a); renderUserLetters(letterBoard); closeLetterModal();
+  });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !modal.hidden) closeLetterModal(); });
 }
 function renderThemeDetail(key) {
   const wrap = $("#interviewVids");
@@ -462,7 +969,7 @@ function scFirstVid(d) {
   return SC_FIRSTVID[d.title] || d.vid || ivVid(d.url);
 }
 function scPortrait(d) {
-  if (PORTRAIT_PEOPLE.has(d.person + "|" + (d.grad || ""))) return "data/portraits/" + encodeURIComponent(d.person) + ".jpg";
+  if (PORTRAIT_PEOPLE.has(d.person + "|" + (d.grad || ""))) return "data/portraits/" + encodeURIComponent(d.person + "_" + (d.grad || "")) + ".jpg";
   const v = scFirstVid(d); return v ? "data/portraits/" + v + ".jpg" : "";
 }
 function scRoles(d) {
@@ -480,41 +987,109 @@ function scBio(d) {
   if (b && b.person === d.person && Array.isArray(b.paras) && b.paras.length) return b.paras;
   return scBioParas(d);
 }
-function renderPeople() { scIndex = 0; renderScGallery(); }
+function renderPeople() { scIndex = 0; const c = $("#scCount"); if (c) c.textContent = scEntries().length; renderScGallery(); }
+/* 인물소개 표시 단위: 같은 인물 중복은 하나로(두 번째 영상 유지), 부부는 한 페이지로 */
+const SC_COUPLES = { "박병준": "홍정희", "김여순": "노순주" };
+const SC_SPOUSES = new Set(Object.values(SC_COUPLES));
+let SC_REPIDX = null, SC_ENTRIES = null;
+function scKey(d) { return (d.grad || "") + "|" + d.person; }
+function scRepIdxs() {
+  if (SC_REPIDX) return SC_REPIDX;
+  const rep = {};
+  INTERVIEWS.forEach((d, i) => { rep[scKey(d)] = i; }); // 같은 인물은 마지막(두 번째 영상) 유지
+  SC_REPIDX = Object.values(rep);
+  return SC_REPIDX;
+}
+function scEntries() {
+  if (SC_ENTRIES) return SC_ENTRIES;
+  const reps = scRepIdxs(), byPerson = {};
+  reps.forEach((i) => { byPerson[INTERVIEWS[i].person] = i; });
+  const used = new Set(), entries = [];
+  reps.forEach((i) => {
+    const d = INTERVIEWS[i];
+    if (used.has(i)) return;
+    if (d.person in SC_COUPLES) {
+      const sp = byPerson[SC_COUPLES[d.person]];
+      used.add(i); if (sp != null) used.add(sp);
+      entries.push({ primary: i, idxs: sp != null ? [i, sp] : [i], couple: sp != null });
+    } else if (SC_SPOUSES.has(d.person)) {
+      /* 배우자는 주 인물과 함께 처리 */
+    } else {
+      used.add(i); entries.push({ primary: i, idxs: [i], couple: false });
+    }
+  });
+  entries.sort((a, b) => (winNum(INTERVIEWS[a.primary].grad) - winNum(INTERVIEWS[b.primary].grad)) || a.primary - b.primary);
+  SC_ENTRIES = entries;
+  return entries;
+}
+function scEntryOf(i) {
+  const es = scEntries();
+  return es.find((e) => e.idxs.includes(i)) || es.find((e) => e.primary === i) || null;
+}
+function scEntryName(e) {
+  if (e.couple) return e.idxs.map((j) => `${INTERVIEWS[j].grad ? esc(INTERVIEWS[j].grad) + " " : ""}${esc(INTERVIEWS[j].person)}`).join(" · ");
+  return esc(INTERVIEWS[e.primary].person);
+}
+function scEntryAria(e) { return e.idxs.map((j) => INTERVIEWS[j].person).join(" · "); }
+function scBioOf(i) {
+  const d = INTERVIEWS[i], b = BIOS[i];
+  if (b && b.person === d.person && Array.isArray(b.paras) && b.paras.length) return b.paras;
+  return scBioParas(d);
+}
 function renderScGallery() {
   const gal = $("#scGallery"), det = $("#scDetail");
   if (!gal) return;
   if (det) det.hidden = true;
   gal.hidden = false;
-  const n = INTERVIEWS.length; if (!n) return;
-  scIndex = ((scIndex % n) + n) % n;
-  const at = (k) => INTERVIEWS[(((scIndex + k) % n) + n) % n];
+  const es = scEntries(), n = es.length; if (!n) return;
+  let pos = es.findIndex((e) => e.primary === scIndex);
+  if (pos < 0) { const e0 = scEntryOf(scIndex); pos = e0 ? es.indexOf(e0) : 0; }
+  if (pos < 0) pos = 0;
+  scIndex = es[pos].primary;
+  const entryAt = (k) => es[(((pos + k) % n) + n) % n];
   const slot = (k, cls) => {
-    const d = at(k), p = scPortrait(d);
+    const e = entryAt(k), d = INTERVIEWS[e.primary], p = scPortrait(d);
     return (
-      `<button class="sc-img ${cls}" type="button" data-k="${k}" aria-label="${esc(d.person)}">` +
-      (p ? `<img src="${esc(p)}" alt="${esc(d.person)}" loading="lazy">` : `<span class="sc-init">${esc((d.person || "").slice(0, 1))}</span>`) +
+      `<button class="sc-img ${cls}" type="button" data-k="${k}" aria-label="${esc(scEntryAria(e))}">` +
+      (p ? `<img src="${esc(p)}" alt="${esc(scEntryAria(e))}" loading="lazy">` : `<span class="sc-init">${esc((d.person || "").slice(0, 1))}</span>`) +
       `</button>`
     );
   };
-  const cur = at(0), roles = scRoles(cur);
+  const curE = entryAt(0), cur = INTERVIEWS[curE.primary], roles = scRoles(cur);
   gal.innerHTML =
     `<div class="sc-strip">` +
     slot(-2, "sc-far sc-l") + slot(-1, "sc-near sc-l") + slot(0, "sc-main") + slot(1, "sc-near sc-r") + slot(2, "sc-far sc-r") +
     `</div>` +
     `<div class="sc-caption">` +
-    (cur.grad ? `<p class="sc-grad">제${esc(cur.grad)} 졸업생</p>` : "") +
-    `<h3 class="sc-name">${esc(cur.person)} 선배님</h3>` +
-    (roles.length ? `<div class="sc-roles">${roles.map((r) => `<span>${esc(r)}</span>`).join("")}</div>` : "") +
+    (curE.couple
+      ? `<p class="sc-grad">동문 부부</p><h3 class="sc-name">${scEntryName(curE)} 선배님</h3>`
+      : (cur.grad ? `<p class="sc-grad">제${esc(cur.grad)} 졸업생</p>` : "") +
+        `<h3 class="sc-name">${esc(cur.person)} 선배님</h3>` +
+        (roles.length ? `<div class="sc-roles">${roles.map((r) => `<span>${esc(r)}</span>`).join("")}</div>` : "")) +
     `</div>`;
   gal.querySelectorAll(".sc-img").forEach((b) => {
     const k = +b.dataset.k;
-    b.addEventListener("click", () => { if (k === 0) openScDetail(scIndex); else { scIndex += k; renderScGallery(); } });
+    b.addEventListener("click", () => { if (k === 0) openScDetail(scIndex); else { scIndex = entryAt(k).primary; renderScGallery(); } });
   });
+  positionScCaption();
+}
+/* 인물정보 캡션을 우측(근접-우) 사진의 좌측 끝 기준 좌측정렬 + 그 사진 바로 아래에 고정(사진과 겹치지 않음) */
+function positionScCaption() {
+  const gal = $("#scGallery"); if (!gal || gal.hidden) return;
+  const capEl = gal.querySelector(".sc-caption"), nr = gal.querySelector(".sc-near.sc-r");
+  if (!capEl) return;
+  if (!nr || window.innerWidth <= 720) { capEl.style.left = capEl.style.top = capEl.style.right = capEl.style.bottom = ""; return; }
+  const gr = gal.getBoundingClientRect(), nrr = nr.getBoundingClientRect();
+  if (gr.width === 0 || nrr.width === 0) return;   // 아직 레이아웃되지 않음(숨김 상태)
+  capEl.style.left = Math.round(nrr.left - gr.left) + "px";
+  capEl.style.top = Math.round(nrr.bottom - gr.top + 10) + "px";
+  capEl.style.right = "auto"; capEl.style.bottom = "auto";
 }
 function openScDetail(i) {
   const n = INTERVIEWS.length;
-  scIndex = ((i % n) + n) % n;
+  i = ((i % n) + n) % n;
+  const entry = scEntryOf(i) || { primary: i, idxs: [i], couple: false };
+  scIndex = entry.primary;
   const d = INTERVIEWS[scIndex];
   const gal = $("#scGallery"), det = $("#scDetail");
   if (!det) return;
@@ -523,25 +1098,38 @@ function openScDetail(i) {
   const p = scPortrait(d);
   const title = (TITLES[scIndex] || "").trim() || SC_QUESTIONS[d.person] || d.sub || "";
   const isRec = RECIPIENTS.some((r) => r.name === d.person);
-  const list = INTERVIEWS
-    .map((x, j) => ({ j, x }))
-    .sort((a, b) => (winNum(a.x.grad) - winNum(b.x.grad)) || a.j - b.j)
-    .map(({ j, x }) => `<button class="sc-li${j === scIndex ? " on" : ""}" type="button" data-i="${j}">${x.grad ? esc(x.grad) + " " : ""}${esc(x.person)}</button>`)
-    .join("");
+  const list = scEntries().map((e) => {
+    const lab = e.couple ? scEntryName(e) : `${INTERVIEWS[e.primary].grad ? esc(INTERVIEWS[e.primary].grad) + " " : ""}${esc(INTERVIEWS[e.primary].person)}`;
+    return `<button class="sc-li${e.primary === scIndex ? " on" : ""}" type="button" data-i="${e.primary}">${lab}</button>`;
+  }).join("");
+  let nameLine, bioHTML;
+  if (entry.couple) {
+    nameLine = scEntryName(entry) + " 선배님";
+    bioHTML = entry.idxs.map((j) => {
+      const pd = INTERVIEWS[j];
+      return `<p class="sc-d-sub">${pd.grad ? esc(pd.grad) + " " : ""}${esc(pd.person)} 선배님</p>` +
+        scBioOf(j).map((x) => `<p>${esc(x)}</p>`).join("");
+    }).join("");
+  } else {
+    nameLine = esc(d.person) + " 선배님";
+    bioHTML = scBio(d).map((x) => `<p>${esc(x)}</p>`).join("");
+  }
   det.innerHTML =
     `<button class="sc-close" type="button" aria-label="닫기">×</button>` +
     `<div class="sc-detail-inner3">` +
     `<nav class="sc-list" aria-label="인물 명단">${list}</nav>` +
-    `<div class="sc-d-photo">${p ? `<img src="${esc(p)}" alt="${esc(d.person)}">` : ""}</div>` +
+    `<div class="sc-d-photo">${p ? `<img src="${esc(p)}" alt="${esc(scEntryAria(entry))}">` : ""}</div>` +
     `<div class="sc-d-info">` +
     (title ? `<h3 class="sc-d-title">${esc(title)}</h3>` : "") +
-    `<p class="sc-d-name">${esc(d.person)} 선배님</p>` +
-    `<div class="sc-d-bio">${scBio(d).map((x) => `<p>${esc(x)}</p>`).join("")}</div>` +
+    `<p class="sc-d-name">${nameLine}</p>` +
+    `<div class="sc-d-bio">${bioHTML}</div>` +
     `<div class="sc-d-links">` +
     (isRec ? `<a class="sc-d-link" href="proud_articles.html?person=${encodeURIComponent(d.person)}">관련기사 →</a>` : "") +
     `<button class="sc-d-link sc-d-interview" type="button">인터뷰 →</button>` +
     `</div>` +
-    `</div></div>`;
+    `</div></div>` +
+    miniUploaderHTML("sc_" + d.person);
+  initMiniUploaders(det);
   det.querySelector(".sc-close").addEventListener("click", renderScGallery);
   det.querySelectorAll(".sc-li").forEach((b) => b.addEventListener("click", () => openScDetail(+b.dataset.i)));
   const iv = det.querySelector(".sc-d-interview"); if (iv) iv.addEventListener("click", () => openVidLightbox(scFirstVid(d)));
@@ -555,11 +1143,17 @@ function openScDetail(i) {
     const r = ph.getBoundingClientRect();
     scStep(e.clientX < r.left + r.width / 2 ? -1 : 1);
   });
+  // 데스크탑: 본문·버튼을 프로필 사진 하단에 맞춤(본문이 짧으면 사진 높이 범위 내, 길면 아래로)
+  const infoBox = det.querySelector(".sc-d-info");
+  if (ph && infoBox) {
+    const applyMinH = () => { infoBox.style.minHeight = window.innerWidth > 860 ? ph.offsetHeight + "px" : ""; };
+    const im = ph.querySelector("img");
+    if (im && !im.complete) im.addEventListener("load", applyMinH, { once: true });
+    applyMinH();
+  }
   window.scrollTo(0, pageY);
 }
-function scOrder() {
-  return INTERVIEWS.map((d, i) => i).sort((a, b) => winNum(INTERVIEWS[a].grad) - winNum(INTERVIEWS[b].grad) || a - b);
-}
+function scOrder() { return scEntries().map((e) => e.primary); }
 function scStep(dir) {
   const ord = scOrder();
   const pos = ord.indexOf(scIndex);
@@ -598,11 +1192,15 @@ function gotoVideo(vid) {
 }
 
 /* ---------- 인터뷰 영상 전체화면 라이트박스 ---------- */
-function openVidLightbox(vid) {
+function segOf(vid) { return (vid && SEGMENTS[vid]) || null; }
+function openVidLightbox(vid, start, end) {
   const lb = $("#vidLightbox");
   if (!lb || !vid) return;
+  let src = `https://www.youtube-nocookie.com/embed/${encodeURIComponent(vid)}?autoplay=1&rel=0&playsinline=1`;
+  if (start != null && start !== "") src += `&start=${Math.max(0, Math.floor(+start))}`;
+  if (end != null && end !== "") src += `&end=${Math.floor(+end)}`;
   lb.querySelector(".vl-frame").innerHTML =
-    `<iframe class="vl-iframe" src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(vid)}?autoplay=1&rel=0&playsinline=1" ` +
+    `<iframe class="vl-iframe" src="${src}" ` +
     `title="동문 인터뷰 영상" frameborder="0" ` +
     `allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`;
   lb.hidden = false;

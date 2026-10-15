@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>실물전시 — 서울사대부고 라운지</title>
+  <meta name="description" content="서울사대부고 수집가의 방 — 물건·기념물 실물전시 공간 구성 레퍼런스">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <link rel="stylesheet" href="css/style.css?v=176">
+</head>
+<body class="alumni-page">
+  <header class="site-header">
+    <div class="wrap authbar">
+      <a class="home-link" href="home.html"><img class="home-logo" src="img/logo.png" alt="서울사대부고 교표"></a>
+      <p class="eyebrow">서울대학교 사범대학 부설고등학교 라운지</p>
+    </div>
+    <div class="wrap header-inner">
+      <div class="header-left">
+        <h1>실물전시</h1>
+        <p class="lead">학교의 물건과 기념물을 전시하는 ‘수집가의 방’ — 공간 구성 레퍼런스</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div id="exhibitRoot"></div>
+
+    <section class="up-sec" data-upkey="exhibit" aria-label="자료 추가">
+      <div class="up-head">
+        <h3 class="up-title">사진·자료 추가</h3>
+        <label class="up-btn">＋ 자료 올리기<input type="file" accept="image/*" multiple hidden></label>
+      </div>
+      <p class="up-note">소장품 사진이나 전시 참고자료를 올려 함께 채워 주세요. ※ 올린 자료는 현재 사용하는 브라우저에만 저장됩니다(시범 기능).</p>
+      <div class="up-grid"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p class="fine">자료: 서울사대부고 ‘수집가의 방’ 전시 컨텐츠 제안(홍익대학교 건축공학부 역사도시건축연구실). 레퍼런스 사진의 저작권은 각 기관에 있습니다. 본 사이트는 학교 역사관 전시·교육 목적입니다.</p>
+    </div>
+  </footer>
+
+  <!-- 라이트박스 -->
+  <div class="lg-lb" id="exLightbox" hidden>
+    <button class="lg-lb-close" type="button" aria-label="닫기">×</button>
+    <button class="lg-lb-nav lg-lb-prev" type="button" aria-label="이전">‹</button>
+    <div class="lg-lb-stage">
+      <img class="lg-lb-img" alt="">
+      <p class="lg-lb-cap"></p>
+    </div>
+    <button class="lg-lb-nav lg-lb-next" type="button" aria-label="다음">›</button>
+  </div>
+
+  <script>
+  (function () {
+    var P = "img/exhibit/";
+    var overview = {
+      title: "레퍼런스 구성 — 전시 구성",
+      note: "실물전시는 ①서울사대부고 80년(학교사·통사) ②사람과 말(인물사) ③수집가의 방(물건사) ④특별 주제전시의 네 전시로 구성되며, 평면 위 배치도로 공간을 계획합니다.",
+      imgs: ["f1", "f2"]
+    };
+    var groups = [
+      { title: "서울사대부고 80년 — 학교사(통사)", rep: ["f3"], refs: ["f4"],
+        reflabel: "레퍼런스 — 이화여자대학교 박물관(통사적 1차 사료 제시)" },
+      { title: "서울사대부고 사람과 말 — 인물사", rep: ["f5", "f6"], refs: ["f7"],
+        reflabel: "레퍼런스 — 이화여자대학교 박물관(인물 인터뷰 영상 전시 패널)" },
+      { title: "수집가의 방 — 수평·수직 진열", rep: [1, 2], refs: [3, 4, 5],
+        reflabel: "레퍼런스 — 이화여자대학교 박물관 · 역대 교사(校舍) 3D 모형" },
+      { title: "수집가의 방 — 벽면 장식·백과사전식 진열", rep: [6], refs: [7, 8, 9, 10, 11, 12],
+        reflabel: "레퍼런스 — 이화여자대학교 박물관 · 국립중앙박물관 나눔의 서재" },
+      { title: "수집가의 방 — 이우환 기증작·대형 스크린", rep: [13], refs: [14],
+        reflabel: "레퍼런스 — 국립중앙박물관 나눔의 서재" },
+      { title: "특별 주제전시", rep: [15], refs: [16, 17, 18],
+        reflabel: "레퍼런스 — 국립중앙박물관 나눔의 서재" }
+    ];
+    var root = document.getElementById("exhibitRoot");
+    var lbItems = [];   // 라이트박스용 전체 이미지 목록 {src, cap}
+    function add(src, cap) { lbItems.push({ src: src, cap: cap }); return lbItems.length - 1; }
+    var html = "";
+    // 대표(레퍼런스 구성) overview
+    html += '<section class="ex-overview">';
+    html += '<h2 class="ex-gtitle ex-gtitle-ov">' + overview.title + '</h2>';
+    html += '<p class="ex-ovnote">' + overview.note + '</p>';
+    html += '<div class="ex-rep">';
+    overview.imgs.forEach(function (p) {
+      var idx = add(P + p + ".jpg", overview.title);
+      html += '<button class="ex-rep-img" type="button" data-i="' + idx + '"><img src="' + P + p + '.jpg" alt="전시 구성 배치" loading="lazy"></button>';
+    });
+    html += '</div></section>';
+    // 섹션들
+    groups.forEach(function (g, gi) {
+      html += '<section class="ex-group">';
+      html += '<h2 class="ex-gtitle"><span class="ex-gno">' + (gi + 1) + '</span>' + g.title + '</h2>';
+      html += '<div class="ex-rep">';
+      g.rep.forEach(function (p) {
+        var idx = add(P + p + ".jpg", g.title);
+        html += '<button class="ex-rep-img" type="button" data-i="' + idx + '"><img src="' + P + p + '.jpg" alt="' + g.title + ' 제안 렌더링" loading="lazy"></button>';
+      });
+      html += '</div>';
+      if (g.refs && g.refs.length) {
+        html += '<p class="ex-reflabel">' + g.reflabel + '</p>';
+        html += '<div class="ex-refs">';
+        g.refs.forEach(function (p) {
+          var idx = add(P + p + ".jpg", g.reflabel.replace(/^레퍼런스 — /, ""));
+          html += '<button class="ex-ref-img" type="button" data-i="' + idx + '"><img src="' + P + p + '.jpg" alt="레퍼런스" loading="lazy"></button>';
+        });
+        html += '</div>';
+      }
+      html += '</section>';
+    });
+    root.innerHTML = html;
+
+    // 라이트박스
+    var lb = document.getElementById("exLightbox"), lbImg = lb.querySelector(".lg-lb-img"), lbCap = lb.querySelector(".lg-lb-cap");
+    var cur = 0;
+    function show() { cur = (cur % lbItems.length + lbItems.length) % lbItems.length; lbImg.src = lbItems[cur].src; lbImg.alt = lbItems[cur].cap || ""; lbCap.textContent = lbItems[cur].cap || ""; }
+    function open(i) { cur = i; show(); lb.hidden = false; document.body.style.overflow = "hidden"; }
+    function close() { lb.hidden = true; document.body.style.overflow = ""; }
+    function step(d) { cur += d; show(); }
+    root.addEventListener("click", function (e) { var b = e.target.closest("[data-i]"); if (b) open(+b.dataset.i); });
+    lb.querySelector(".lg-lb-close").addEventListener("click", close);
+    lb.querySelector(".lg-lb-prev").addEventListener("click", function (e) { e.stopPropagation(); step(-1); });
+    lb.querySelector(".lg-lb-next").addEventListener("click", function (e) { e.stopPropagation(); step(1); });
+    lb.addEventListener("click", function (e) { if (e.target === lb) close(); });
+    document.addEventListener("keydown", function (e) {
+      if (lb.hidden) return;
+      if (e.key === "Escape") close(); else if (e.key === "ArrowRight") step(1); else if (e.key === "ArrowLeft") step(-1);
+    });
+  })();
+  </script>
+  <script src="js/uploader.js?v=176"></script>
+</body>
+</html>

@@ -1,0 +1,442 @@
+[
+ {
+  "no": "01",
+  "person": "이인호",
+  "grad": "7회",
+  "vid": "NXtu3HuRbdw",
+  "start": 382,
+  "end": 512,
+  "title": "러시아사 연구와 교수 인생",
+  "theme": "과학&학교&교육"
+ },
+ {
+  "no": "01",
+  "person": "이인호",
+  "grad": "7회",
+  "vid": "NXtu3HuRbdw",
+  "start": 512,
+  "end": 608,
+  "title": "한국 최초의 여성 대사",
+  "theme": "여성&페미니즘"
+ },
+ {
+  "no": "02",
+  "person": "이기준",
+  "grad": "9회",
+  "vid": "7B30VZ1jKjM",
+  "start": 331,
+  "end": 615,
+  "title": "공학교육 혁신과 산업인력 양성",
+  "theme": "과학&학교&교육"
+ },
+ {
+  "no": "02",
+  "person": "이기준",
+  "grad": "9회",
+  "vid": "7B30VZ1jKjM",
+  "start": 615,
+  "end": 888,
+  "title": "서울대 총장의 대학 개혁",
+  "theme": "과학&학교&교육"
+ },
+ {
+  "no": "03",
+  "person": "이삼열",
+  "grad": "11회",
+  "vid": "9GO8ZnAHJEk",
+  "start": 346,
+  "end": 456,
+  "title": "독일 민주화운동과 파독 노동자 지원",
+  "theme": "문화&사회&스포츠"
+ },
+ {
+  "no": "03",
+  "person": "이삼열",
+  "grad": "11회",
+  "vid": "9GO8ZnAHJEk",
+  "start": 585,
+  "end": 723,
+  "title": "평화통일운동과 88선언",
+  "theme": "문화&사회&스포츠"
+ },
+ {
+  "no": "03",
+  "person": "이삼열",
+  "grad": "11회",
+  "vid": "9GO8ZnAHJEk",
+  "start": 723,
+  "end": 867,
+  "title": "WCC·유네스코 국제기구 활동",
+  "theme": "문화&사회&스포츠"
+ },
+ {
+  "no": "04",
+  "person": "김무일",
+  "grad": "13회",
+  "vid": "ZGbMN7xEaIc",
+  "start": 285,
+  "end": 605,
+  "title": "해병대 장교 월남전 참전",
+  "theme": "보국"
+ },
+ {
+  "no": "04",
+  "person": "김무일",
+  "grad": "13회",
+  "vid": "ZGbMN7xEaIc",
+  "start": 605,
+  "end": 701,
+  "title": "현대 임원과 부실기업 정상화",
+  "theme": "기업경영&경제개발"
+ },
+ {
+  "no": "05",
+  "person": "이희범",
+  "grad": "19회",
+  "vid": "adG5G5ZfGMU",
+  "start": 256,
+  "end": 622,
+  "title": "경제개발·수출 주역에서 산자부 장관까지",
+  "theme": "기업경영&경제개발"
+ },
+ {
+  "no": "05",
+  "person": "이희범",
+  "grad": "19회",
+  "vid": "adG5G5ZfGMU",
+  "start": 710,
+  "end": 773,
+  "title": "평창 동계올림픽 조직위원장",
+  "theme": "문화&사회&스포츠"
+ },
+ {
+  "no": "06",
+  "person": "유인선",
+  "grad": "20회",
+  "vid": "l6at2KciLho",
+  "start": 283,
+  "end": 639,
+  "title": "종합상사 철강 트레이딩 개척",
+  "theme": "기업경영&경제개발"
+ },
+ {
+  "no": "06",
+  "person": "유인선",
+  "grad": "20회",
+  "vid": "l6at2KciLho",
+  "start": 639,
+  "end": 902,
+  "title": "글로벌 컨테이너 사업 창업",
+  "theme": "기업경영&경제개발"
+ },
+ {
+  "no": "06",
+  "person": "유인선",
+  "grad": "20회",
+  "vid": "l6at2KciLho",
+  "start": 938,
+  "end": 965,
+  "title": "대한미식축구협회장",
+  "theme": "문화&사회&스포츠"
+ },
+ {
+  "no": "07",
+  "person": "성기학",
+  "grad": "17회",
+  "vid": "3NMs9FOXKQE",
+  "start": 192,
+  "end": 483,
+  "title": "영원무역 창업과 글로벌 의류 제조",
+  "theme": "기업경영&경제개발"
+ },
+ {
+  "no": "08",
+  "person": "조장희",
+  "grad": "7회",
+  "vid": "0cEvJSAJoc4",
+  "start": 287,
+  "end": 395,
+  "title": "세계 최초 PET·한국 최초 MRI 개발",
+  "theme": "과학&학교&교육"
+ },
+ {
+  "no": "08",
+  "person": "조장희",
+  "grad": "7회",
+  "vid": "0cEvJSAJoc4",
+  "start": 472,
+  "end": 633,
+  "title": "영상기기의 진화와 빅사이언스",
+  "theme": "과학&학교&교육"
+ },
+ {
+  "no": "09",
+  "person": "김의재",
+  "grad": "8회",
+  "vid": "yJISQHNSiBk",
+  "start": 389,
+  "end": 671,
+  "title": "서울시 제1부시장·보훈처장·국회의원에 이른 공직 생애",
+  "theme": "행정&정치"
+ },
+ {
+  "no": "10",
+  "person": "윤석남",
+  "grad": "9회",
+  "vid": "_OhQ5MLDH6k",
+  "start": 226,
+  "end": 645,
+  "title": "마흔에 시작한 화가의 길과 페미니즘 미술",
+  "theme": "여성&페미니즘"
+ },
+ {
+  "no": "11",
+  "person": "전광우",
+  "grad": "18회",
+  "vid": "lWGbiLD0BD8",
+  "start": 379,
+  "end": 633,
+  "title": "세계은행에서 초대 금융위원장까지의 경제·금융 경력",
+  "theme": "기업경영&경제개발"
+ },
+ {
+  "no": "12",
+  "person": "김경임",
+  "grad": "18회",
+  "vid": "DOnUe8gFLMg",
+  "start": 371,
+  "end": 779,
+  "title": "최초의 여성 외교관 개척사",
+  "theme": "여성&페미니즘"
+ },
+ {
+  "no": "12",
+  "person": "김경임",
+  "grad": "18회",
+  "vid": "DOnUe8gFLMg",
+  "start": 779,
+  "end": 1014,
+  "title": "약탈 문화재 반환 운동",
+  "theme": "문화&사회&스포츠"
+ },
+ {
+  "no": "13",
+  "person": "목요상",
+  "grad": "7회",
+  "vid": "S9wm7SRL5Zg",
+  "start": 215,
+  "end": 555,
+  "title": "소신과 양심의 판결 (김지하 오적 사건 무죄)",
+  "theme": "행정&정치"
+ },
+ {
+  "no": "13",
+  "person": "목요상",
+  "grad": "7회",
+  "vid": "S9wm7SRL5Zg",
+  "start": 555,
+  "end": 734,
+  "title": "국회의원·법사위원장·헌정회장 정치 역정",
+  "theme": "행정&정치"
+ },
+ {
+  "no": "14",
+  "person": "변주선",
+  "grad": "12회",
+  "vid": "02jb5gCEzKw",
+  "start": 258,
+  "end": 506,
+  "title": "걸스카우트 세계 봉사와 기금모금 창시",
+  "theme": "문화&사회&스포츠"
+ },
+ {
+  "no": "15",
+  "person": "김유진",
+  "grad": "11회",
+  "vid": "smgDCSb6GTs",
+  "start": 155,
+  "end": 418,
+  "title": "고대 총학생회장과 4.19혁명",
+  "theme": "행정&정치"
+ },
+ {
+  "no": "16",
+  "person": "신승일",
+  "grad": "9회",
+  "vid": "EXCgmgyU_YQ",
+  "start": 398,
+  "end": 784,
+  "title": "유전공학 백신과 셀트리온 창업",
+  "theme": "과학&학교&교육"
+ },
+ {
+  "no": "16",
+  "person": "신승일",
+  "grad": "9회",
+  "vid": "EXCgmgyU_YQ",
+  "start": 784,
+  "end": 813,
+  "title": "신승일 장학재단과 융합영재교육",
+  "theme": "과학&학교&교육"
+ },
+ {
+  "no": "17",
+  "person": "김태련",
+  "grad": "8회",
+  "vid": "Pm25zhi0Vco",
+  "start": 219,
+  "end": 446,
+  "title": "심리학 교수와 음악치료 도입",
+  "theme": "과학&학교&교육"
+ },
+ {
+  "no": "17",
+  "person": "김태련",
+  "grad": "8회",
+  "vid": "Pm25zhi0Vco",
+  "start": 446,
+  "end": 650,
+  "title": "아이코리아와 장애·아동 복지사업",
+  "theme": "문화&사회&스포츠"
+ },
+ {
+  "no": "18",
+  "person": "석은옥",
+  "grad": "12회",
+  "vid": "e2mUdUuq_Yw",
+  "start": 247,
+  "end": 560,
+  "title": "맹인 강영우를 만나 헌신하다",
+  "theme": "문화&사회&스포츠"
+ },
+ {
+  "no": "18",
+  "person": "석은옥",
+  "grad": "12회",
+  "vid": "e2mUdUuq_Yw",
+  "start": 887,
+  "end": 1160,
+  "title": "유학 고난을 넘어 백악관 차관보까지",
+  "theme": "문화&사회&스포츠"
+ },
+ {
+  "no": "19",
+  "person": "호문익",
+  "grad": "12회",
+  "vid": "L78sRneQ9DY",
+  "start": 269,
+  "end": 546,
+  "title": "자동차부품에서 방산까지 제조기업 일구기",
+  "theme": "기업경영&경제개발"
+ },
+ {
+  "no": "20",
+  "person": "현광언",
+  "grad": "13회",
+  "vid": "uq2r__FF9Eo",
+  "start": 531,
+  "end": 830,
+  "title": "베트남전 참전과 장군·연합사 복무",
+  "theme": "보국"
+ },
+ {
+  "no": "21",
+  "person": "양혜숙",
+  "grad": "7회",
+  "vid": "vrAYYh5IC-0",
+  "start": 10,
+  "end": 1176,
+  "title": "연극·공연예술 평생 활동",
+  "theme": "문화&사회&스포츠"
+ },
+ {
+  "no": "22",
+  "person": "김충한",
+  "grad": "7회",
+  "vid": "2tGxmPFCwJQ",
+  "start": 212,
+  "end": 572,
+  "title": "한국일보 입사부터 부사장·전시회 개척까지",
+  "theme": "기업경영&경제개발"
+ },
+ {
+  "no": "22",
+  "person": "김충한",
+  "grad": "7회",
+  "vid": "2tGxmPFCwJQ",
+  "start": 711,
+  "end": 804,
+  "title": "나눔·장학 활동",
+  "theme": "문화&사회&스포츠"
+ },
+ {
+  "no": "23",
+  "person": "정재훈",
+  "grad": "16회",
+  "vid": "wVga01ro7Oc",
+  "start": 222,
+  "end": 303,
+  "title": "NASA 우주왕복선 사고 해결·열보호장치 개발",
+  "theme": "과학&학교&교육"
+ },
+ {
+  "no": "24",
+  "person": "김종량",
+  "grad": "20회",
+  "vid": "20MqCUC3qXw",
+  "start": 311,
+  "end": 405,
+  "title": "사대부고 재건과 교육 비전",
+  "theme": "과학&학교&교육"
+ },
+ {
+  "no": "24",
+  "person": "김종량",
+  "grad": "20회",
+  "vid": "20MqCUC3qXw",
+  "start": 483,
+  "end": 554,
+  "title": "선농축전 계승과 동문회 발전",
+  "theme": "문화&사회&스포츠"
+ },
+ {
+  "no": "25",
+  "person": "이규용",
+  "grad": "23회",
+  "vid": "V_ChDS78dLQ",
+  "start": 10,
+  "end": 585,
+  "title": "피혁·의류 수출사업과 만다리나덕 브랜드",
+  "theme": "기업경영&경제개발"
+ },
+ {
+  "no": "25",
+  "person": "이규용",
+  "grad": "23회",
+  "vid": "V_ChDS78dLQ",
+  "start": 844,
+  "end": 885,
+  "title": "총동창회장 활동",
+  "theme": "문화&사회&스포츠"
+ },
+ {
+  "no": "26",
+  "person": "김윤종",
+  "grad": "16회",
+  "vid": "uaapDgVTguM",
+  "start": 249,
+  "end": 425,
+  "title": "산악 활동과 한국산악회 부회장",
+  "theme": "문화&사회&스포츠"
+ },
+ {
+  "no": "26",
+  "person": "김윤종",
+  "grad": "16회",
+  "vid": "uaapDgVTguM",
+  "start": 425,
+  "end": 520,
+  "title": "제약회사 CEO",
+  "theme": "기업경영&경제개발"
+ }
+]

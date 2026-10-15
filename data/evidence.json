@@ -1,0 +1,849 @@
+[
+ {
+  "gubun": "한국사적 사건",
+  "events": [
+   {
+    "section": "해방 (1945)",
+    "items": [
+     {
+      "no": "H1",
+      "archival": true,
+      "material": "e영상역사관 문화영화 「감격의 그날까지」(1959, 18분): 광복의 날과 건국 과정을 담은 기록영화",
+      "link": "https://www.ehistory.go.kr/page/movie/culture_record.jsp",
+      "alumni": "이인호",
+      "vid": "zL2jyg3keW0"
+     },
+     {
+      "no": "H2",
+      "archival": false,
+      "material": "경향신문 「미군 카메라에 담긴 '광복' 한국」: 국사편찬위원회가 NARA에서 발굴한 해방 직후 사진",
+      "link": "https://www.khan.co.kr/article/201508181655531",
+      "alumni": "이인호",
+      "vid": null
+     },
+     {
+      "no": "H3",
+      "archival": false,
+      "material": "KBS 「쌤과 함께」 광복절 편 클립: 광복 사진에 얽힌 사실 확인",
+      "link": "https://www.youtube.com/watch?v=2EphtdDP148",
+      "alumni": "이인호",
+      "vid": "2EphtdDP148"
+     }
+    ]
+   },
+   {
+    "section": "한국전쟁 (1950)",
+    "items": [
+     {
+      "no": "K1",
+      "archival": true,
+      "material": "뉴스타파: 미 공군 B-29의 용산 폭격 촬영 원본(1950.8, 9분 40초, NARA 소장)",
+      "link": "https://newstapa.org/article/ZEjWL",
+      "alumni": "이기준, 김의재, 신승일, 양혜숙, 이규용, 박병준, 홍정희, 김인수, 김정자, 유문기",
+      "vid": "NR-c_4rHdFw"
+     },
+     {
+      "no": "K2",
+      "archival": true,
+      "material": "뉴스타파 다큐 「당신이 보지 못한 한국전쟁 ① 초토화폭격」: 미군 건카메라 영상과 폐허가 된 서울·평양",
+      "link": "https://newstapa.org/article/MvDiB",
+      "alumni": "이기준, 김의재, 신승일, 양혜숙, 이규용, 박병준, 홍정희, 김인수, 김정자, 유문기",
+      "vid": "keasLxTpL9o"
+     },
+     {
+      "no": "K3",
+      "archival": true,
+      "material": "「[한국전쟁] 1950 실전 기록」: 대구 전선·낙동강 방어선 기록영상(YouTube)",
+      "link": "https://www.youtube.com/watch?v=VWior0DEyWo",
+      "alumni": "이기준, 김의재, 신승일, 양혜숙, 이규용, 박병준, 홍정희, 김인수, 김정자, 유문기",
+      "vid": "VWior0DEyWo"
+     },
+     {
+      "no": "K4",
+      "archival": true,
+      "material": "행정안전부 「한국전쟁과 UN 영상기록」: 전쟁고아 구호, 거제도 포로수용소, 병원선 등",
+      "link": "https://mois.go.kr/video/bbs/type019/commonSelectBoardArticle.do?bbsId=BBSMSTR_000000000255&nttId=54577",
+      "alumni": "이기준, 김의재, 신승일, 양혜숙, 이규용, 박병준, 홍정희, 김인수, 김정자, 유문기",
+      "vid": "QEQlIXyRIDE"
+     },
+     {
+      "no": "K5",
+      "archival": false,
+      "material": "한겨레TV 「국가기록원이 공개한 6.25 한국전쟁 사진」",
+      "link": "https://www.youtube.com/watch?v=whH9_trnfYs",
+      "alumni": "이기준, 김의재, 신승일, 양혜숙, 이규용, 박병준, 홍정희, 김인수, 김정자, 유문기",
+      "vid": "whH9_trnfYs"
+     }
+    ]
+   },
+   {
+    "section": "4·19 혁명 (1960)",
+    "items": [
+     {
+      "no": "R1",
+      "archival": true,
+      "material": "국가기록원 「기록으로 보는 4.19혁명」 동영상기록물: 대한뉴스 제262호 '4.19 데모' 등 31건",
+      "link": "https://theme.archives.go.kr/next/419/movieArchiveList.do",
+      "alumni": "이기준, 김유진, 현광언, 김윤종",
+      "vid": "YF6X1RFjFD4"
+     },
+     {
+      "no": "R2",
+      "archival": true,
+      "material": "e영상역사관 대한뉴스 제310호 「4.19의 날」(1961, 1주년 기념식)",
+      "link": "https://www.ehistory.go.kr/view/movie?mediasrcgbn=KV&mediaid=390&mediadtl=2270&mediagbn=DH",
+      "alumni": "이기준, 김유진, 현광언, 김윤종",
+      "vid": "jjGdiCbH_G4"
+     },
+     {
+      "no": "R3",
+      "archival": false,
+      "material": "우리역사넷 「4·19혁명」 해설(3·15 부정선거부터 하야까지)",
+      "link": "https://contents.history.go.kr/mobile/kc/view.do?levelId=kc_i500700&code=kc_age_50",
+      "alumni": "이기준, 김유진, 현광언, 김윤종",
+      "vid": null
+     },
+     {
+      "no": "R4",
+      "archival": false,
+      "material": "국가기록원 4.19혁명 주요일지",
+      "link": "https://theme.archives.go.kr/next/419/info01.do?menuId=03",
+      "alumni": "이기준, 김유진, 현광언, 김윤종",
+      "vid": null
+     }
+    ]
+   },
+   {
+    "section": "5·16 군사정변 (1961)",
+    "items": [
+     {
+      "no": "M1",
+      "archival": true,
+      "material": "e영상역사관 5.16 직후 대한뉴스 보도영상(대한뉴스 제314호)",
+      "link": "http://www.ehistory.go.kr/page/pop/movie_popall.jsp?srcgbn=KV&mediaid=394&gbn=DH&quality=W",
+      "alumni": "현광언",
+      "vid": "XSFgb1mUAVI"
+     },
+     {
+      "no": "M2",
+      "archival": false,
+      "material": "우리역사넷 「5·16 군사정변」: 육사 생도 시가행진 사진 포함 (현광언 동문 증언과 직결)",
+      "link": "https://contents.history.go.kr/mobile/kc/view.do?levelId=kc_i500900&code=kc_age_50",
+      "alumni": "현광언",
+      "vid": null
+     },
+     {
+      "no": "M3",
+      "archival": false,
+      "material": "매일신문 「한국 현대사의 흐름을 바꾼 5·16 군사정변」: 1961.5.18 육사생도 800명 시가행진 사진",
+      "link": "https://www.imaeil.com/page/view/2026032516131128194",
+      "alumni": "현광언",
+      "vid": null
+     }
+    ]
+   },
+   {
+    "section": "월남전 (1964–1973)",
+    "items": [
+     {
+      "no": "V1",
+      "archival": true,
+      "material": "국가기록원 「해외파병」: 대한뉴스 504·538·542호, 맹호부대 출발 영상",
+      "link": "https://theme.archives.go.kr/next/koreaOfRecord/overseaDispatch.do",
+      "alumni": "김무일, 현광언",
+      "vid": "UAYzepMVd9Q"
+     },
+     {
+      "no": "V2",
+      "archival": true,
+      "material": "e영상역사관 문화영화(1965): 맹호·청룡부대 훈련부터 캄란만 상륙까지",
+      "link": "https://www.ehistory.go.kr/view/movie?mediasrcgbn=KV&mediaid=10681&mediadtl=22829&mediagbn=MH",
+      "alumni": "김무일, 현광언",
+      "vid": "SXFRwtfrb1Q"
+     },
+     {
+      "no": "V3",
+      "archival": true,
+      "material": "e영상역사관 대한뉴스 제882호 「월남전의 용사들」(1972)",
+      "link": "https://www.ehistory.go.kr/view/movie?mediasrcgbn=KV&mediagbn=DH&mediaid=814&mediadtl=6874",
+      "alumni": "김무일, 현광언",
+      "vid": "KnONXLT8uwc"
+     },
+     {
+      "no": "V4",
+      "archival": true,
+      "material": "e영상역사관 테마 「역사속으로」 월남전 영상 목록(1966–67)",
+      "link": "https://www.ehistory.go.kr/theme/history_list?hist_seqn=7&index_page=3",
+      "alumni": "김무일, 현광언",
+      "vid": "YnY9exncCjQ"
+     }
+    ]
+   },
+   {
+    "section": "동백림 사건 (1967)",
+    "items": [
+     {
+      "no": "D1",
+      "archival": false,
+      "material": "한국민족문화대백과사전 「동백림 사건」",
+      "link": "https://encykorea.aks.ac.kr/Article/E0067998",
+      "alumni": "양혜숙",
+      "vid": null
+     },
+     {
+      "no": "D2",
+      "archival": false,
+      "material": "민주화운동사전 「동백림사건」: 당시 경향신문 보도 이미지 포함",
+      "link": "https://dict.kdemo.or.kr/entry/134/",
+      "alumni": "양혜숙",
+      "vid": null
+     }
+    ]
+   },
+   {
+    "section": "유신체제 (1972)",
+    "items": [
+     {
+      "no": "Y1",
+      "archival": false,
+      "material": "SBS 「꼬리에 꼬리를 무는 그날 이야기」 166회 「유신헌법과 긴급조치」 (방송사 다시보기 / 유튜브 요약본)",
+      "link": "",
+      "alumni": "이삼열, 목요상, 김유진, 양혜숙",
+      "vid": "6xj10TEWe78"
+     },
+     {
+      "no": "Y2",
+      "archival": false,
+      "material": "「강요된 침묵, 그리고 비밀수기: 대한민국 의문사 1호」(꼬꼬무, 2021): 중앙정보부·남산",
+      "link": "https://thetvdb.com/series/406054-/episodes/8856098",
+      "alumni": "이삼열, 목요상, 김유진, 양혜숙",
+      "vid": null
+     }
+    ]
+   },
+   {
+    "section": "노동자 대투쟁 (1987)",
+    "items": [
+     {
+      "no": "L1",
+      "archival": false,
+      "material": "1997 외환위기아카이브 「[1987.07.01] 노동자대투쟁」: 울산 현대그룹 사업장 중심 전개",
+      "link": "https://97imf.kr/items/show/6548",
+      "alumni": "김무일",
+      "vid": null
+     },
+     {
+      "no": "L2",
+      "archival": false,
+      "material": "주간경향 「노동자대투쟁 30년」: 1987.9 현대중공업 울산공장 사진",
+      "link": "https://weekly.khan.co.kr/article/201709121359581",
+      "alumni": "김무일",
+      "vid": null
+     }
+    ]
+   },
+   {
+    "section": "IMF 외환위기 (1997)",
+    "items": [
+     {
+      "no": "I1",
+      "archival": true,
+      "material": "KTV 광복 80년 다큐 12부 「금빛 연대, IMF의 빚을 희망으로」: 금모으기 운동, 1997.11.23 협상 장면",
+      "link": "https://www.ktv.go.kr/content/view?content_id=737502",
+      "alumni": "김무일, 전광우, 김충한",
+      "vid": "y-NM-ug9Ids"
+     },
+     {
+      "no": "I2",
+      "archival": false,
+      "material": "1997 외환위기아카이브 「영상으로 보는 IMF」: KBS 「시사기획 쌈」, MBC 「이제는 말할 수 있다」 등 목록",
+      "link": "https://97imf.kr/exhibits/show/ex-05/ex-05-p2",
+      "alumni": "김무일, 전광우, 김충한",
+      "vid": null
+     }
+    ]
+   },
+   {
+    "section": "부안 사태 (2003)",
+    "items": [
+     {
+      "no": "B1",
+      "archival": true,
+      "material": "MBC 「PD수첩: 부안의 절규, 출구없는 핵 폐기장」(2003.09.30) / 「무너진 부안, 해법은?」(2003.12.02). MBC 다시보기에서 확인 필요",
+      "link": "",
+      "alumni": "이희범",
+      "vid": "krKJ4yaByq4"
+     },
+     {
+      "no": "B2",
+      "archival": false,
+      "material": "한국일보 르포 「경찰 8,000명 배치 '계엄령 방불'」(2003.11.22): 촛불집회 봉쇄 당시 현장",
+      "link": "https://www.hankookilbo.com/news/article/200311220094646324",
+      "alumni": "이희범",
+      "vid": null
+     },
+     {
+      "no": "B3",
+      "archival": false,
+      "material": "한국일보 「'부안 사태' 재현될 수도」(2022): 당시 지면 이미지와 함께 사건 경과 정리",
+      "link": "https://m.hankookilbo.com/News/Read/A2022010614130004303",
+      "alumni": "이희범",
+      "vid": null
+     },
+     {
+      "no": "B4",
+      "archival": false,
+      "material": "디지털부안문화대전 「부안 핵 폐기장 반대 운동」: 2003.7–2004.2 일지, 시위 사진",
+      "link": "https://buan.grandculture.net/buan/toc/GC08000393",
+      "alumni": "이희범",
+      "vid": null
+     },
+     {
+      "no": "B5",
+      "archival": false,
+      "material": "환경아카이브풀숲 「부안 핵폐기장 반대」: 성명서·보도자료 등 1차 사료",
+      "link": "https://ecoarchive.org/items/show/1150",
+      "alumni": "이희범",
+      "vid": null
+     }
+    ]
+   },
+   {
+    "section": "평창 동계올림픽 (2018)",
+    "items": [
+     {
+      "no": "P1",
+      "archival": true,
+      "material": "KTV 「11년 만의 공동입장… 기수는 남남북녀」(2018.02.08, 2분 13초)",
+      "link": "https://m.ktv.go.kr/program/again/view?content_id=549420",
+      "alumni": "이희범, 성기학",
+      "vid": "XLi8-_S5mz4"
+     },
+     {
+      "no": "P2",
+      "archival": false,
+      "material": "VOA 특파원 리포트 「평창 동계올림픽 개막…남북한 선수단 공동입장」: 개막식 현장 사진·녹취",
+      "link": "https://www.voakorea.com/a/4245954.html",
+      "alumni": "이희범, 성기학",
+      "vid": null
+     },
+     {
+      "no": "P3",
+      "archival": false,
+      "material": "통일뉴스 「남북선수단 공동입장」: 원윤종·황충금 한반도기 입장 사진",
+      "link": "https://www.tongilnews.com/news/articleView.html?idxno=123732",
+      "alumni": "이희범, 성기학",
+      "vid": null
+     },
+     {
+      "no": "P4",
+      "archival": false,
+      "material": "YouTube 「평창 남북 단일팀·공동입장 '올림픽 유산'」(2019): 로잔 올림픽박물관 전시",
+      "link": "https://www.youtube.com/watch?v=mpIBzODmF0Q",
+      "alumni": "이희범, 성기학",
+      "vid": "mpIBzODmF0Q"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "gubun": "인터뷰 속 사건·행정 사업",
+  "events": [
+   {
+    "section": "중화학공업화와 산업단지 조성 (1973–)",
+    "items": [
+     {
+      "no": "E1",
+      "archival": false,
+      "material": "우리역사넷 「1970년대 중화학공업 정책」: 1973.1.12 연두기자회견 '중화학공업화 선언'",
+      "link": "https://contents.history.go.kr/mobile/kc/view.do?levelId=kc_i500300&code=kc_age_50",
+      "alumni": "이희범, 이기준, 김무일",
+      "vid": null
+     },
+     {
+      "no": "E2",
+      "archival": false,
+      "material": "사료로 본 한국사 「경제기획원의 1973년 중화학공업 개발 전략」: 포항·울산·구미·온산·거제·창원·여천 산업기지 원문",
+      "link": "https://contents.history.go.kr/front/hm/view.do?levelId=hm_155_0070",
+      "alumni": "이희범, 이기준, 김무일",
+      "vid": null
+     },
+     {
+      "no": "E3",
+      "archival": false,
+      "material": "국가기록원 「대한민국의 원동력 산업단지 개발」 연표: 1970 마산수출자유지역, 구미 전자공업단지 입지 결정 등",
+      "link": "https://theme.archives.go.kr//next/industry/chronology.do",
+      "alumni": "이희범, 이기준, 김무일",
+      "vid": null
+     },
+     {
+      "no": "E4",
+      "archival": false,
+      "material": "대한민국역사박물관 현대사아카이브 「창원국가산업단지」: 1974년 제1단지 조성 사진",
+      "link": "https://archive.much.go.kr/data/01/folderView.do?jobdirSeq=868&idnbr=2017031163",
+      "alumni": "이희범, 이기준, 김무일",
+      "vid": null
+     },
+     {
+      "no": "E5",
+      "archival": false,
+      "material": "경남신문 「창원국가산업단지 50년을 보다」: 1970년대 조성 초기 사진",
+      "link": "https://www.knnews.co.kr/news/articleView.php?idxno=1426943",
+      "alumni": "이희범, 이기준, 김무일",
+      "vid": null
+     }
+    ]
+   },
+   {
+    "section": "마산수출자유지역 (1970)",
+    "items": [
+     {
+      "no": "E6",
+      "archival": false,
+      "material": "대한민국역사박물관 「마산자유무역지역」: 1970년대 항공사진",
+      "link": "https://archive.much.go.kr/data/01/folderView.do?jobdirSeq=878&idnbr=2018001118",
+      "alumni": "유인선",
+      "vid": null
+     },
+     {
+      "no": "E7",
+      "archival": false,
+      "material": "디지털창원문화대전 「한국의 수출 전진 기지, 마산 자유 무역 지역」",
+      "link": "https://changwon.grandculture.net/changwon/toc/GC02202919",
+      "alumni": "유인선",
+      "vid": null
+     }
+    ]
+   },
+   {
+    "section": "수출진흥확대회의 · 수출 100억불 달성 (1977)",
+    "items": [
+     {
+      "no": "X1",
+      "archival": true,
+      "material": "국가기록원 「[대한뉴스 1166] 100억불 수출 기념식」",
+      "link": "https://theme.archives.go.kr/next/specialDay/detailPopup.do?eventId=0050758211",
+      "alumni": "이희범",
+      "vid": "AwSyOhIvruk"
+     },
+     {
+      "no": "X2",
+      "archival": true,
+      "material": "e영상역사관 대한뉴스 제1119호 「무역 진흥위원회 확대회의」(1977.1, 2분)",
+      "link": "https://www.ehistory.go.kr/view/movie?mediasrcgbn=KV&mediaid=10126&mediadtl=20579",
+      "alumni": "이희범",
+      "vid": "Zhc7zY3_GLY"
+     },
+     {
+      "no": "X3",
+      "archival": false,
+      "material": "e영상역사관 사진 「수출 100억불 달성 수출의 날 기념식에 참석한 근로자들」(1977.12.22)",
+      "link": "https://www.ehistory.go.kr/view/photo?mediasrcgbn=BK&mediaid=18&mediadtl=3447",
+      "alumni": "이희범",
+      "vid": null
+     },
+     {
+      "no": "X4",
+      "archival": false,
+      "material": "KBS 「역사저널 그날」 290회 「수출 100억불을 달성하라」(48분)",
+      "link": "",
+      "alumni": "이희범",
+      "vid": null
+     },
+     {
+      "no": "X5",
+      "archival": false,
+      "material": "머니투데이 「경제개발계획 15년만에 '100억불 수출'」: 장충체육관 기념식 기사",
+      "link": "https://news.mt.co.kr/mtview.php?no=2023122118170690198",
+      "alumni": "이희범",
+      "vid": null
+     }
+    ]
+   },
+   {
+    "section": "파독 광부·간호사 (1963–1977)",
+    "items": [
+     {
+      "no": "G1",
+      "archival": false,
+      "material": "뉴시스 「파독 광부·간호사 국외 희귀기록물 대거 공개」: 국가기록원이 독일 광산기록보존소 등에서 수집한 영상·사진",
+      "link": "https://www.newsis.com/view/NISX20131217_0012599341",
+      "alumni": "이삼열",
+      "vid": null
+     },
+     {
+      "no": "G2",
+      "archival": false,
+      "material": "진실화해위원회 「파독 광부·간호사의 한국 경제발전에 대한 기여의 건」 결정문(파견 규모·송금액 수치)",
+      "link": "https://www.jinsil.go.kr/fnt/nac/selectNoticeDetail.do?bbsId=BBSMSTR_000000000717&nttId=24176",
+      "alumni": "이삼열",
+      "vid": null
+     },
+     {
+      "no": "G3",
+      "archival": false,
+      "material": "주독일 대한민국 대사관 「파독 광부·간호사」 개관",
+      "link": "https://overseas.mofa.go.kr/de-ko/brd/m_7206/view.do?seq=1190988",
+      "alumni": "이삼열",
+      "vid": null
+     }
+    ]
+   },
+   {
+    "section": "오적·다리지 필화사건 (1970–71)",
+    "items": [
+     {
+      "no": "F1",
+      "archival": false,
+      "material": "민주화운동사전 「오적·다리지필화사건」: 1970.7.7 첫 공판 사진",
+      "link": "https://dict.kdemo.or.kr/entry/157/",
+      "alumni": "목요상 (당시 담당 판사)",
+      "vid": null
+     },
+     {
+      "no": "F2",
+      "archival": false,
+      "material": "민주화운동기록관 「1970년대 필화사건」: 사상계 필화 경과와 판결",
+      "link": "https://archives.kdemo.or.kr/collections/view/10000146",
+      "alumni": "목요상 (당시 담당 판사)",
+      "vid": null
+     },
+     {
+      "no": "F3",
+      "archival": false,
+      "material": "한국일보 「민주화 발자취 ⑨ 사상계 필화사건」(2003)",
+      "link": "https://www.hankookilbo.com/news/article/200306200028046528",
+      "alumni": "목요상 (당시 담당 판사)",
+      "vid": null
+     }
+    ]
+   },
+   {
+    "section": "일본 대중문화 개방 (1998)",
+    "items": [
+     {
+      "no": "J1",
+      "archival": false,
+      "material": "국가기록원 「기록으로 만나는 대한민국 · 일본대중문화개방」: 개방 방침 통보 문서, 「하나비」 개봉",
+      "link": "https://theme.archives.go.kr/next/koreaOfRecord/cultureofJapan.do",
+      "alumni": "김경임",
+      "vid": null
+     },
+     {
+      "no": "J2",
+      "archival": false,
+      "material": "사료로 본 한국사 「일본의 대중 문화 개방」: 1998.10.10 김대중 대통령 일본 문화계 간담회 사료",
+      "link": "https://contents.history.go.kr/front/hm/view.do?levelId=hm_165_0030",
+      "alumni": "김경임",
+      "vid": null
+     },
+     {
+      "no": "J3",
+      "archival": false,
+      "material": "경향신문 「[어제의 오늘] 1998년 일본 대중문화 1차 개방 발표」",
+      "link": "https://www.khan.co.kr/article/200910191753595",
+      "alumni": "김경임",
+      "vid": null
+     }
+    ]
+   },
+   {
+    "section": "국제백신연구소 유치 (1997)",
+    "items": [
+     {
+      "no": "C1",
+      "archival": false,
+      "material": "위키백과 「국제 백신 연구소」: 한국에 본부를 둔 최초의 국제기구, 서울대 연구공원",
+      "link": "https://ko.wikipedia.org/wiki/%EA%B5%AD%EC%A0%9C_%EB%B0%B1%EC%8B%A0_%EC%97%B0%EA%B5%AC%EC%86%8C",
+      "alumni": "신승일",
+      "vid": null
+     },
+     {
+      "no": "C2",
+      "archival": false,
+      "material": "서울대학교 「UN 국제백신연구소 탐방프로그램」",
+      "link": "https://www.snu.ac.kr/snunow/snu_story?md=v&bbsidx=118222",
+      "alumni": "신승일",
+      "vid": null
+     }
+    ]
+   },
+   {
+    "section": "국내 인터넷 연결과 .kr 도메인 (1986–)",
+    "items": [
+     {
+      "no": "N1",
+      "archival": false,
+      "material": "한국 인터넷 역사 프로젝트 「한국 인터넷의 역사」: 1986.7 첫 IP 주소 할당, .kr 사용 시작",
+      "link": "https://sites.google.com/site/koreainternethistory/publication/ieee-translation",
+      "alumni": "이기준",
+      "vid": null
+     },
+     {
+      "no": "N2",
+      "archival": false,
+      "material": "한국 인터넷 역사 프로젝트 「초기 한국 인터넷 略史 (1982–2004)」",
+      "link": "https://sites.google.com/site/koreainternethistory/publication/e-bridge",
+      "alumni": "이기준",
+      "vid": null
+     }
+    ]
+   },
+   {
+    "section": "기아·한보 부도 (1997)",
+    "items": [
+     {
+      "no": "Q1",
+      "archival": true,
+      "material": "MBC 뉴스데스크 「한보철강 부도, 경제계 큰 파문」(1997.01.23) 당시 방송 다시보기",
+      "link": "https://imnews.imbc.com/replay/1997/nwdesk/article/1975449_30717.html",
+      "alumni": "김무일",
+      "vid": "OZq0nEg0_7Y"
+     },
+     {
+      "no": "Q2",
+      "archival": true,
+      "material": "MBC 「[오늘 다시보기] 한보철강 최종부도(1997)」: 당시 화면과 김영삼 대통령 사과, 기아차 등 연쇄 부도까지 정리",
+      "link": "https://imnews.imbc.com/replay/2019/nwtoday/article/5130281_28983.html",
+      "alumni": "김무일",
+      "vid": "OZq0nEg0_7Y"
+     },
+     {
+      "no": "Q3",
+      "archival": false,
+      "material": "YTN 「[1997년1월23일] 한보그룹 부도」",
+      "link": "https://www.ytn.co.kr/_ln/0422_200901230048030660",
+      "alumni": "김무일",
+      "vid": null
+     },
+     {
+      "no": "Q4",
+      "archival": false,
+      "material": "1997 외환위기아카이브 「[1997.01.23] 한보철강 부도」",
+      "link": "https://97imf.kr/items/show/6653",
+      "alumni": "김무일",
+      "vid": null
+     }
+    ]
+   },
+   {
+    "section": "IBRD 교육차관 (1969–)",
+    "items": [
+     {
+      "no": "W1",
+      "archival": false,
+      "material": "직업능력연구원 보고서: 교육차관으로 세운 직업훈련원 15곳(창원·구미·포항·울산 등), 중화학공업 인력 공급 (PDF)",
+      "link": "https://krivet.re.kr/repository/bitstream/202405/8517/2/P31101_05_fulltext.pdf",
+      "alumni": "이기준",
+      "vid": null
+     },
+     {
+      "no": "W2",
+      "archival": false,
+      "material": "인천in 「꿈 많은 인천 소년, 미국 건축계의 거장이 되다」: 1969 문교부 IBRD 교육차관 사업(고등전문학교 33곳·단과대학 3곳 신축) 실무자 이야기",
+      "link": "https://www.incheonin.com/news/articleView.html?idxno=109368",
+      "alumni": "이기준",
+      "vid": null
+     },
+     {
+      "no": "W3",
+      "archival": false,
+      "material": "국가기록원 「IBRD(세계은행)」 주제설명: 1968년부터 융자 수혜",
+      "link": "https://www.archives.go.kr/next/newsearch/listSubjectDescription.do?id=006167",
+      "alumni": "이기준",
+      "vid": null
+     },
+     {
+      "no": "",
+      "archival": false,
+      "material": "(참고) 영상 자료는 찾지 못했습니다. e영상역사관에서 '교육차관'으로 대한뉴스를 검색해 볼 수 있습니다.",
+      "link": "",
+      "alumni": "",
+      "vid": null
+     }
+    ]
+   },
+   {
+    "section": "종합무역상사 제도 (1975)",
+    "items": [
+     {
+      "no": "T1",
+      "archival": false,
+      "material": "국가기록원 「종합무역상사제도(1975)」: 1975.3 수출진흥확대회의 육성방안, 4.30 상공부 고시",
+      "link": "https://www.archives.go.kr/next/newsearch/listSubjectDescription.do?id=007300",
+      "alumni": "유인선",
+      "vid": null
+     },
+     {
+      "no": "T2",
+      "archival": false,
+      "material": "브릿지경제 「1970년대 수출한국의 창구…80년대 최고 직장 '종합상사'」: 삼성물산부터 7대 종합상사까지",
+      "link": "https://www.viva100.com/20141117010002464",
+      "alumni": "유인선",
+      "vid": null
+     },
+     {
+      "no": "T3",
+      "archival": false,
+      "material": "문화일보 「'종합상사' 역사속으로」(2009, 지정제 폐지)",
+      "link": "https://www.munhwa.com/article/10694285",
+      "alumni": "유인선",
+      "vid": null
+     }
+    ]
+   },
+   {
+    "section": "88선언 (1988)",
+    "items": [
+     {
+      "no": "S1",
+      "archival": true,
+      "material": "사대부고사: 부산 피난학교 시절 영상 (40:45–43:00)",
+      "link": "https://www.youtube.com/watch?v=CgoVJbL29PE&t=2445s",
+      "alumni": "이삼열",
+      "file": "data/clips/busan_piran.mp4",
+      "poster": "data/clips/busan_piran.jpg"
+     },
+     {
+      "no": "S2",
+      "archival": false,
+      "material": "민주화운동기록관 「민족의 통일과 평화에 대한 한국기독교회 선언」 원문 사료(1988.02.29)",
+      "link": "https://archives.kdemo.or.kr/isad/view/00841343",
+      "alumni": "이삼열",
+      "vid": null
+     },
+     {
+      "no": "S3",
+      "archival": false,
+      "material": "위키백과 「88선언」",
+      "link": "https://ko.wikipedia.org/wiki/88%EC%84%A0%EC%96%B8",
+      "alumni": "이삼열",
+      "vid": null
+     }
+    ]
+   },
+   {
+    "section": "부석사 관음상 · 몽유도원도",
+    "items": [
+     {
+      "no": "U1",
+      "archival": true,
+      "material": "KBS 「'일본 반환' 금동관음보살좌상 부석사로 귀향…100일간 일반 공개」(2025.01.24)",
+      "link": "https://www.youtube.com/watch?v=cmgCzSXJXsU",
+      "alumni": "김경임",
+      "vid": "cmgCzSXJXsU"
+     },
+     {
+      "no": "U2",
+      "archival": true,
+      "material": "JTBC 뉴스룸 「약탈당했던 부석사 '관세음보살좌상'…다시 일본으로 반환」(2025.05)",
+      "link": "https://www.youtube.com/watch?v=h_1-NmRT-jY",
+      "alumni": "김경임",
+      "vid": "h_1-NmRT-jY"
+     },
+     {
+      "no": "U3",
+      "archival": false,
+      "material": "서울신문 「14세기 일본으로 간 부석사 금동관음보살좌상, 복원품으로 제자리」(2026.05)",
+      "link": "https://www.seoul.co.kr/news/society/2026/05/15/20260515500177",
+      "alumni": "김경임",
+      "vid": null
+     },
+     {
+      "no": "U4",
+      "archival": false,
+      "material": "한국일보 「'한국 박물관 100주년 기념 특별전'」(2009.09): 몽유도원도 9일간 국내 공개",
+      "link": "https://www.hankookilbo.com/news/article/200909282325656498",
+      "alumni": "김경임",
+      "vid": null
+     },
+     {
+      "no": "U5",
+      "archival": false,
+      "material": "민주신문 「잃어버린 우리의 문화유산 되찾자 (1) 몽유도원도」",
+      "link": "http://www.iminju.net/news/articleView.html?idxno=30048",
+      "alumni": "김경임",
+      "vid": null
+     }
+    ]
+   },
+   {
+    "section": "PET·MRI 개발 (1975 · 1985)",
+    "items": [
+     {
+      "no": "Z1",
+      "archival": true,
+      "material": "아리랑TV 「Heart to Heart」 조장희 박사 출연 회차(보도자료)",
+      "link": "https://company.arirang.com/notice/report/4/287260",
+      "alumni": "조장희",
+      "vid": "R8kV7FIHDqk"
+     },
+     {
+      "no": "Z2",
+      "archival": false,
+      "material": "포항공대신문 「뇌영상분야 세계적 권위 조장희 박사 영구귀국」: 1975년 최초 고리형 PET 스캐너 사진",
+      "link": "https://times.postech.ac.kr/news/articleView.html?idxno=3033",
+      "alumni": "조장희",
+      "vid": null
+     },
+     {
+      "no": "Z3",
+      "archival": false,
+      "material": "정책브리핑 「뇌 신비 밝히는 한국인 노벨상 후보」: 1985 KAIST 2.0T MRI 개발",
+      "link": "https://www.korea.kr/news/policyNewsView.do?newsId=75083583",
+      "alumni": "조장희",
+      "vid": null
+     },
+     {
+      "no": "Z4",
+      "archival": false,
+      "material": "피렌체의 식탁 인터뷰(2019): 1981 0.1T, 1985 2.0T MRI, 1988 서울대병원 설치",
+      "link": "https://firenzedt.com/4763",
+      "alumni": "조장희",
+      "vid": null
+     }
+    ]
+   },
+   {
+    "section": "우주왕복선 사고 (1986 챌린저호)",
+    "items": [
+     {
+      "no": "O1",
+      "archival": true,
+      "material": "넷플릭스 다큐 「챌린저: 마지막 비행」: 1986.1.28 발사 73초 후 폭발 기록필름 포함",
+      "link": "https://star.ohmynews.com/NWS_Web/OhmyStar/at_pg.aspx?CNTN_CD=A0002800530",
+      "alumni": "정재훈",
+      "vid": "nmAbcDud2L8"
+     },
+     {
+      "no": "",
+      "archival": false,
+      "material": "(참고) 정재훈 동문이 언급한 '두 건의 사고'가 2003년 컬럼비아호 사고도 포함한다면 별도로 찾겠습니다.",
+      "link": "",
+      "alumni": "",
+      "vid": null
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "gubun": "사대부고사",
+  "events": [
+   {
+    "section": "부산 피난학교",
+    "items": [
+     {
+      "no": "S1",
+      "archival": true,
+      "material": "사대부고사: 부산 피난학교 시절 영상 (40:45–43:00)",
+      "link": "https://www.youtube.com/watch?v=CgoVJbL29PE&t=2445s",
+      "file": "data/clips/busan_piran.mp4",
+      "poster": "data/clips/busan_piran.jpg"
+     }
+    ]
+   }
+  ]
+ }
+]
