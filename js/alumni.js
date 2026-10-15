@@ -96,7 +96,13 @@ async function init() {
   renderUserLetters("juniors");
   renderUserLetters("seniors");
   bindLetters();
-  window.addEventListener("resize", () => { clearTimeout(window._scCapT); window._scCapT = setTimeout(() => { positionScCaption(); fitMapArticleFrame(); }, 120); });
+  window.addEventListener("resize", () => {
+    clearTimeout(window._scCapT);
+    window._scCapT = setTimeout(() => {
+      positionScCaption(); fitMapArticleFrame();
+      if (MAPS && MMAP_VIEW) ["korea", "world"].forEach((n) => { if (MMAP_VIEW[n]) mmApplyView(n); });
+    }, 120);
+  });
 }
 
 /* ---------- 상단 뷰 전환 ---------- */
@@ -647,15 +653,14 @@ function mmSvg(name) {
     `<path class="mmap-muni" data-region="${esc(r.name)}" d="${r.d}"/>`).join("");
   const labels = (m.regions || []).map((r) =>
     `<text class="mmap-label" x="${r.cx}" y="${r.cy}">${esc(r.label)}</text>`).join("");
-  // 원형 핀 — 지도 배율과 함께 확대되도록 고정 크기(user 단위 반지름)
-  const pr = name === "world" ? 5 : 4.5;
+  // 원형 핀 — 반지름은 mmApplyView에서 표시 배율 기준으로 설정(한국·세계 화면 크기 일치)
   const pins = MAPPINS.filter((p) => p.map === name).map((p, i) => {
     const xy = mapXY(name, p.lng, p.lat);
     return `<g class="mpin" data-map="${name}" data-i="${i}" transform="translate(${xy[0].toFixed(1)},${xy[1].toFixed(1)})">` +
-      `<circle class="mpf-hit" cx="0" cy="0" r="10"></circle>` +
-      `<circle class="mpf-p mpin-dot" cx="0" cy="0" r="${pr}"></circle></g>`;
+      `<circle class="mpf-hit" cx="0" cy="0" r="12"></circle>` +
+      `<circle class="mpf-p mpin-dot" cx="0" cy="0" r="5"></circle></g>`;
   }).join("");
-  return `<svg class="mmap-svg" viewBox="0 0 ${m.w} ${m.h}" preserveAspectRatio="xMinYMid meet">` +
+  return `<svg class="mmap-svg" viewBox="0 0 ${m.w} ${m.h}" preserveAspectRatio="xMidYMid meet">` +
     `<g class="mmap-regions">${regs}</g><g class="mmap-munis">${munis}</g><g class="mmap-labels">${labels}</g><g class="mmap-pins">${pins}</g></svg>`;
 }
 function renderMemoryMaps() {
@@ -667,6 +672,7 @@ function renderMemoryMaps() {
       `<span class="mmap-hint">스크롤로 확대 · 드래그로 이동</span></div>` +
       `<div class="mmap-row" data-map="${name}">` +
       `<div class="mmap-stage" data-map="${name}" style="aspect-ratio:${m.w} / ${m.h}">${mmSvg(name)}</div>` +
+      `<div class="mmap-tip" hidden></div>` +
       `<aside class="mmap-side" hidden></aside></div></div>`;
   };
   host.innerHTML = build("korea", "한국") + build("world", "세계");
@@ -675,11 +681,41 @@ function renderMemoryMaps() {
     const stage = host.querySelector(`.mmap-stage[data-map="${name}"]`);
     if (stage) { mmApplyView(name); mmBindZoom(stage, name); }
   });
-  host.querySelectorAll(".mpin").forEach((g) => g.addEventListener("click", (e) => { e.stopPropagation(); openMapPin(g); }));
+  host.querySelectorAll(".mpin").forEach((g) => {
+    g.addEventListener("click", (e) => { e.stopPropagation(); openMapPin(g); });
+    g.addEventListener("pointerenter", () => { mapHoverRegion(g, true); mapPinTip(g, true); });   // 호버 시 지역 hatching + 정보 툴팁
+    g.addEventListener("pointerleave", () => { mapHoverRegion(g, false); mapPinTip(g, false); });
+  });
   host.querySelectorAll(".mmap-stage").forEach((st) => st.addEventListener("click", () => {
     if (st._moved) { st._moved = false; return; }   // 드래그면 무시
     closeMapSide(st.closest(".mmap-row"));
   }));
+}
+/* 핀 호버 시 지도 위 정보 툴팁(반투명 연회색) */
+function mapPinTip(g, show) {
+  const row = g.closest(".mmap-row"); if (!row) return;
+  const tip = row.querySelector(".mmap-tip"); if (!tip) return;
+  if (!show) { tip.hidden = true; return; }
+  const name = g.dataset.map, pins = MAPPINS.filter((p) => p.map === name), p = pins[+g.dataset.i];
+  if (!p) return;
+  tip.innerHTML =
+    `<div class="mtip-name">${esc(p.person)}${p.grad ? ` <span>(${esc(p.grad)})</span>` : ""}</div>` +
+    (p.place ? `<div class="mtip-row"><b>지역명</b> ${esc(p.place)}</div>` : "") +
+    (p.activity ? `<div class="mtip-row"><b>활동</b> ${esc(p.activity)}</div>` : "");
+  const pr = g.getBoundingClientRect(), rr = row.getBoundingClientRect();
+  const x = pr.left - rr.left + pr.width / 2, y = pr.top - rr.top;
+  tip.style.left = Math.round(Math.max(90, Math.min(rr.width - 90, x))) + "px";
+  tip.style.top = Math.round(y) + "px";
+  tip.classList.toggle("below", y < 86);
+  tip.hidden = false;
+}
+/* 핀 호버 시 해당 지역(시도/시군) 음영 토글 */
+function mapHoverRegion(g, on) {
+  const name = g.dataset.map, pins = MAPPINS.filter((p) => p.map === name), p = pins[+g.dataset.i];
+  if (!p || !p.region) return;
+  const svg = g.closest(".mmap-svg"); if (!svg) return;
+  const rp = [...svg.querySelectorAll(".mmap-region, .mmap-muni")].find((x) => x.dataset.region === p.region);
+  if (rp) rp.classList.toggle("on", on);
 }
 function mmApplyView(name) {
   const m = MAPS[name], v = MMAP_VIEW[name];
@@ -694,7 +730,9 @@ function mmApplyView(name) {
   const scr = Math.min(sw / vw, sh / vh) || (sw / vw);   // 실제 표시 배율(px/user)
   svg.querySelector(".mmap-labels").style.fontSize = (17 / scr).toFixed(2) + "px";
   svg.querySelector(".mmap-labels").classList.toggle("show", v.scale >= 1.8);
-  // 발자국은 지도 배율과 함께 확대됨(고정 user 크기이므로 여기서 크기를 조정하지 않음)
+  // 핀 반지름 — 표시 배율 기준으로 화면 크기를 일정하게(한국·세계 지도 동일 크기)
+  const pr = (5.5 / scr).toFixed(2);
+  svg.querySelectorAll(".mpin-dot").forEach((c) => c.setAttribute("r", pr));
 }
 function mmBindZoom(stage, name) {
   const m = MAPS[name];
@@ -739,11 +777,7 @@ function closeMapSide(row) {
 function openMapPin(g) {
   const name = g.dataset.map, pins = MAPPINS.filter((p) => p.map === name), p = pins[+g.dataset.i];
   if (!p) return;
-  const row = g.closest(".mmap-row"), svg = row.querySelector(".mmap-svg");
-  // 지도 핀/지역 하이라이트(모든 지도 초기화 후 현재 선택)
-  document.querySelectorAll("#memoryMaps .mmap-row").forEach((r) => closeMapSide(r));
-  g.classList.add("on");
-  if (p.region) { const rp = [...svg.querySelectorAll(".mmap-region, .mmap-muni")].find((x) => x.dataset.region === p.region); if (rp) rp.classList.add("on"); }
+  // 지역 음영은 호버로 처리(선택 시에는 전체화면 상세만 연다)
   // 상세: 부고인의 기억과 동일한 전체화면 모달(좌 관련자료 / 우 인터뷰영상)
   // 관련 기사 원문을 페이지 내에서 스크롤로 열람(임베드). 없으면 '준비 중'.
   const articleBlock = p.article
