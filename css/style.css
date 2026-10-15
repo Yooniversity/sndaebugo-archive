@@ -1172,7 +1172,7 @@ html { scroll-behavior: smooth; }
 .hvt-cellimg img { display: block; width: 100%; height: auto; cursor: zoom-in; }
 .hvt-cellimg.stack img + img { margin-top: 6px; }
 .hvt-mark { font-size: .95rem; }
-.hvt-memoir { text-align: left; font-size: .76rem; line-height: 1.75; color: #333; vertical-align: top; max-width: 420px; }
+.hvt td.hvt-memoir { text-align: left; font-size: .76rem; line-height: 1.75; color: #333; vertical-align: top; max-width: 460px; }
 .hvt1 { min-width: 0; }
 .hvt2 { min-width: 0; }
 @media (max-width: 860px) {
@@ -1190,15 +1190,21 @@ html { scroll-behavior: smooth; }
 .hvt-note { font-size: .72rem; color: var(--muted); font-weight: 500; }
 .hv-lb { background: rgba(255,255,255,.90); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); }
 
-/* heritage: 제목과 목차·표를 한 폭으로 — 우측 여백 최소화, 좌측정렬 일치 */
-.heritage-page .wrap { max-width: min(1460px, 96vw); }
+/* heritage: 헤더(엠블럼·제목)는 다른 페이지와 동일 위치(1080), 본문만 넓게 */
+.heritage-page .wrap { max-width: 1080px; }
+.heritage-page main.hv-doc {
+  max-width: none;
+  margin-left: max(28px, calc((100% - 1080px) / 2 + 28px));
+  margin-right: 24px;
+  padding: 0;
+}
 .heritage-page .hv-tscroll { overflow-x: auto; }
 .heritage-page .hvt { font-size: .8rem; }
 .heritage-page .hvt th, .heritage-page .hvt td { padding: 8px 8px; }
 /* 본문 가독성: 표는 넓게, 글은 적정 폭 */
 .hv-body > p, .hv-abstract, .hv-source { max-width: 900px; }
 @media (max-width: 860px) {
-  .heritage-page .wrap { max-width: 100%; }
+  .heritage-page main.hv-doc { margin-left: 16px; margin-right: 16px; }
   .hv-body > p, .hv-abstract, .hv-source { max-width: none; }
 }
 
