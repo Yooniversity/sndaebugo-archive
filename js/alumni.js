@@ -8,7 +8,7 @@ const esc = (s) =>
 /* 상세페이지 맨 끝 공통 '＋ 자료 추가'(작게) — 상세별 키로 저장 */
 function miniUploaderHTML(key) {
   return `<div class="up-sec up-mini" data-upkey="${esc(key)}">` +
-    `<label class="up-mini-btn">＋ 자료 추가<input type="file" accept="image/*" multiple hidden></label>` +
+    `<label class="up-mini-btn">＋ 자료 추가<input type="file" accept="image/*,video/*,.pdf,.xls,.xlsx,.csv,.ppt,.pptx,.doc,.docx,.hwp,.hwpx,application/pdf" multiple hidden></label>` +
     `<div class="up-grid"></div></div>`;
 }
 function initMiniUploaders(root) {
