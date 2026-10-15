@@ -1094,9 +1094,13 @@ body.landing { background: var(--paper); }
 /* ===== 별관의 역사적 가치 (heritage.html) ===== */
 .hv-doc { max-width: none; }
 .hv-abstract {
+  position: relative;
   font-size: 1.02rem; line-height: 1.95; color: var(--ink);
-  padding: 20px 24px; border: 1px solid var(--line); border-left: 3px solid var(--ink);
-  background: #fafafa; margin: 8px 0 44px; text-align: justify; word-break: keep-all;
+  background: none; border: 0; padding: 0;
+  margin: 10px 0 46px; text-align: justify; word-break: keep-all;
+}
+.hv-abstract::before {
+  content: ""; position: absolute; left: -14px; top: 3px; bottom: 3px; width: 3px; background: var(--ink);
 }
 .hv-sec { margin: 0 0 52px; }
 .hv-h2 {
@@ -1111,7 +1115,7 @@ body.landing { background: var(--paper); }
 }
 .hv-sub { flex-basis: 100%; font-size: .92rem; font-weight: 500; color: var(--muted); padding-left: 42px; }
 .hv-sec p { line-height: 1.95; margin: 0 0 15px; font-size: .97rem; color: #222; text-align: justify; word-break: keep-all; }
-.hv-tcap { font-size: .85rem; font-weight: 700; color: var(--muted); margin: 30px 0 10px; }
+.hv-body .hv-tcap { font-size: .85rem; font-weight: 700; color: var(--muted); margin: 50px 0 14px; }
 .hv-table { border: 1px solid var(--line); background: #fff; margin-bottom: 8px; overflow: hidden; }
 .hv-table img { display: block; width: 100%; height: auto; cursor: zoom-in; }
 .hv-stack img { margin: 0; }
@@ -1123,7 +1127,7 @@ body.landing { background: var(--paper); }
 .hv-source { font-size: .78rem; color: var(--muted); line-height: 1.6; border-top: 1px solid var(--line); padding-top: 18px; margin-top: 10px; word-break: keep-all; }
 @media (max-width: 620px) {
   .hv-fig-side { float: none; width: 100%; margin: 6px 0 16px; }
-  .hv-abstract { padding: 16px 16px; font-size: .98rem; }
+  .hv-abstract { font-size: .98rem; }
   .hv-h2 { font-size: 1.14rem; }
   .hv-sub { padding-left: 0; }
 }
@@ -1157,7 +1161,7 @@ html { scroll-behavior: smooth; }
 .hv-toc a.on span { background: var(--ink); color: #fff; border-color: var(--ink); }
 .hv-sec { scroll-margin-top: 16px; }
 
-.hv-tscroll { overflow-x: auto; scrollbar-width: thin; margin-bottom: 8px; }
+.hv-tscroll { overflow-x: auto; scrollbar-width: thin; margin-bottom: 40px; }
 .hvt { border-collapse: collapse; width: 100%; font-size: .82rem; border-top: 2px solid var(--ink); border-bottom: 2px solid var(--ink); }
 .hvt th, .hvt td { border: 1px solid var(--line); padding: 9px 10px; vertical-align: middle; text-align: center; word-break: keep-all; line-height: 1.5; }
 .hvt thead th { font-weight: 800; border-bottom: 2px solid var(--ink); background: #faf9f7; white-space: nowrap; }
@@ -1169,7 +1173,7 @@ html { scroll-behavior: smooth; }
 .hvt .hvt-sub .hvt-name, .hvt .hvt-sub td { font-weight: 800; }
 .hvt-photo { width: 300px; }
 /* 표1: 위 여백 추가 */
-.hv-tcap:has(+ .hv-tscroll .hvt1) { margin-top: 48px; }
+.hv-tcap:has(+ .hv-tscroll .hvt1) { margin-top: 64px; }
 /* 표 좌우(바깥) 테두리 제거 */
 .hvt th:first-child, .hvt td:first-child { border-left: none; }
 .hvt th:last-child, .hvt td:last-child { border-right: none; }
@@ -1206,12 +1210,9 @@ html { scroll-behavior: smooth; }
 .heritage-page .hv-tscroll { overflow-x: auto; }
 .heritage-page .hvt { font-size: .8rem; }
 .heritage-page .hvt th, .heritage-page .hvt td { padding: 8px 8px; }
-/* 본문 가독성: 표는 넓게, 글은 적정 폭 */
-.hv-body > p, .hv-abstract, .hv-source { max-width: 900px; }
 @media (max-width: 860px) {
   .heritage-page main.hv-doc { margin-left: 16px; margin-right: 16px; }
-  .hv-body > p, .hv-abstract, .hv-source { max-width: none; }
 }
 
 /* home: 검토 의견 전문 보기 아래 여백 + 실선 */
-.hv-home { margin-bottom: 0; padding-bottom: 56px; border-bottom: 1px solid var(--line); }
+.hv-home { margin-bottom: 64px; padding-bottom: 56px; border-bottom: 1px solid var(--line); }
