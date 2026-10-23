@@ -7,7 +7,7 @@
   <meta name="description" content="서울사대부고 '자랑스러운 부고인' 역대 수상자와 천하부고 동창회">
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
-  <link rel="stylesheet" href="css/style.css?v=201">
+  <link rel="stylesheet" href="css/style.css?v=208">
 </head>
 <body class="alumni-page">
   <header class="site-header">
@@ -63,9 +63,10 @@
   <main class="wrap view" id="view-alumni" hidden>
     <nav class="subnav" id="alumniSubnav">
       <button class="subtab on" data-sub="chairs">역대 동창회</button>
+      <button class="subtab" data-sub="history">동창회 약력</button>
       <button class="subtab" data-sub="activity">동창회 활동</button>
-      <button class="subtab" data-sub="newsletter">동창회보</button>
-      <button class="subtab" data-sub="materials">자료</button>
+      <button class="subtab" data-sub="scholarship">장학사업</button>
+      <button class="subtab" data-sub="building">건립사업</button>
     </nav>
 
     <section class="subview" id="sub-chairs">
@@ -74,24 +75,94 @@
       <div class="chairs-grid" id="chairsGrid"></div>
     </section>
 
-    <section class="subview" id="sub-activity" hidden>
-      <h2 class="sub-h">동창회 활동</h2>
-      <input type="search" id="actSearch" class="act-search" placeholder="활동 내용 검색…" aria-label="활동 검색">
+    <section class="subview" id="sub-history" hidden>
+      <h2 class="sub-h">동창회 약력</h2>
+      <input type="search" id="actSearch" class="act-search" placeholder="약력 내용 검색…" aria-label="약력 검색">
       <div class="activity-list" id="activityList"></div>
     </section>
 
-    <section class="subview" id="sub-newsletter" hidden>
-      <h2 class="sub-h">동창회보</h2>
-      <p class="req-note">📌 학교측에 자료요청 중</p>
-      <p class="section-intro">1982년 창간호부터 발간해 온 동창회보 아카이브입니다. 원문 자료가 확보되는 대로 올립니다.</p>
-      <div class="materials-empty">자료 준비 중입니다.</div>
+    <section class="subview" id="sub-activity" hidden>
+      <h2 class="sub-h">동창회 활동</h2>
+      <div class="act-layout" id="actLayout">
+      <nav class="act-nav" id="actNav" aria-label="동창회 활동 분류">
+        <button class="act-navitem on" type="button" data-asub="seonnong"><span class="act-navlabel">선농축전</span><span class="act-navdesc">총동창회 체육·문화 한마당</span></button>
+        <button class="act-navitem" type="button" data-asub="branch"><span class="act-navlabel">지회활동</span><span class="act-navdesc">국내외 지역·직능 동창회</span></button>
+        <button class="act-navitem" type="button" data-asub="newsletter"><span class="act-navlabel">동창회보</span><span class="act-navdesc">1982년 창간호~ 아카이브</span></button>
+        <button class="act-navitem" type="button" data-asub="materials"><span class="act-navlabel">갤러리</span><span class="act-navdesc">『80년사』 등 사진 자료</span></button>
+      </nav>
+      <div class="act-content" id="actContent">
+      <button class="act-back" id="actBack" type="button" hidden>← 목록</button>
+
+      <div class="asubview" id="asub-seonnong">
+        <h3 class="sub-h2">선농축전</h3>
+        <p class="section-intro">선농축전은 천하부고 동문들이 함께하는 전통 체육·문화 한마당입니다. 사진을 누르면 전체화면으로 크게 볼 수 있습니다. (스크롤·화살표·좌우 클릭으로 넘기기)</p>
+        <div class="materials-grid" id="seonnongGrid"></div>
+      </div>
+
+      <div class="asubview" id="asub-branch" hidden>
+        <h3 class="sub-h2">지회활동</h3>
+        <p class="section-intro">직업·취미·봉사를 함께하는 동문들의 지회 활동 또한 활발하게 펼쳐지고 있습니다.</p>
+        <div class="branch-list" id="branchList"></div>
+      </div>
+
+      <div class="asubview" id="asub-newsletter" hidden>
+        <h3 class="sub-h2">동창회보</h3>
+        <p class="req-note">📌 학교측에 자료요청 중</p>
+        <p class="section-intro">1982년 창간호부터 발간해 온 동창회보 아카이브입니다. 원문 자료가 확보되는 대로 올립니다.</p>
+        <div class="materials-empty">자료 준비 중입니다.</div>
+      </div>
+
+      <div class="asubview" id="asub-materials" hidden>
+        <h3 class="sub-h2">갤러리</h3>
+        <p class="req-note">📌 학교측에 자료요청 중</p>
+        <p class="section-intro">『80년사』 등에서 모은 동창회 사진 자료입니다. 사진을 누르면 전체화면으로 크게 볼 수 있습니다. (스크롤·화살표·좌우 클릭으로 넘기기)</p>
+        <div class="materials-grid" id="materialsGrid"></div>
+      </div>
+      </div>
+      </div>
     </section>
 
-    <section class="subview" id="sub-materials" hidden>
-      <h2 class="sub-h">자료</h2>
-      <p class="req-note">📌 학교측에 자료요청 중</p>
-      <p class="section-intro">『80년사』 등에서 모은 동창회 사진 자료입니다. 사진을 누르면 전체화면으로 크게 볼 수 있습니다. (스크롤·화살표·좌우 클릭으로 넘기기)</p>
-      <div class="materials-grid" id="materialsGrid"></div>
+    <section class="subview" id="sub-scholarship" hidden>
+      <h2 class="sub-h">장학사업</h2>
+      <p class="section-intro">부고 동문들의 모교 사랑은 유별나, 장학금·학교 발전 기금·교사 신축 기금·교재·교구·설비, 교사와 학생의 해외연수, 클럽활동 등 모교의 크고 작은 행사에 물심양면으로 지원하고 있습니다.</p>
+
+      <h3 class="sub-h2">장학금 지급</h3>
+      <p class="branch-desc">박병준(4회)·홍정희(4회) 장학재단, 신승일(9회) 장학재단을 비롯해 윤여순(11회)·이진영(15회)·오명희(6회)·이민섭(11회) 등 10여 명의 동문이 모교 졸업생에게 장학금을 지원하고 있습니다. 또한 2015~2018년 현 신축 교사를 지을 때는 공사비·교구 구입비·학교발전기금 등으로 동문들이 총 31억 1,076만 7,000원을 모금해 지원했습니다.</p>
+
+      <h3 class="sub-h2">미주연수 프로그램 — I Dream, I Can</h3>
+      <p class="branch-desc">2018년 5월 선농축전과 신축 모교 개관식에서 제안된 프로젝트입니다. 어려운 학창 시절을 보내고 미국에서 인생 역전을 이룬 선배들이 비슷한 환경의 후배들을 초청해 꿈을 갖게 하자는 취지로, 안방자(15회)·박부강(16회)·최영일(16회)·박영훈(21회)·김승모(23회) 다섯 동문이 준비위원회를 꾸렸습니다. 첫 모임에서 약 1만 4,000달러를 모금해 재원을 마련했고, 코로나 기간(2020~2022)을 제외하고 2024년까지 네 차례에 걸쳐 후배들의 방미 연수가 실시되었습니다.</p>
+      <blockquote class="sch-quote">“한때는 저에게 희망이 없다고 생각했지만, 선배님들이 주신 생각지도 못한 기회로 삶의 길이 보이기 시작했습니다.”<cite>— 1진 참가 학생 김현아</cite></blockquote>
+      <blockquote class="sch-quote">“우리가 여러분에게 이런 기회를 주었으니, 우리에게 갚는 것이 아니라 여러분이 다시 또 후배에게 꿈을 꿀 기회를 주면 된다고…. 이번 여행에서 나는 꿈을 꾸고 또 꿈을 이루었습니다.”<cite>— 1진 참가 학생 오혜인</cite></blockquote>
+
+      <div class="materials-grid" id="scholarshipGrid"></div>
+
+      <h3 class="sub-h2">운영 장학금</h3>
+      <p class="section-intro">현재 운영 중이거나 운영했던 주요 장학금입니다. 칩에 마우스를 올리면 세부 내용이 표시되고, 띠 위에 올리면 흐름이 멈춥니다.</p>
+      <div class="branch-list" id="scholarshipList"></div>
+    </section>
+
+    <section class="subview" id="sub-building" hidden>
+      <h2 class="sub-h">건립사업</h2>
+
+      <h3 class="sub-h2">동창회관 건립</h3>
+      <p class="branch-desc">동문들의 배려로 1983년 동작구 사당동 노규홍 동문의 사무실을 할애받아 최초로 동창회 현판을 걸고 회무를 시작했습니다. 이후 건립 기금 모금을 가결하여 1986년 서초구 방배동 머리재 빌딩 4층을 구입해 동창회 사무실을 개관했고, 2010년 현재의 동창회관을 매입한 뒤 그해 11월 기존 사무실을 매각했습니다. 현재의 동창회관은 매입 후 리노베이션하여 2011년 1월 15일 개관했으며, 동창회 사무실은 물론 각 지회 활동·회의·동문 모임 장소로 쓰이고 있습니다.</p>
+      <div class="materials-grid" id="constGridHall"></div>
+      <div id="donorHall"></div>
+
+      <h3 class="sub-h2">모교 발전기금 — 선농 솔빛향 둥지</h3>
+      <p class="branch-desc">2018년, 어느 학교에도 없는 솔향을 가득 담은 ‘늘푸른 선농 소나무를 닮은’ 신축 교사 준공을 앞두고 ‘선농 솔빛향 둥지’ 네이밍 캠페인이 펼쳐졌습니다. 후배들이 최고의 시설에서 마음껏 꿈과 끼를 펼칠 수 있도록 동문들의 참여를 모은, 모교 제2의 탄생을 염원한 캠페인이었습니다. (동창회장 유인선 20회)</p>
+      <div id="donorNaming"></div>
+
+      <h3 class="sub-h2">개교 80주년 기념사업</h3>
+      <p class="branch-desc">2026년 개교 80주년을 맞아 부고의 역사를 책자와 영상으로 기록하고 역사관을 재건립하여, 천하부고의 전통과 자긍심이 선배로부터 후배에게로 이어지도록 하는 사업이 2024년 결정되었습니다.</p>
+      <ul class="build-list">
+        <li><b>80년사 발간</b> — 동문·교사·역대 임원의 기록과 사진으로 천하부고인의 재량과 열정, 자부심을 되돌아보고 부고의 미래 비전을 생각하는 계기로 삼습니다.</li>
+        <li><b>다큐멘터리 제작</b> — 동문들의 생생한 증언과 기억으로 부고 80년의 역사와 그 시대의 이야기를 통해 나라와 부고의 역사를 새롭게 조명합니다.</li>
+        <li><b>역사관 재건립</b> — 캠퍼스 별관(구 상대 건물)을 구조 보강·리모델링해 1층에 개방형 역사관을 마련, 동문 모임과 재학생 교육 공간으로 활용합니다.</li>
+      </ul>
+      <p class="branch-desc">2025년에는 선농축전을 서울대학교 버들골 풍산마당에서 열고 다큐 《자랑스러운 부고인》 시사회를 시작으로 다양한 프로그램을 진행했으며, 2026년 『80년사』 출판기념회, 2027년 역사관 개관과 모교 방문 프로그램을 계획하고 있습니다.</p>
+      <div class="materials-grid" id="constGrid80"></div>
+      <div id="donor80"></div>
     </section>
 
   </main>
@@ -190,7 +261,7 @@
 
   <footer class="site-footer">
     <div class="wrap">
-      <p class="fine">자료: 서울사대부고 총동창회 ‘자랑스러운 부고인 명단’·‘역대 동창회 활동’. 본 사이트는 학교 역사관 전시·교육 목적입니다.</p>
+      <p class="fine">자료 출처: 『서울사대부고 80년사』. 본 사이트는 학교 역사관 전시·교육 목적입니다.</p>
     </div>
   </footer>
 
@@ -259,7 +330,7 @@
     <div class="vl-frame"></div>
   </div>
 
-  <script src="js/alumni.js?v=200"></script>
-  <script src="js/uploader.js?v=200"></script>
+  <script src="js/alumni.js?v=209"></script>
+  <script src="js/uploader.js?v=202"></script>
 </body>
 </html>

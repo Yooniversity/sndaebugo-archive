@@ -15,6 +15,7 @@ function initMiniUploaders(root) {
   if (window.SNDUploader && root) window.SNDUploader.initAll(root);
 }
 let RECIPIENTS = [], CHAIRS = [], ACTS = [], MEDIA = [], PROUD = [], OFFICERS = [], INTERVIEWS = [], PHOTOS = [], MATERIALS = [], BIOS = [], PNAMES = [], JUNIORS = [], TITLES = [];
+let SEONNONG = [], BRANCHES = [], SCHOLARSHIPS = [], SCHOLARPHOTOS = [], DONORS = [], CONSTPHOTOS = [];
 let PORTRAIT_PEOPLE = new Set();
 // 주제 관련 구간(초 단위): { "<유튜브ID>": { start, end, label } } — 자막 기반으로 추출, 없으면 전체 재생
 let SEGMENTS = {};
@@ -76,6 +77,18 @@ async function init() {
   if (mp && mp.world) MAPS = mp;
   const pins = await getj("data/mappins.json");
   MAPPINS = Array.isArray(pins) ? pins : [];
+  const seon = await getj("data/seonnong.json");
+  SEONNONG = Array.isArray(seon) ? seon : [];
+  const br = await getj("data/branches.json");
+  BRANCHES = Array.isArray(br) ? br : [];
+  const sch = await getj("data/scholarships.json");
+  SCHOLARSHIPS = Array.isArray(sch) ? sch : [];
+  const sphoto = await getj("data/scholarship_photos.json");
+  SCHOLARPHOTOS = Array.isArray(sphoto) ? sphoto : [];
+  const don = await getj("data/donors.json");
+  DONORS = Array.isArray(don) ? don : [];
+  const cph = await getj("data/construction_photos.json");
+  CONSTPHOTOS = Array.isArray(cph) ? cph : [];
   renderGallery();
   renderMedia("all");
   renderChairs();
@@ -87,6 +100,10 @@ async function init() {
   renderMemoryEvidence();
   renderJuniors();
   renderMaterials();
+  renderSeonnong();
+  renderBranches();
+  renderScholarship();
+  renderConstruction();
   bindNav();
   bindModal();
   bindTimelineFrame();
@@ -130,12 +147,26 @@ function bindNav() {
   document.querySelectorAll(".subnav [data-sub]").forEach((b) =>
     b.addEventListener("click", () => {
       document.querySelectorAll(".subnav [data-sub]").forEach((x) => x.classList.toggle("on", x === b));
-      ["chairs", "activity", "newsletter", "materials"].forEach((s) => {
+      ["chairs", "history", "activity", "scholarship", "building"].forEach((s) => {
         const el = $("#sub-" + s);
         if (el) el.hidden = s !== b.dataset.sub;
       });
     })
   );
+  // 동창회 활동: 데스크탑 좌측 세로 메뉴 / 모바일 카드 허브
+  const actLayout = $("#actLayout");
+  document.querySelectorAll("#actNav [data-asub]").forEach((b) =>
+    b.addEventListener("click", () => {
+      document.querySelectorAll("#actNav [data-asub]").forEach((x) => x.classList.toggle("on", x === b));
+      ["seonnong", "branch", "newsletter", "materials"].forEach((s) => {
+        const el = $("#asub-" + s);
+        if (el) el.hidden = s !== b.dataset.asub;
+      });
+      if (actLayout) actLayout.classList.add("detail"); // 모바일: 상세 보기로 전환
+    })
+  );
+  const actBack = $("#actBack");
+  if (actBack) actBack.addEventListener("click", () => { if (actLayout) actLayout.classList.remove("detail"); });
   // 수상자 하위탭: 역대 수상자 / 관련 매체
   document.querySelectorAll(".subnav [data-rsub]").forEach((b) =>
     b.addEventListener("click", () => {
@@ -1279,34 +1310,107 @@ function bindVidLightbox() {
 function renderMaterials() {
   const g = $("#materialsGrid");
   if (!g) return;
-  g.innerHTML = MATERIALS
+  const items = MATERIALS.map((m) => ({ src: "data/materials/" + encodeURIComponent(m.file), caption: m.caption }));
+  g.innerHTML = items
     .map((m, i) =>
       `<button class="mat-card" data-i="${i}" type="button">` +
-      `<img src="data/materials/${encodeURIComponent(m.file)}" alt="${esc(m.caption)}" loading="lazy">` +
+      `<img src="${m.src}" alt="${esc(m.caption)}" loading="lazy">` +
       `<span class="mat-cap">${esc(m.caption)}</span>` +
       `</button>`
     )
     .join("");
-  g.querySelectorAll(".mat-card").forEach((b) => b.addEventListener("click", () => openLightbox(+b.dataset.i)));
+  g.querySelectorAll(".mat-card").forEach((b) => b.addEventListener("click", () => openLightbox(items, +b.dataset.i)));
 }
-let lbIndex = 0, lbWheelLock = false;
-function matSrc(m) { return "data/materials/" + encodeURIComponent(m.file); }
+function renderSeonnong() {
+  const g = $("#seonnongGrid");
+  if (!g) return;
+  const items = SEONNONG.map((m) => ({ src: "data/materials/" + encodeURIComponent(m.file), caption: m.caption || "" }));
+  g.innerHTML = items
+    .map((m, i) =>
+      `<button class="mat-card" data-i="${i}" type="button">` +
+      `<img src="${m.src}" alt="선농축전" loading="lazy">` +
+      (m.caption ? `<span class="mat-cap">${esc(m.caption)}</span>` : "") +
+      `</button>`
+    )
+    .join("");
+  g.querySelectorAll(".mat-card").forEach((b) => b.addEventListener("click", () => openLightbox(items, +b.dataset.i)));
+}
+function renderBranches() {
+  const root = $("#branchList");
+  if (!root) return;
+  const photos = BRANCHES.filter((b) => b.img).map((b) => ({ src: "data/branches/" + encodeURIComponent(b.img), caption: b.name }));
+  let pIdx = 0;
+  root.innerHTML = BRANCHES.map((b) => {
+    let h = `<div class="branch-item"><h4 class="branch-name">${esc(b.name)}</h4><p class="branch-desc">${esc(b.desc)}</p>`;
+    if (b.img) { h += `<button class="branch-photo" type="button" data-pi="${pIdx++}"><img src="data/branches/${encodeURIComponent(b.img)}" alt="${esc(b.name)}" loading="lazy"></button>`; }
+    return h + `</div>`;
+  }).join("");
+  root.querySelectorAll(".branch-photo").forEach((b) => b.addEventListener("click", () => openLightbox(photos, +b.dataset.pi)));
+}
+function renderScholarship() {
+  const list = $("#scholarshipList");
+  if (list) {
+    const chips = SCHOLARSHIPS.map((s) => `<span class="sch-chip" title="${esc(s.info)}">${esc(s.name)}</span>`).join("");
+    // 칩 묶음을 두 번 넣어 끊김 없이 흐르게(50% 이동 시 한 묶음)
+    list.innerHTML = `<div class="sch-marquee"><div class="sch-track">${chips}${chips}</div></div>`;
+  }
+  const g = $("#scholarshipGrid");
+  if (g) {
+    const items = SCHOLARPHOTOS.map((m) => ({ src: "data/scholarship/" + encodeURIComponent(m.file), caption: m.caption }));
+    g.innerHTML = items.map((m, i) =>
+      `<button class="mat-card" data-i="${i}" type="button"><img src="${m.src}" alt="${esc(m.caption)}" loading="lazy"><span class="mat-cap">${esc(m.caption)}</span></button>`
+    ).join("");
+    g.querySelectorAll(".mat-card").forEach((b) => b.addEventListener("click", () => openLightbox(items, +b.dataset.i)));
+  }
+}
+function renderConstruction() {
+  const cItems = CONSTPHOTOS.map((m) => ({ src: "data/construction/" + encodeURIComponent(m.file), caption: m.caption }));
+  function gallery(sel, items) {
+    const g = $(sel);
+    if (!g || !items.length) return;
+    g.innerHTML = items.map((m, i) =>
+      `<button class="mat-card" data-i="${i}" type="button"><img src="${m.src}" alt="${esc(m.caption)}" loading="lazy"><span class="mat-cap">${esc(m.caption)}</span></button>`
+    ).join("");
+    g.querySelectorAll(".mat-card").forEach((b) => b.addEventListener("click", () => openLightbox(items, +b.dataset.i)));
+  }
+  gallery("#constGridHall", cItems.slice(0, 3));
+  gallery("#constGrid80", cItems.slice(3));
+
+  const wall = (groups) => '<div class="donor-wall">' + groups.map((gr) =>
+    `<div class="donor-group">${gr.round ? `<span class="donor-round">${esc(gr.round)}</span>` : ""}<span class="donor-names">${esc(gr.names)}</span></div>`
+  ).join("") + '</div>';
+  function donorSec(s) {
+    if (!s) return "";
+    let head = '<summary class="donor-sec-head"><span class="donor-sec-title">' + esc(s.title) + '</span>';
+    if (s.total) head += '<span class="donor-sec-total">' + esc(s.total) + '</span>';
+    if (s.note) head += '<span class="donor-sec-total">' + esc(s.note) + '</span>';
+    head += '<span class="donor-chev" aria-hidden="true">▾</span></summary>';
+    let body = '<div class="donor-body">';
+    if (s.groups) body += wall(s.groups);
+    if (s.subsections) body += s.subsections.map((sub) => '<p class="donor-subhead">' + esc(sub.label) + '</p>' + wall(sub.groups)).join("");
+    body += '</div>';
+    return '<details class="donor-sec">' + head + body + '</details>';
+  }
+  const slots = { "#donorHall": 0, "#donorNaming": 1, "#donor80": 2 };
+  Object.keys(slots).forEach((sel) => { const el = $(sel); if (el) el.innerHTML = donorSec(DONORS[slots[sel]]); });
+}
+let lbIndex = 0, lbWheelLock = false, LB_ITEMS = [];
 function showLightbox(i) {
-  if (!MATERIALS.length) return;
-  const n = MATERIALS.length;
+  if (!LB_ITEMS.length) return;
+  const n = LB_ITEMS.length;
   lbIndex = (i + n) % n;
-  const cur = MATERIALS[lbIndex];
+  const cur = LB_ITEMS[lbIndex];
   const main = $("#matLightbox .ml-main");
-  main.src = matSrc(cur); main.alt = cur.caption;
+  main.src = cur.src; main.alt = cur.caption || "";
   const pv = $("#matLightbox .ml-prev"), nx = $("#matLightbox .ml-next");
   if (n > 1) {
-    pv.src = matSrc(MATERIALS[(lbIndex - 1 + n) % n]); pv.style.visibility = "";
-    nx.src = matSrc(MATERIALS[(lbIndex + 1) % n]); nx.style.visibility = "";
+    pv.src = LB_ITEMS[(lbIndex - 1 + n) % n].src; pv.style.visibility = "";
+    nx.src = LB_ITEMS[(lbIndex + 1) % n].src; nx.style.visibility = "";
   } else { pv.style.visibility = "hidden"; nx.style.visibility = "hidden"; }
-  $("#matLightbox .ml-caption").textContent = cur.caption;
+  $("#matLightbox .ml-caption").textContent = cur.caption || "";
   $("#matLightbox .ml-count").textContent = (lbIndex + 1) + " / " + n;
 }
-function openLightbox(i) { showLightbox(i); $("#matLightbox").hidden = false; document.body.style.overflow = "hidden"; }
+function openLightbox(items, i) { LB_ITEMS = items || []; showLightbox(i); $("#matLightbox").hidden = false; document.body.style.overflow = "hidden"; }
 function closeLightbox() { $("#matLightbox").hidden = true; document.body.style.overflow = ""; }
 function bindLightbox() {
   const lb = $("#matLightbox");

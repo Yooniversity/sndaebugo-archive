@@ -521,18 +521,28 @@ body.landing { background: var(--paper); }
 .up-note { font-size: .76rem; color: var(--muted); margin: 8px 0 14px; line-height: 1.6; }
 .up-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
 .up-item { position: relative; margin: 0; border: 1px solid var(--line); }
-.up-item img { width: 100%; height: 120px; object-fit: cover; display: block; }
 .up-item figcaption { font-size: .72rem; color: #555; padding: 5px 7px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.up-del { position: absolute; top: 4px; right: 4px; width: 22px; height: 22px; border: none; background: rgba(0,0,0,.55); color: #fff; border-radius: 50%; font-size: .9rem; line-height: 1; cursor: pointer; }
+.up-del { position: absolute; top: 4px; right: 4px; z-index: 2; width: 22px; height: 22px; border: none; background: rgba(0,0,0,.55); color: #fff; border-radius: 50%; font-size: .9rem; line-height: 1; cursor: pointer; }
 .up-del:hover { background: rgba(0,0,0,.8); }
-.up-fileitem { background: #fafafa; }
-.up-filebox { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; height: 120px; padding: 10px; text-decoration: none; color: var(--ink); text-align: center; }
+/* 썸네일 타일 */
+.up-tilebtn { display: block; width: 100%; height: 120px; padding: 0; border: none; background: #f1f1f1; cursor: pointer; position: relative; overflow: hidden; line-height: 0; text-decoration: none; }
+.up-tilebtn img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.up-badgetile .up-tilebtn { display: flex; align-items: center; justify-content: center; background: #fafafa; }
 .up-ext { display: inline-flex; align-items: center; justify-content: center; min-width: 46px; padding: 4px 8px; background: var(--ink); color: #fff; font-size: .68rem; font-weight: 800; letter-spacing: .04em; border-radius: 3px; }
-.up-fname { font-size: .72rem; color: #555; line-height: 1.35; width: 100%; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; word-break: break-all; }
-.up-filebox:hover .up-fname { color: var(--ink); text-decoration: underline; }
-.up-viditem video { width: 100%; height: 120px; object-fit: cover; display: block; background: #000; }
+.up-play { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 40px; height: 40px; border-radius: 50%; background: rgba(0,0,0,.55); color: #fff; display: flex; align-items: center; justify-content: center; font-size: .9rem; padding-left: 3px; }
 .up-head .up-title { margin-right: auto; }
 .up-linkbtn.up-mini-btn { margin-left: 8px; }
+/* 전체화면 뷰어 */
+.up-lb { position: fixed; inset: 0; z-index: 400; background: rgba(255,255,255,.95); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); display: flex; align-items: center; justify-content: center; padding: 44px; }
+.up-lb[hidden] { display: none; }
+.up-lb-close { position: absolute; top: 16px; right: 24px; background: none; border: none; color: #333; font-size: 2rem; line-height: 1; cursor: pointer; }
+.up-lb-close:hover { color: #000; }
+.up-lb-body { display: flex; align-items: center; justify-content: center; max-width: 94vw; max-height: 90vh; }
+.up-lb-media { max-width: 94vw; max-height: 90vh; object-fit: contain; box-shadow: 0 8px 30px rgba(0,0,0,.18); background: #000; }
+.up-lb-pdf { width: min(1000px, 94vw); height: 90vh; border: 1px solid var(--line); background: #fff; }
+.up-lb-file { display: flex; flex-direction: column; align-items: center; gap: 18px; background: #fff; border: 1px solid var(--line); padding: 44px 52px; box-shadow: 0 8px 30px rgba(0,0,0,.12); }
+.up-ext-lg { min-width: 64px; font-size: 1rem; padding: 10px 16px; }
+.up-lb-fname { font-size: .95rem; color: var(--ink); word-break: break-all; max-width: 360px; text-align: center; line-height: 1.5; }
 /* 상세페이지 맨 끝 컴팩트 업로더(＋ 자료 추가) */
 .up-mini { margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--line); }
 .up-mini-btn { display: inline-flex; align-items: center; gap: 5px; font-size: .8rem; font-weight: 700; color: var(--muted); background: none; border: 1px dashed #c4c4c4; border-radius: 7px; padding: 7px 14px; cursor: pointer; }
@@ -660,6 +670,85 @@ body.landing { background: var(--paper); }
 .subtab { border: none; background: none; padding: 10px 14px; font: inherit; font-size: .95rem; color: var(--muted); cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; }
 .subtab:hover { color: var(--ink); }
 .subtab.on { color: var(--ink); font-weight: 700; border-bottom-color: var(--ink); }
+.subnav-2 { margin: 2px 0 20px; }
+.subnav-2 .subtab { font-size: .9rem; padding: 8px 12px; }
+/* 역대 교장 그리드 */
+.prin-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 22px 16px; margin-top: 12px; }
+.prin-card { display: flex; flex-direction: column; align-items: center; gap: 8px; border: none; background: none; padding: 0; cursor: zoom-in; text-align: center; font: inherit; }
+.prin-photo { width: 100%; max-width: 160px; aspect-ratio: 4 / 5; object-fit: cover; display: block; background: #f2f1ee; border: 1px solid var(--line); }
+.prin-name { font-size: .82rem; font-weight: 600; color: var(--ink); line-height: 1.4; word-break: keep-all; }
+.prin-card:hover .prin-name { text-decoration: underline; }
+/* 졸업생 명단 */
+.grad-tools { display: flex; gap: 10px; flex-wrap: wrap; margin: 12px 0 8px; }
+.grad-tools .act-search { flex: 1; min-width: 180px; }
+.grad-select { font: inherit; font-size: .9rem; padding: 0 12px; height: 40px; border: 1px solid var(--line); border-radius: 8px; background: #fff; color: var(--ink); min-width: 150px; }
+.grad-stat { font-size: .82rem; color: var(--muted); margin: 6px 2px 16px; }
+.grad-block { margin-bottom: 22px; }
+.grad-gender { font-size: .92rem; font-weight: 700; color: var(--ink); margin: 0 0 10px; padding-left: 10px; border-left: 3px solid var(--ink); }
+.grad-names { columns: 6 92px; column-gap: 16px; }
+.grad-search { columns: 3 170px; }
+.grad-name { display: block; font-size: .85rem; line-height: 1.85; color: #444; break-inside: avoid; -webkit-column-break-inside: avoid; }
+.grad-name b { color: var(--ink); font-weight: 600; }
+.grad-meta { font-size: .72rem; color: var(--muted); }
+/* 동창회 활동: 데스크탑=좌측 세로 메뉴 / 모바일=카드 허브 */
+.act-layout { display: grid; grid-template-columns: 210px minmax(0, 1fr); gap: 36px; align-items: start; }
+.act-nav { display: flex; flex-direction: column; gap: 2px; position: sticky; top: 16px; }
+.act-navitem { display: flex; flex-direction: column; gap: 2px; text-align: left; width: 100%; background: none; border: none; border-left: 2px solid transparent; padding: 11px 14px; cursor: pointer; font: inherit; color: var(--muted); }
+.act-navitem:hover { color: var(--ink); background: #fafafa; }
+.act-navlabel { font-size: .98rem; font-weight: 600; }
+.act-navdesc { font-size: .74rem; color: var(--muted); line-height: 1.45; }
+.act-navitem.on { color: var(--ink); background: #f5f4f2; border-left-color: var(--ink); }
+.act-navitem.on .act-navlabel { font-weight: 700; }
+.act-content { min-width: 0; }
+.act-back { display: none; }
+@media (max-width: 760px) {
+  .act-layout { grid-template-columns: 1fr; gap: 0; }
+  .act-nav { position: static; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .act-navitem { border: 1px solid var(--line); border-left: 1px solid var(--line); border-radius: 10px; padding: 15px 14px; gap: 5px; min-height: 84px; }
+  .act-navitem:hover, .act-navitem.on { background: none; border-color: var(--line); border-left-color: var(--line); }
+  .act-navitem.on .act-navlabel { font-weight: 600; }
+  .act-content { display: none; }
+  .act-layout.detail .act-nav { display: none; }
+  .act-layout.detail .act-content { display: block; }
+  .act-back { display: inline-flex; align-items: center; gap: 4px; background: none; border: none; font: inherit; font-size: .85rem; color: var(--muted); cursor: pointer; padding: 0 0 16px; margin: 0; }
+  .act-back:hover { color: var(--ink); }
+}
+/* 지회활동 목록 */
+.branch-list { display: flex; flex-direction: column; gap: 28px; margin-top: 10px; }
+.branch-name { font-size: 1.02rem; font-weight: 700; margin: 0 0 7px; color: var(--ink); }
+.branch-desc { font-size: .92rem; line-height: 1.75; color: #333; margin: 0; text-align: justify; word-break: keep-all; }
+.branch-photo { display: block; margin: 12px 0 0; padding: 0; border: none; background: none; cursor: zoom-in; width: 100%; max-width: 440px; line-height: 0; }
+.branch-photo img { width: 100%; height: auto; display: block; border: 1px solid var(--line); }
+/* 장학사업 인용 */
+.sch-quote { margin: 14px 0; padding: 4px 0 4px 16px; border-left: 3px solid var(--ink); font-size: .92rem; line-height: 1.7; color: #333; word-break: keep-all; }
+.sch-quote cite { display: block; margin-top: 6px; font-style: normal; font-size: .82rem; color: var(--muted); }
+/* 장학금 마퀴(협찬사 로고처럼 한 줄로 흐르기) */
+.sch-marquee { overflow: hidden; width: 100%; padding: 6px 0; -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent); mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent); }
+.sch-track { display: flex; width: max-content; animation: sch-scroll 48s linear infinite; }
+.sch-marquee:hover .sch-track { animation-play-state: paused; }
+.sch-chip { flex: 0 0 auto; margin-right: 12px; padding: 9px 18px; border: 1px solid var(--line); border-radius: 999px; font-size: .9rem; font-weight: 600; color: var(--ink); background: #faf9f7; white-space: nowrap; cursor: default; }
+.sch-chip:hover { border-color: var(--ink); background: var(--ink); color: #fff; }
+@keyframes sch-scroll { to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .sch-track { animation: none; flex-wrap: wrap; width: auto; } .sch-chip { margin-bottom: 10px; } }
+/* 건립사업 */
+.build-list { margin: 10px 0 16px; padding-left: 20px; }
+.build-list li { font-size: .92rem; line-height: 1.75; color: #333; margin: 6px 0; word-break: keep-all; }
+/* 기부자의 벽 */
+.donor-sec { margin: 12px 0; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+.donor-sec-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; padding: 15px 18px; cursor: pointer; list-style: none; background: #faf9f7; }
+.donor-sec-head::-webkit-details-marker { display: none; }
+.donor-sec-head:hover { background: #f2f1ee; }
+.donor-sec[open] .donor-sec-head { border-bottom: 1px solid var(--line); }
+.donor-sec-title { font-size: 1rem; font-weight: 800; margin: 0; }
+.donor-sec-total { font-size: .8rem; color: var(--muted); }
+.donor-chev { margin-left: auto; font-size: .85rem; color: var(--muted); transition: transform .2s; }
+.donor-sec[open] .donor-chev { transform: rotate(180deg); }
+.donor-body { padding: 18px; }
+.donor-subhead { font-size: .9rem; font-weight: 700; color: var(--ink); margin: 20px 0 10px; padding-left: 10px; border-left: 3px solid var(--ink); }
+.donor-wall { columns: 2 240px; column-gap: 30px; }
+.donor-group { break-inside: avoid; -webkit-column-break-inside: avoid; margin: 0 0 12px; font-size: .84rem; line-height: 1.7; }
+.donor-round { font-weight: 800; color: var(--ink); margin-right: 7px; }
+.donor-names { color: #555; }
 .sub-h { font-size: 1.3rem; font-weight: 800; margin: 4px 0 18px; }
 .sub-h2 { font-size: 1.05rem; font-weight: 700; margin: 30px 0 12px; }
 

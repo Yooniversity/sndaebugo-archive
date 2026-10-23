@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>학교사 — 서울사대부고 라운지</title>
-  <meta name="description" content="서울사대부고 발전사 — 8개 시기로 보는 학교의 역사">
+  <meta name="description" content="서울사대부고 학교사 — 발전사의 시기구분 · 역대 구성원 · 특별활동">
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
-  <link rel="stylesheet" href="css/style.css?v=145">
+  <link rel="stylesheet" href="css/style.css?v=211">
 </head>
 <body class="alumni-page">
   <header class="site-header">
@@ -18,88 +18,136 @@
     <div class="wrap header-inner">
       <div class="header-left">
         <h1>학교사</h1>
-        <p class="lead">현대사의 격변과 흐름을 함께하는 사대부고의 혁신 스토리 — 8개의 시기</p>
+        <p class="lead">현대사의 격변과 흐름을 함께한 사대부고의 발전사와 구성원, 특별활동</p>
       </div>
     </div>
   </header>
 
-  <section class="sch-overview" aria-label="8개 시기 전체 개요">
-    <div class="wrap">
-      <div class="sch-ov-scroll">
-        <table class="sch-ov-table">
-          <thead>
-            <tr>
-              <th class="sch-ov-rowh"></th>
-              <th data-i="0">1시기<span>1895–1945</span></th>
-              <th data-i="1">2시기<span>1946–1950</span></th>
-              <th data-i="2">3시기<span>1950–1953</span></th>
-              <th data-i="3">4시기<span>1953–1960</span></th>
-              <th data-i="4">5시기<span>1961–1970</span></th>
-              <th data-i="5">6시기<span>1971–1979</span></th>
-              <th data-i="6">7시기<span>1980–1989</span></th>
-              <th data-i="7">8시기<span>1990–2026</span></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="sch-ov-theme">
-              <th class="sch-ov-rowh">주제</th>
-              <td data-i="0">사대부고의 탄생</td>
-              <td data-i="1">해방 직후 혼란 속에서의 혁신</td>
-              <td data-i="2">전란 속 교육 재건</td>
-              <td data-i="3">새로운 교육을 위한 실험정신</td>
-              <td data-i="4">교육환경의 확장</td>
-              <td data-i="5">공교육 개혁의 물결</td>
-              <td data-i="6">화합과 상생을 위한 목소리</td>
-              <td data-i="7">미래교육을 향한 발돋움</td>
-            </tr>
-            <tr class="sch-ov-point">
-              <th class="sch-ov-rowh">시기구분 기점</th>
-              <td>개교</td>
-              <td>한국전쟁 발발</td>
-              <td colspan="2">서울로 복귀·통합복교</td>
-              <td>5·16 군사정변</td>
-              <td>종암동 교사 이전</td>
-              <td>신군부 등장</td>
-              <td>지방자치제·교육자치제 시행</td>
-            </tr>
-            <tr class="sch-ov-events">
-              <th class="sch-ov-rowh">주요 사건</th>
-              <td><ul><li>경성사범/여사범</li></ul></td>
-              <td><ul><li>좌우 이념갈등</li><li>남녀공학 시행</li></ul></td>
-              <td><ul><li>피난학교</li></ul></td>
-              <td><ul><li>특차제전형</li><li>민주실험교육</li><li>특별활동</li></ul></td>
-              <td><ul><li>청량리 교사 이전</li><li>유네스코 협동학교</li></ul></td>
-              <td><ul><li>종암동 교사 이전</li><li>고교평준화</li></ul></td>
-              <td><ul><li>실습파동</li><li>학교발전위원회 구성</li></ul></td>
-              <td><ul><li>자율학교</li><li>서울대 법인화</li><li>신교사 신축</li></ul></td>
-            </tr>
-            <tr class="sch-ov-events">
-              <th class="sch-ov-rowh">그 외 사건</th>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td><ul><li>용두동 교사에서 을지로 교사로 이동(중/고 분리)</li></ul></td>
-              <td><ul><li>토요교외학습</li></ul></td>
-              <td><ul><li>학도호국단 재창단</li><li>재일교포 교육</li></ul></td>
-              <td><ul><li>부속학교 교육논문집</li><li>생활관 교육</li></ul></td>
-              <td></td>
-            </tr>
-            <tr class="sch-ov-sum">
-              <th class="sch-ov-rowh"></th>
-              <td colspan="3">학교 탄생의 배경 및 기반형성</td>
-              <td colspan="2">연구학교로서의 역할을 수행, 학교의 정체성 형성</td>
-              <td colspan="2">고교평준화에 따라 연구학교 및 실습학교로서의 성격이 변화</td>
-              <td>연구학교로서의 역할을 강화</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </section>
+  <div class="wrap">
+    <nav class="subnav" id="schoolSubnav">
+      <button class="subtab on" data-ssub="periods">발전사의 시기구분</button>
+      <button class="subtab" data-ssub="members">역대 구성원</button>
+      <button class="subtab" data-ssub="activities">클럽활동</button>
+    </nav>
+  </div>
 
-  <main class="wrap">
-    <div id="schoolContent"></div>
-  </main>
+  <!-- 1) 발전사의 시기구분 -->
+  <div class="ssubview" id="ssub-periods">
+    <section class="sch-overview" aria-label="8개 시기 전체 개요">
+      <div class="wrap">
+        <div class="sch-ov-scroll">
+          <table class="sch-ov-table">
+            <thead>
+              <tr>
+                <th class="sch-ov-rowh"></th>
+                <th data-i="0">1시기<span>1895–1945</span></th>
+                <th data-i="1">2시기<span>1946–1950</span></th>
+                <th data-i="2">3시기<span>1950–1953</span></th>
+                <th data-i="3">4시기<span>1953–1960</span></th>
+                <th data-i="4">5시기<span>1961–1970</span></th>
+                <th data-i="5">6시기<span>1971–1979</span></th>
+                <th data-i="6">7시기<span>1980–1989</span></th>
+                <th data-i="7">8시기<span>1990–2026</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="sch-ov-theme">
+                <th class="sch-ov-rowh">주제</th>
+                <td data-i="0">사대부고의 탄생</td>
+                <td data-i="1">해방 직후 혼란 속에서의 혁신</td>
+                <td data-i="2">전란 속 교육 재건</td>
+                <td data-i="3">새로운 교육을 위한 실험정신</td>
+                <td data-i="4">교육환경의 확장</td>
+                <td data-i="5">공교육 개혁의 물결</td>
+                <td data-i="6">화합과 상생을 위한 목소리</td>
+                <td data-i="7">미래교육을 향한 발돋움</td>
+              </tr>
+              <tr class="sch-ov-point">
+                <th class="sch-ov-rowh">시기구분 기점</th>
+                <td>개교</td>
+                <td>한국전쟁 발발</td>
+                <td colspan="2">서울로 복귀·통합복교</td>
+                <td>5·16 군사정변</td>
+                <td>종암동 교사 이전</td>
+                <td>신군부 등장</td>
+                <td>지방자치제·교육자치제 시행</td>
+              </tr>
+              <tr class="sch-ov-events">
+                <th class="sch-ov-rowh">주요 사건</th>
+                <td><ul><li>경성사범/여사범</li></ul></td>
+                <td><ul><li>좌우 이념갈등</li><li>남녀공학 시행</li></ul></td>
+                <td><ul><li>피난학교</li></ul></td>
+                <td><ul><li>특차제전형</li><li>민주실험교육</li><li>특별활동</li></ul></td>
+                <td><ul><li>청량리 교사 이전</li><li>유네스코 협동학교</li></ul></td>
+                <td><ul><li>종암동 교사 이전</li><li>고교평준화</li></ul></td>
+                <td><ul><li>실습파동</li><li>학교발전위원회 구성</li></ul></td>
+                <td><ul><li>자율학교</li><li>서울대 법인화</li><li>신교사 신축</li></ul></td>
+              </tr>
+              <tr class="sch-ov-events">
+                <th class="sch-ov-rowh">그 외 사건</th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><ul><li>용두동 교사에서 을지로 교사로 이동(중/고 분리)</li></ul></td>
+                <td><ul><li>토요교외학습</li></ul></td>
+                <td><ul><li>학도호국단 재창단</li><li>재일교포 교육</li></ul></td>
+                <td><ul><li>부속학교 교육논문집</li><li>생활관 교육</li></ul></td>
+                <td></td>
+              </tr>
+              <tr class="sch-ov-sum">
+                <th class="sch-ov-rowh"></th>
+                <td colspan="3">학교 탄생의 배경 및 기반형성</td>
+                <td colspan="2">연구학교로서의 역할을 수행, 학교의 정체성 형성</td>
+                <td colspan="2">고교평준화에 따라 연구학교 및 실습학교로서의 성격이 변화</td>
+                <td>연구학교로서의 역할을 강화</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <main class="wrap">
+      <div id="schoolContent"></div>
+    </main>
+  </div>
+
+  <!-- 2) 역대 구성원 -->
+  <div class="ssubview" id="ssub-members" hidden>
+    <main class="wrap">
+      <nav class="subnav subnav-2" id="memberSubnav">
+        <button class="subtab on" data-msub2="principals">교장선생님</button>
+        <button class="subtab" data-msub2="graduates">졸업생</button>
+      </nav>
+
+      <section class="msub2view" id="msub2-principals">
+        <h2 class="sub-h">역대 교장선생님</h2>
+        <p class="section-intro">개교 이래 사대부고를 이끌어 온 역대 교장선생님입니다. 사진을 누르면 크게 볼 수 있습니다.</p>
+        <div class="prin-grid" id="principalsGrid"></div>
+      </section>
+
+      <section class="msub2view" id="msub2-graduates" hidden>
+        <h2 class="sub-h">졸업생</h2>
+        <p class="section-intro">01회부터 78회까지 졸업생 명단입니다. 기수를 선택하거나 이름을 검색해 보세요.</p>
+        <div class="grad-tools">
+          <input type="search" id="gradSearch" class="act-search" placeholder="졸업생 이름 검색…" aria-label="졸업생 검색">
+          <select id="gradRound" class="grad-select" aria-label="기수 선택"></select>
+        </div>
+        <p class="grad-stat" id="gradStat"></p>
+        <div id="gradResult"></div>
+      </section>
+    </main>
+  </div>
+
+  <!-- 3) 특별활동 -->
+  <div class="ssubview" id="ssub-activities" hidden>
+    <main class="wrap">
+      <h2 class="sub-h">클럽활동</h2>
+      <p class="section-intro">클럽 활동은 학생 개개인의 취미와 소질을 계발하여 잠재 능력을 신장시키는 활동입니다. 공부도 최고, 특활도 최고였던 천하부고의 특별활동은 다른 학교에서 견학을 올 만큼 널리 알려졌고, 선후배 간의 유대와 동기 간의 연대로 지금도 살아 있는 부고의 전통입니다. 사진을 누르면 크게 볼 수 있습니다.</p>
+      <blockquote class="sch-quote">“감성이 풋풋했던 시절, 우리는 특별활동 속에서 감격했으며, 특별활동은 학교 생활의 또 다른 활력이 되었다. 그래서 내가 부고인인 것이 늘 자랑스러웠다.”<cite>— 11회 조혜옥, 《천하부고의 특별활동》</cite></blockquote>
+      <div class="branch-list" id="clubList"></div>
+    </main>
+  </div>
 
   <footer class="site-footer">
     <div class="wrap">
@@ -118,6 +166,7 @@
     <span class="ml-count"></span>
   </div>
 
-  <script src="js/school.js?v=145"></script>
+  <script src="js/school.js?v=211"></script>
+  <script src="js/uploader.js?v=202"></script>
 </body>
 </html>
