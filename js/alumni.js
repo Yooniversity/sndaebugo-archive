@@ -21,6 +21,8 @@ let PORTRAIT_PEOPLE = new Set();
 let SEGMENTS = {};
 // 인물별 영상 챕터: { "<유튜브ID>": { person, no, sections:[{title,start,end}] } }
 let CHAPTERS = {};
+// 주제별 영상 큐레이션 챕터(엑셀 기반): { "<카드제목>": [{ sec, mmss, title, theme, summary }] }
+let IVCHAPTERS = {};
 // 기억의 재구성 사건별 자료: [{ gubun, events:[{section, items:[{no,archival,material,link,alumni,vid}]}] }]
 let EVIDENCE = [];
 // 기억의 재구성 타임라인: { nodes:[{side,year,label,yearLabel,people}], quotes:{event:{person:[{ts,sum,txt}]}} }
@@ -69,6 +71,8 @@ async function init() {
   SEGMENTS = (seg && !Array.isArray(seg)) ? seg : {};
   const chp = await getj("data/chapters.json");
   CHAPTERS = (chp && !Array.isArray(chp)) ? chp : {};
+  const ivc = await getj("data/ivchapters.json");
+  IVCHAPTERS = (ivc && !Array.isArray(ivc)) ? ivc : {};
   const ev = await getj("data/evidence.json");
   EVIDENCE = Array.isArray(ev) ? ev : [];
   const mem = await getj("data/memory.json");
@@ -400,11 +404,36 @@ const IV_THEMES = [
   { key: "문화&사회&스포츠",  no: "05", title: "경계를 넘어선 사회적 감각",           tags: "문화 · 사회 · 스포츠" },
   { key: "보국",             no: "06", title: "동료의 기억과 희생을 이어",           tags: "국가안보 · 전쟁의 기억" },
 ];
-// 표시용 주제 재배치(원본 데이터는 유지) — 03 과중 완화
+// 표시용 주제 재배치(원본 데이터는 유지) — 1118 인터뷰 분류 엑셀 기준
 const IV_THEME_OVERRIDE = {
+  "01 이인호": "여성&페미니즘",
+  "02 이기준": "행정&정치",         // 영원한 총장(9회) · 대학 행정 혁신
+  "05 이희범": "행정&정치",
+  "17 김태련": "여성&페미니즘",
+  "18 석은옥": "여성&페미니즘",
+  "21 양혜숙": "과학&학교&교육",     // 교육 중심(교육3·문화2·사회1)
+  "26 김윤종": "기업경영&경제개발",
+  // 제목 변동 대비 인물 키
   "이인호": "여성&페미니즘",
-  "석은옥": "문화&사회&스포츠",
-  "02 이기준": "행정&정치", // 영원한 총장(9회) — 대학 행정 혁신, 신념의 리더십으로
+  "석은옥": "여성&페미니즘",
+};
+// 주제별 영상에서 제외(엑셀 '기억의 재구성' 전용)
+const IV_EXCLUDE_TITLES = new Set(["24 김종량", "29 동문노부부"]);
+// 그룹 영상 인물 구간별 분리: 제목 -> [{person, grad, start, end, theme, label?}]
+const IV_SPLIT = {
+  "28 미국동문3인": [
+    { person: "유문기", grad: "1회",  start: 0,   end: 446,  theme: "문화&사회&스포츠" },
+    { person: "이기준", grad: "6회",  start: 446, end: 870,  theme: "기업경영&경제개발" },
+    { person: "안방자", grad: "16회", start: 870, end: 1197, theme: "여성&페미니즘" },
+  ],
+  "30 초기선배3인": [
+    { person: "조성환", grad: "1회",  start: 0,   end: 332,  theme: "보국" },
+    // 김정자·임공빈: 엑셀 '기억의 재구성' 전용 → 주제별 제외
+  ],
+  "27 박병준과4회": [
+    { person: "홍정희", grad: "4회",  theme: "문화&사회&스포츠" }, // 구간정보 없음(공동) → 전체영상
+    // 박병준·김인수·김정자: '기억의 재구성' 전용 → 주제별 제외
+  ],
 };
 function ivThemeKey(t1) {
   const t = t1 || "";
@@ -423,7 +452,8 @@ function ivCard(g) {
   const watch = first.url || (vid ? "https://www.youtube.com/watch?v=" + vid : "#");
   const thumb = vid ? "https://i.ytimg.com/vi/" + vid + "/hqdefault.jpg" : "";
   const people = [...new Set(g.rows.map((r) => r.person).filter(Boolean))];
-  const seg = segOf(vid);
+  const chaps = IVCHAPTERS[g.title] || [];
+  const seg = chaps.length ? null : (g.seg || segOf(vid)); // 큐레이션 챕터가 있으면 단일 구간 배지 대신 챕터 목록
   const segAttr = seg ? ` data-start="${seg.start != null ? seg.start : ""}" data-end="${seg.end != null ? seg.end : ""}"` : "";
   const thumbInner =
     (thumb ? `<img src="${esc(thumb)}" alt="${esc(dispTitle)}" loading="lazy" onerror="this.closest('.iv-thumb').classList.add('noimg')">` : "") +
@@ -441,6 +471,15 @@ function ivCard(g) {
     (first.sub ? `<p class="iv-sub">${esc(first.sub)}</p>` : "") +
     (seg && seg.label ? `<p class="iv-cliplabel">${esc(seg.label)}</p>` : "") +
     (people.length > 1 ? `<p class="iv-people">${people.map((p) => `<span class="iv-chip">${esc(p)}</span>`).join("")}</p>` : "") +
+    (chaps.length
+      ? `<div class="iv-chaps">` + chaps.map((c) =>
+          `<button class="iv-chap" type="button" data-vid="${esc(vid)}" data-start="${c.sec != null ? c.sec : ""}">` +
+          `<span class="iv-chap-time">${esc(fmtTime(c.sec))}</span>` +
+          `<span class="iv-chap-main"><span class="iv-chap-title">${esc(c.title)}</span>` +
+          (c.summary ? `<span class="iv-chap-sum">${esc(c.summary)}</span>` : "") +
+          `</span><span class="iv-chap-go" aria-hidden="true">▶</span></button>`
+        ).join("") + `</div>`
+      : "") +
     `</div>` +
     `</article>`
   );
@@ -462,7 +501,22 @@ function ivBuckets() {
   const b = {};
   IV_THEMES.forEach((t) => (b[t.key] = []));
   groups.forEach((g) => {
-    const ov = IV_THEME_OVERRIDE[g.rows[0].person] || IV_THEME_OVERRIDE[g.title];
+    if (IV_EXCLUDE_TITLES.has(g.title)) return;                 // 주제별에서 제외
+    const sp = IV_SPLIT[g.title];
+    if (sp) {                                                    // 그룹 영상: 인물 구간별 분리
+      sp.forEach((s) => {
+        if (!b[s.theme]) return;
+        const row = g.rows.find((r) => r.person === s.person) || g.rows[0];
+        const sub = Object.assign({}, row, { person: s.person, grad: s.grad || row.grad });
+        b[s.theme].push({
+          title: g.title + " · " + s.person,
+          rows: [sub],
+          seg: (s.start != null) ? { start: s.start, end: s.end, label: s.label || "" } : null,
+        });
+      });
+      return;
+    }
+    const ov = IV_THEME_OVERRIDE[g.title] || IV_THEME_OVERRIDE[g.rows[0].person];
     b[(ov && b[ov]) ? ov : ivThemeKey(g.rows[0].t1)].push(g);
   });
   IV_BUCKETS = b;
@@ -482,6 +536,11 @@ function ivPlay(el) {
 function bindInlinePlay(wrap) {
   wrap.querySelectorAll(".iv-thumb[data-vid]").forEach((el) => {
     const open = () => openVidLightbox(el.dataset.vid, el.dataset.start, el.dataset.end);
+    el.addEventListener("click", open);
+    el.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); } });
+  });
+  wrap.querySelectorAll(".iv-chap[data-vid]").forEach((el) => {
+    const open = () => openVidLightbox(el.dataset.vid, el.dataset.start, "");
     el.addEventListener("click", open);
     el.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); } });
   });
