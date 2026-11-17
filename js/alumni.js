@@ -574,7 +574,7 @@ function renderPersonTopics() {
   wrap.querySelectorAll(".pt-chap").forEach((b) => b.addEventListener("click", () => openVidLightbox(b.dataset.vid, b.dataset.start, b.dataset.end)));
 }
 /* 기억의 재구성: 타임라인 네이티브 재구성 */
-const MEM_NOMINAL = { "입학": 1947, "학교 체제": 1956, "특별활동": 1962 };
+const MEM_NOMINAL = { "입학": 1947, "학교 체제": 1956, "특별활동": 1962, "학교의 자랑": 1954 };
 function memYear(n) { const y = parseInt(n.year, 10); return isNaN(y) ? (MEM_NOMINAL[n.label] || 1950) : y; }
 function pageGutter() { // .wrap(max 1080, padding 28/20) 기준 좌우 여백
   const vw = document.documentElement.clientWidth || window.innerWidth || 1080;
