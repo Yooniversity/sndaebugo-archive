@@ -846,6 +846,43 @@
       "vid": null
      }
     ]
+   },
+   {
+    "section": "산업화와 경제개발 (1970년대)",
+    "items": [
+     {
+      "no": "IN1",
+      "archival": true,
+      "material": "국가기록원 「[대한뉴스 제1166호] 100억불 수출 기념식」(1977): 수출 100억 달러 달성 기념식 기록영상",
+      "link": "https://theme.archives.go.kr/next/specialDay/detailPopup.do?eventId=0050758211",
+      "alumni": "이희범, 김무일",
+      "vid": "AwSyOhIvruk"
+     },
+     {
+      "no": "IN2",
+      "archival": true,
+      "material": "e영상역사관 「대한뉴스 제1119호 — 무역 진흥위원회 확대회의」(1977.1): 수출진흥확대회의 기록영상",
+      "link": "https://www.ehistory.go.kr/view/movie?mediasrcgbn=KV&mediaid=10126&mediadtl=20579",
+      "alumni": "이희범",
+      "vid": "Zhc7zY3_GLY"
+     },
+     {
+      "no": "IN3",
+      "archival": false,
+      "material": "KBS 다큐 「수출 100억불 달성 — 서독 11년·일본 16년, 한국은 7년」(2013): 경제개발과 수출입국의 과정",
+      "link": "https://www.youtube.com/watch?v=IjqRfIruGSw",
+      "alumni": "이희범, 김무일",
+      "vid": "IjqRfIruGSw"
+     },
+     {
+      "no": "IN4",
+      "archival": false,
+      "material": "우리역사넷 「1970년대 중화학공업 정책」: 1973.1.12 연두기자회견 '중화학공업화 선언'과 추진 과정",
+      "link": "https://contents.history.go.kr/mobile/kc/view.do?levelId=kc_i500300&code=kc_age_50",
+      "alumni": "이기준, 이희범",
+      "vid": null
+     }
+    ]
    }
   ]
  },
