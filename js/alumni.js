@@ -404,6 +404,7 @@ const IV_THEMES = [
 const IV_THEME_OVERRIDE = {
   "이인호": "여성&페미니즘",
   "석은옥": "문화&사회&스포츠",
+  "02 이기준": "행정&정치", // 영원한 총장(9회) — 대학 행정 혁신, 신념의 리더십으로
 };
 function ivThemeKey(t1) {
   const t = t1 || "";
